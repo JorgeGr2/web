@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { diferenciaDias, esFechaIso, fechaLarga, hoyMadrid, primerDiaMesSiguiente, sumarAnios, sumarMeses } from '../../src/lib/fechas';
 import { euros, leerNumero, porcentaje, redondear2 } from '../../src/lib/formato';
 import { parseEnv, validateEnv } from '../../src/config/env-schema.mjs';
-import { buildCsp, buildHeaders } from '../../src/integrations/site-files.mjs';
+import { buildCsp, buildHeaders, wrapTables } from '../../src/integrations/site-files.mjs';
 import { limiteParaFecha } from '../../src/data/normativa';
 
 describe('fechas', () => {
@@ -99,5 +99,15 @@ describe('periodos normativos', () => {
     expect(limiteParaFecha('2026-04-01')?.id).toBe('rdl-8-2026');
     expect(limiteParaFecha('2026-10-05')).toBeUndefined();
     expect(limiteParaFecha('2028-01-01')).toBeUndefined();
+  });
+});
+
+describe('envoltorio de tablas', () => {
+  it('envuelve tablas sueltas y respeta las ya envueltas', () => {
+    const html = '<p>a</p><table><tr><td>1</td></tr></table><div class="table-wrap" tabindex="0">\n <table><tr><td>2</td></tr></table></div>';
+    const out = wrapTables(html);
+    expect(out.match(/class="table-wrap"/g)).toHaveLength(2);
+    expect(out).toContain('role="region"');
+    expect(wrapTables(out)).toBe(out);
   });
 });

@@ -30,6 +30,14 @@ export const NOMBRE_CLAUSULA: Record<Clausula, string> = {
   ninguna: 'Sin cláusula de actualización',
 };
 
+const CORTO_CLAUSULA: Record<Clausula, string> = {
+  ipc: 'IPC',
+  irav: 'IRAV',
+  igc: 'IGC',
+  fijo: 'porcentaje fijo',
+  ninguna: 'sin cláusula',
+};
+
 export interface EntradaActualizacion {
   renta: number | null;
   fechaFirma: string;
@@ -186,7 +194,7 @@ export function calcularActualizacion(e: EntradaActualizacion): SalidaActualizac
 
   // 4. Porcentaje según el contrato.
   let pct = clausula === 'irav' ? (e.iravPct as number) : (e.indicePct as number);
-  pasos.push(`Según tu contrato (${NOMBRE_CLAUSULA[clausula]}), la variación sería del ${porcentaje(pct)}.`);
+  pasos.push(`Según la cláusula de tu contrato (${CORTO_CLAUSULA[clausula]}), la variación sería del ${porcentaje(pct)}.`);
 
   const { m: mFirma, d: dFirma } = partes(fechaFirma);
   const { m: mAct, d: dAct } = partes(fechaActualizacion);

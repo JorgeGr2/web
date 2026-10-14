@@ -20,6 +20,9 @@ const lastmod = lastmodPorRuta();
 export default defineConfig({
   site: cfg.siteUrl,
   trailingSlash: 'always',
+  // Conserva los espacios entre etiquetas tal como se escriben (evita palabras
+  // pegadas en los textos con saltos de línea).
+  compressHTML: false,
   build: {
     format: 'directory',
     // Todo el CSS en archivos externos: mejor caché y CSP estricta.

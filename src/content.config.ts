@@ -17,7 +17,7 @@ const guias = defineCollection({
     actualizado: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     orden: z.number().default(100),
     herramientas: z.array(z.string()).default([]),
-    fuentes: z.array(z.object({ texto: z.string(), url: z.string().url() })).min(1),
+    fuentes: z.array(z.object({ texto: z.string(), url: z.url() })).min(1),
   }),
 });
 

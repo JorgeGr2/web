@@ -66,7 +66,7 @@ const anios = Object.keys(INTERES_LEGAL).map(Number).sort((a, b) => b - a).slice
     Si el retraso abarca varios años, se aplica el tipo de cada año a sus días. El interés legal lo fija cada año la Ley de Presupuestos
     Generales del Estado. Estos son los tipos que usa la calculadora:
   </p>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla (desplázala horizontalmente si no cabe)">
     <table>
       <caption class="visually-hidden">Interés legal del dinero por año</caption>
       <thead><tr><th scope="col">Año</th><th scope="col">Interés legal</th></tr></thead>
@@ -125,7 +125,7 @@ const anios = Object.keys(INTERES_LEGAL).map(Number).sort((a, b) => b - a).slice
     const tabla = r.tramos.length
       ? h(
           'div',
-          { class: 'table-wrap' },
+          { class: 'table-wrap', tabindex: '0', role: 'region', 'aria-label': 'Intereses por año' },
           h(
             'table',
             {},

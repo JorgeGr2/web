@@ -10,7 +10,7 @@ const guias = (await getCollection('guias')).sort((a, b) => a.data.orden - b.dat
 
 <BaseLayout
   title="Guías sobre el alquiler de vivienda en España"
-  description="Guías claras sobre el alquiler en España: IRAV, límite del 2 %, qué índice aplica a tu contrato, fianza, duración y prórrogas, irse antes de tiempo y quién paga cada gasto."
+  description="Guías claras sobre el alquiler en España: IRAV, límite del 2 %, qué índice aplica a tu contrato, fianza, prórrogas, irse antes de tiempo y quién paga cada gasto."
   path="/guias/"
   jsonLd={[breadcrumbLd([{ label: 'Guías', href: '/guias/' }])]}
 >

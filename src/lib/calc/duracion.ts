@@ -74,7 +74,7 @@ export function calcularDuracion(e: EntradaDuracion): SalidaDuracion {
   if (e.fechaInicio < FECHA_RDL_7_2019) {
     avisos.push({
       nivel: 'importante',
-      texto: 'Tu contrato es anterior al 6 de marzo de 2019. Se rige por duraciones distintas: 5 años de prórroga obligatoria y 3 de tácita si se firmó antes del 6/6/2013; 3 años y 1 de tácita entre el 6/6/2013 y el 5/3/2019 (con un breve periodo, del 19/12/2018 al 22/01/2019, en el que rigió el RDL 21/2018). Consulta la guía de duración del contrato.',
+      texto: 'Tu contrato es anterior al 6 de marzo de 2019. Se rige por duraciones distintas: 5 años de prórroga obligatoria y 3 de tácita si se firmó antes del 6/6/2013; 3 años y 1 de tácita entre el 6/6/2013 y el 5/3/2019 (salvo los firmados entre el 19/12/2018 y la derogación del RDL 21/2018 en enero de 2019, que tuvieron 5 o 7 años). Consulta la guía de duración del contrato.',
     });
     return {
       ok: true,

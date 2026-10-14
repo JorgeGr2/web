@@ -15,7 +15,7 @@ const anioInteres = Math.max(...Object.keys(INTERES_LEGAL).map(Number));
 
 <BaseLayout
   title="Normativa del alquiler en 2026: estado actual y cambios"
-  description="Estado actualizado de la normativa del alquiler de vivienda en España: límite del 2 % del RDL 29/2026, decretos de 2026 decaídos y derogados, IRAV vigente e historial de cambios."
+  description="Estado actualizado de la normativa del alquiler en España: límite del 2 % del RDL 29/2026, decretos de 2026 decaídos o derogados, IRAV e historial de cambios."
   path="/normativa/"
   jsonLd={[breadcrumbLd([{ label: 'Normativa', href: '/normativa/' }])]}
 >
@@ -38,7 +38,7 @@ const anioInteres = Math.max(...Object.keys(INTERES_LEGAL).map(Number));
       </Callout>
 
       <h2 id="limites-2026">Límites extraordinarios a la actualización de la renta en 2026</h2>
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla (desplázala horizontalmente si no cabe)">
         <table>
           <caption class="visually-hidden">Reales decretos-leyes de 2026 con límites a la actualización de la renta</caption>
           <thead>

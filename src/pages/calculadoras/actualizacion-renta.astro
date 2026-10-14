@@ -11,8 +11,8 @@ const irav = ULTIMO_IRAV_COMPROBADO;
 
 <ToolLayout
   slug="actualizacion-renta"
-  title="Calculadora de actualización del alquiler 2026: IPC, IRAV y límite del 2 %"
-  description="Calcula cuánto puede subir tu alquiler según la fecha de tu contrato: IPC o IRAV, tope de la Ley de Vivienda y límite extraordinario del 2 % del RDL 29/2026. Con pasos y base legal."
+  title="Calculadora de subida del alquiler 2026: IPC, IRAV y 2 %"
+  description="Calcula cuánto puede subir tu alquiler según la fecha del contrato: IPC o IRAV, tope de la Ley de Vivienda y límite del 2 % del RDL 29/2026, con pasos y base legal."
   h1="Calculadora de actualización de la renta del alquiler"
   lead="Introduce los datos de tu contrato y te diremos qué porcentaje se puede aplicar en tu próxima revisión anual, la nueva renta y por qué, con la norma vigente en tu fecha."
   fuentes={[FUENTES.lau, FUENTES.ley12_2023, FUENTES.ineIrav, FUENTES.ineIpc, FUENTES.ineCalendario, FUENTES.rdl29_2026, FUENTES.serpaviWeb, FUENTES.serpavi]}
@@ -126,7 +126,7 @@ const irav = ULTIMO_IRAV_COMPROBADO;
   </p>
 
   <h2 id="que-porcentaje">Qué porcentaje se aplica según tu contrato</h2>
-  <div class="table-wrap">
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla (desplázala horizontalmente si no cabe)">
     <table>
       <caption class="visually-hidden">Porcentaje aplicable según la fecha del contrato y de la actualización</caption>
       <thead>
