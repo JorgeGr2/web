@@ -156,7 +156,7 @@ import { FUENTES } from '../../data/normativa';
 <script>
   import { generarCarta } from '../../lib/calc/carta';
   import { hoyMadrid } from '../../lib/fechas';
-  import { mostrarErrores, limpiarErrores, leerNum, leerFecha, leerTexto, pintarResultado, h, kv, copiarTexto, descargarTexto, guardarEnUrl } from '../../lib/ui/dom';
+  import { cambiarUrl, mostrarErrores, limpiarErrores, leerNum, leerFecha, leerTexto, pintarResultado, h, kv, copiarTexto, descargarTexto, guardarEnUrl } from '../../lib/ui/dom';
   import { euros, porcentaje } from '../../lib/formato';
   import { fechaLarga } from '../../lib/fechas';
 
@@ -230,7 +230,7 @@ import { FUENTES } from '../../data/normativa';
       envio.value = hoyMadrid();
       panel.replaceChildren(...Array.from(vacio.cloneNode(true).childNodes));
       panel.dataset.state = 'empty';
-      history.replaceState(null, '', location.pathname);
+      cambiarUrl(location.pathname);
     }),
   );
 </script>

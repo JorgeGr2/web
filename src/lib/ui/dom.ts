@@ -138,8 +138,20 @@ export function guardarEnUrl(form: HTMLFormElement): void {
     params.set(el.name, el.value.trim());
   }
   const qs = params.toString();
-  const url = `${location.pathname}${qs ? `?${qs}` : ''}`;
-  history.replaceState(null, '', url);
+  cambiarUrl(`${location.pathname}${qs ? `?${qs}` : ''}`);
+}
+
+/**
+ * Cambia la URL sin recargar. Algunos marcos protegidos (iframes con
+ * sandbox) no permiten tocar el historial: en ese caso se ignora y el
+ * cálculo sigue funcionando.
+ */
+export function cambiarUrl(url: string): void {
+  try {
+    history.replaceState(null, '', url);
+  } catch {
+    /* sin historial disponible: no es imprescindible */
+  }
 }
 
 /** Restaura valores desde la URL. Devuelve true si había alguno. */
@@ -166,6 +178,7 @@ export function restaurarDesdeUrl(form: HTMLFormElement): boolean {
 
 export async function copiarTexto(texto: string): Promise<boolean> {
   try {
+    if (!navigator.clipboard) return false;
     await navigator.clipboard.writeText(texto);
     return true;
   } catch {
@@ -198,7 +211,7 @@ export function conectarCalculadora(form: HTMLFormElement, panel: HTMLElement, c
       limpiarErrores(form);
       panel.replaceChildren(...Array.from(vacio.cloneNode(true).childNodes));
       panel.dataset.state = 'empty';
-      history.replaceState(null, '', location.pathname);
+      cambiarUrl(location.pathname);
       form.dispatchEvent(new Event('change'));
     });
   });
