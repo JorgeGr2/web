@@ -23,7 +23,7 @@ const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" vi
     <path d="M7 15.5 16 8l9 7.5V24a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/>
     <path d="m12 18 3 3 5.5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <text x="225" y="190" font-family="DejaVu Sans, Arial, sans-serif" font-size="52" font-weight="700" fill="#1d2422">Alquiler Claro</text>
+  <text x="225" y="190" font-family="DejaVu Sans, Arial, sans-serif" font-size="52" font-weight="700" fill="#1d2422">Alquiler en Regla</text>
   <text x="90" y="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="58" font-weight="700" fill="#1d2422">Calcula y entiende tu alquiler</text>
   <text x="90" y="410" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" fill="#4a5552">Actualización de la renta, fianza, preaviso y prórrogas</text>
   <text x="90" y="460" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" fill="#4a5552">con la normativa española citada y fechada.</text>

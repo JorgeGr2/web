@@ -31,7 +31,7 @@ npm run test:e2e
 
 ## FASE B · Indexación y SEO
 
-1. **Crea la propiedad en [Google Search Console](https://search.google.com/search-console).** Elige **Propiedad de dominio** y escribe `tudominio.es`.
+1. **Crea la propiedad en [Google Search Console](https://search.google.com/search-console).** Elige **Propiedad de dominio** y escribe `alquilerenregla.es`.
 2. **Verifícala por DNS** (recomendado): Search Console te da un registro TXT; en Cloudflare ve a **DNS → Registros → Añadir registro**, tipo `TXT`, nombre `@`, contenido el valor que te den. Pulsa «Verificar» en Search Console (puede tardar unos minutos).
    - Alternativa: propiedad de prefijo de URL con etiqueta HTML → copia solo el valor `content="..."` en `PUBLIC_GOOGLE_SITE_VERIFICATION` y vuelve a implementar.
 3. **Envía el sitemap:** en Search Console → **Sitemaps** → escribe `sitemap-index.xml` → Enviar. Estado esperado: «Correcto», con 27 URL descubiertas.
@@ -45,12 +45,12 @@ npm run test:e2e
 ## FASE C · Solicitud de AdSense
 
 1. **Crea la cuenta** en [adsense.google.com](https://adsense.google.com/) con la misma cuenta de Google que usarás para cobrar. País: España. Tipo de cuenta: **particular** o **empresa** según cómo vayas a facturar (consúltalo antes con tu asesor; ver fase E).
-2. **Añade el sitio:** **Sitios → + Nuevo sitio** → escribe `tudominio.es` ([ayuda](https://support.google.com/adsense/answer/12169212)).
+2. **Añade el sitio:** **Sitios → + Nuevo sitio** → escribe `alquilerenregla.es` ([ayuda](https://support.google.com/adsense/answer/12169212)).
 3. **Conecta el sitio** ([ayuda](https://support.google.com/adsense/answer/7584263)). AdSense ofrece tres métodos; con este proyecto el más sencillo es el **fragmento de código**:
    - Copia tu ID de editor, con formato `ca-pub-` seguido de 16 dígitos (aparece en el código que te muestra AdSense y en **Cuenta → Información de la cuenta**).
    - En Cloudflare Pages, define `PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXXXXXXXXXX` y vuelve a implementar.
    - El proyecto insertará el código de AdSense en el `<head>` de todas las páginas, la etiqueta `google-adsense-account` y generará **`/ads.txt`** con la línea `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`. Así cubres a la vez el método del código y el de ads.txt.
-   - Comprueba en el navegador que `https://www.tudominio.es/ads.txt` muestra esa línea.
+   - Comprueba en el navegador que `https://www.alquilerenregla.es/ads.txt` muestra esa línea.
    - En AdSense, marca «He colocado el código» y pulsa **Verificar**.
 4. **Completa las tareas de la cuenta** (datos de pago, dirección, verificación de identidad si te la piden). Si solicitas la revisión sin completarlas, el sitio se queda en «Preparándose» ([ayuda](https://support.google.com/adsense/answer/12170222)).
 5. **Solicita la revisión** («Solicitar revisión»). Según la ayuda de Google suele tardar unos días y a veces 2-4 semanas. **No borres y vuelvas a añadir el sitio**: retrasa el proceso. Puedes consultar el estado en **Sitios**.
@@ -76,7 +76,7 @@ npm run test:e2e
    - **Nunca hagas clic en tus propios anuncios** ni pidas a nadie que lo haga.
    - En AdSense → **Informes**, comprueba que aparecen impresiones y solicitudes de anuncios por sitio.
 4. **Consentimiento (obligatorio para tráfico de España y la UE):**
-   - AdSense → **Privacidad y mensajes → Normativa europea** → **Crear mensaje** para tu sitio ([ayuda](https://support.google.com/adsense/answer/10961068)). Idioma: español. Elige las opciones **Consentir**, **No consentir** y **Gestionar opciones** (la AEPD exige que rechazar sea tan fácil como aceptar). Añade el enlace a tu política de privacidad (`https://www.tudominio.es/privacidad/`). Publica el mensaje.
+   - AdSense → **Privacidad y mensajes → Normativa europea** → **Crear mensaje** para tu sitio ([ayuda](https://support.google.com/adsense/answer/10961068)). Idioma: español. Elige las opciones **Consentir**, **No consentir** y **Gestionar opciones** (la AEPD exige que rechazar sea tan fácil como aceptar). Añade el enlace a tu política de privacidad (`https://www.alquilerenregla.es/privacidad/`). Publica el mensaje.
    - AdSense añade automáticamente un enlace para revocar el consentimiento; además, el pie de la web muestra «Configuración de privacidad y cookies», que reabre el mensaje ([ayuda](https://support.google.com/adsense/answer/10959060)).
    - Si usas Google Analytics 4, activa en **Privacidad y mensajes → Configuración** la opción que permite a otros productos de Google usar las señales de consentimiento (modo de consentimiento; [ayuda](https://support.google.com/adsense/answer/16053245)). El proyecto ya carga GA4 con todo **denegado** por defecto.
    - Comprueba desde una ventana privada que el mensaje aparece al entrar y que, al rechazar, se siguen viendo anuncios no personalizados o limitados.

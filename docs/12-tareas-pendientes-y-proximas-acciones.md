@@ -4,7 +4,7 @@
 
 | # | Tarea | Por qué | Dónde |
 |---|---|---|---|
-| 1 | Elegir el nombre definitivo, comprobar marcas y comprar el dominio | No puedo comprar ni registrar nada en tu nombre | `docs/03`, paso 5 |
+| 1 | Comprobar la marca «Alquiler en Regla» en la OEPM y comprar `alquilerenregla.es` (DonDominio u OVHcloud) | No puedo comprar ni registrar nada en tu nombre | `docs/03`, paso 5 |
 | 2 | Crear la cuenta de Cloudflare (gratis) y conectar el repositorio | Requiere tus credenciales | `docs/03`, paso 7 |
 | 3 | Fusionar la rama `claude/sweet-dijkstra-tw4ipu` en `main` (pull request en GitHub) | Publicar desde la rama principal | `docs/03`, paso 7.1 |
 | 4 | Rellenar tus datos de titular (`PUBLIC_OWNER_NAME`, `PUBLIC_OWNER_NIF`, `PUBLIC_OWNER_ADDRESS`, `PUBLIC_CONTACT_EMAIL`) en el panel de Cloudflare | Obligatorio por la LSSI-CE; no invento identidades | `docs/03`, paso 8 |

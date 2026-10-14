@@ -61,9 +61,17 @@ describe('configuración por variables de entorno', () => {
     expect(cfg.indexable).toBe(false);
     expect(validateEnv(cfg)).toEqual([]);
   });
-  it('indexar exige datos del titular y dominio real', () => {
+  it('el dominio y el nombre por defecto son los del proyecto', () => {
+    const cfg = parseEnv({});
+    expect(cfg.siteUrl).toBe('https://www.alquilerenregla.es');
+    expect(cfg.siteName).toBe('Alquiler en Regla');
+  });
+  it('indexar exige datos del titular', () => {
     const errors = validateEnv(parseEnv({ PUBLIC_SITE_INDEXABLE: 'true' }));
     expect(errors.join(' ')).toContain('PUBLIC_OWNER_NAME');
+  });
+  it('indexar rechaza el dominio de ejemplo antiguo', () => {
+    const errors = validateEnv(parseEnv({ PUBLIC_SITE_INDEXABLE: 'true', PUBLIC_SITE_URL: 'https://www.tu-dominio.es' }));
     expect(errors.join(' ')).toContain('valor de ejemplo');
   });
   it('configuración de producción completa', () => {

@@ -116,12 +116,15 @@ npm run preview
 
 y abre `http://localhost:4321/`.
 
-## 5. Comprar y configurar un dominio
+## 5. Comprar y configurar el dominio
 
-1. **Elige el nombre.** «Alquiler Claro» es un nombre de trabajo: comprueba que el dominio está libre y que no hay una marca registrada igual o confundible (puedes buscar en la web de la [Oficina Española de Patentes y Marcas](https://www.oepm.es/)). Si eliges otro nombre, cambia `PUBLIC_SITE_NAME`.
-2. **Extensión.** `.es` transmite cercanía al público español; `.com` es más universal. Ambas valen para SEO.
-3. **Dónde comprarlo.** Cualquier registrador acreditado (por ejemplo, registradores españoles para `.es`). Compara el **precio de renovación**, no solo el del primer año, y evita paquetes de alojamiento o correo que no necesitas. Cloudflare Registrar vende dominios a precio de coste, pero no admite todas las extensiones: si no ofrece la tuya, cómprala en otro registrador y usa Cloudflare solo para el DNS (paso 9).
-4. Activa la **renovación automática** y el **bloqueo de transferencia**. Usa tus datos reales en el registro (obligatorio).
+El nombre elegido es **Alquiler en Regla** y el dominio, **`alquilerenregla.es`** (libre el 14/10/2026 según tu comprobación).
+
+1. **Antes de pagar**, busca «Alquiler en Regla» en la web de la [Oficina Española de Patentes y Marcas](https://www.oepm.es/) por si hay una marca igual o parecida registrada para servicios inmobiliarios o de información.
+2. **Dónde comprarlo.** Cloudflare Registrar no vende dominios `.es` (hay una petición abierta en su foro), así que cómpralo en un registrador acreditado y usa Cloudflare solo para el DNS (paso 9). Recomendado: **DonDominio** (español, especializado en dominios, sin empujar a contratar alojamiento) u **OVHcloud** (europeo, precios publicados). IONOS, Arsys o Hostinger también valen, pero suelen tener un primer año barato y una renovación más cara. Compara siempre el **precio de renovación**.
+3. **Al comprar:** crea la cuenta con tus datos reales (titular: tú, con tu DNI o NIE), elige 1 año, **no añadas extras** (alojamiento, correo, SSL, constructor web: Cloudflare los da gratis), activa la **renovación automática** y el bloqueo de transferencia.
+4. **Opcional:** si `alquilerenregla.com` está libre, puedes comprarlo a precio de coste en Cloudflare Registrar y redirigirlo al `.es` para proteger el nombre.
+5. Guarda los correos de confirmación. No compartas contraseñas ni códigos de autorización en ningún chat.
 
 ## 6. Qué alojamiento recomiendo y por qué
 
@@ -130,7 +133,7 @@ y abre `http://localhost:4321/`.
 - Gratis para sitios estáticos como este, con HTTPS automático y red de distribución mundial.
 - Lee el archivo `_headers` que genera el proyecto (cabeceras de seguridad y caché).
 - Despliega solo cada vez que subes cambios a GitHub y crea una vista previa por cada rama.
-- Incluye Web Analytics sin cookies y reenvío de correo gratuito (para `contacto@tudominio.es`).
+- Incluye Web Analytics sin cookies y reenvío de correo gratuito (para `contacto@alquilerenregla.es`).
 - Límites del plan gratuito según su documentación: 500 compilaciones al mes y 20.000 archivos por sitio, sobrados para este proyecto. Compruébalos en [la página de límites](https://developers.cloudflare.com/pages/platform/limits/).
 
 Limitaciones y alternativas:
@@ -162,7 +165,7 @@ El código está en la rama `claude/sweet-dijkstra-tw4ipu`. Lo normal es fusiona
    - **Comando de compilación:** `npm run build`
    - **Directorio de salida:** `dist`
 4. Antes de pulsar «Guardar e implementar», añade las variables del paso 8.
-5. Pulsa **Guardar e implementar**. Resultado esperado: tras 1–2 minutos, «Éxito» y una dirección del tipo `https://alquiler-claro.pages.dev`.
+5. Pulsa **Guardar e implementar**. Resultado esperado: tras 1–2 minutos, «Éxito» y una dirección del tipo `https://alquiler-en-regla.pages.dev`.
 
 ## 8. Configurar las variables de entorno
 
@@ -171,13 +174,13 @@ En el proyecto de Pages: **Configuración → Variables y secretos** (entorno de
 | Variable | Valor en el primer despliegue | Valor al lanzar |
 |---|---|---|
 | `NODE_VERSION` | `24` | `24` |
-| `PUBLIC_SITE_URL` | `https://www.tudominio.es` | igual |
-| `PUBLIC_SITE_NAME` | `Alquiler Claro` (o tu nombre) | igual |
+| `PUBLIC_SITE_URL` | `https://www.alquilerenregla.es` | igual |
+| `PUBLIC_SITE_NAME` | `Alquiler en Regla` | igual |
 | `PUBLIC_SITE_INDEXABLE` | `false` | `true` (paso 10) |
 | `PUBLIC_OWNER_NAME` | tu nombre o razón social | igual |
 | `PUBLIC_OWNER_NIF` | tu NIF | igual |
 | `PUBLIC_OWNER_ADDRESS` | domicilio a efectos de notificaciones | igual |
-| `PUBLIC_CONTACT_EMAIL` | `contacto@tudominio.es` | igual |
+| `PUBLIC_CONTACT_EMAIL` | `contacto@alquilerenregla.es` | igual |
 | `PUBLIC_CF_ANALYTICS_ENABLED` | `false` | `true` si activas Web Analytics |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | vacío | solo si verificas Search Console por etiqueta HTML |
 | `PUBLIC_ADSENSE_CLIENT`, `PUBLIC_ADSENSE_SLOT_*`, `PUBLIC_GA4_ID` | vacío | ver `docs/04-guia-adsense-monetizacion.md` |
@@ -192,17 +195,17 @@ Si la compilación falla con «Configuración no válida», el mensaje dice exac
 
 1. En Cloudflare: **Añadir un dominio** (plan Free). Cloudflare te mostrará **dos servidores de nombres** (por ejemplo `xxx.ns.cloudflare.com`).
 2. En el panel de tu registrador, cambia los **servidores DNS** del dominio por esos dos. La propagación tarda de minutos a 24-48 h; Cloudflare te avisará por correo cuando esté activo.
-3. En el proyecto de Pages → **Dominios personalizados** → **Configurar un dominio** → escribe `www.tudominio.es` → Cloudflare crea el registro DNS. Repite con `tudominio.es`.
-4. Para que solo haya una versión, crea una redirección: **Reglas → Reglas de redirección → Crear regla** con la plantilla «Redirigir de raíz a WWW» (301). Así `tudominio.es` lleva a `https://www.tudominio.es`.
+3. En el proyecto de Pages → **Dominios personalizados** → **Configurar un dominio** → escribe `www.alquilerenregla.es` → Cloudflare crea el registro DNS. Repite con `alquilerenregla.es`.
+4. Para que solo haya una versión, crea una redirección: **Reglas → Reglas de redirección → Crear regla** con la plantilla «Redirigir de raíz a WWW» (301). Así `alquilerenregla.es` lleva a `https://www.alquilerenregla.es`.
 5. **HTTPS:** Cloudflare emite el certificado automáticamente. En **SSL/TLS → Certificados perimetrales**, activa «Usar siempre HTTPS».
-6. **Correo de contacto (opcional, gratis):** **Correo electrónico → Enrutamiento de correo** → crea `contacto@tudominio.es` que reenvíe a tu correo personal.
+6. **Correo de contacto (opcional, gratis):** **Correo electrónico → Enrutamiento de correo** → crea `contacto@alquilerenregla.es` que reenvíe a tu correo personal.
 7. **Analítica sin cookies (opcional):** en el proyecto de Pages → **Métricas → Web Analytics → Habilitar**, y pon `PUBLIC_CF_ANALYTICS_ENABLED=true` para que la política de privacidad lo mencione.
 
 ## 10. Comprobar la web pública y abrirla a Google
 
 Con el sitio aún en modo revisión, comprueba:
 
-- [ ] `https://www.tudominio.es/` carga con candado (HTTPS) y la redirección desde `tudominio.es` funciona.
+- [ ] `https://www.alquilerenregla.es/` carga con candado (HTTPS) y la redirección desde `alquilerenregla.es` funciona.
 - [ ] El aviso legal, la privacidad y el contacto muestran **tus datos reales** (no «Pendiente de completar»).
 - [ ] Las 8 calculadoras dan resultado con un ejemplo de su página.
 - [ ] Desde el móvil se ve bien y el menú funciona.
@@ -210,13 +213,13 @@ Con el sitio aún en modo revisión, comprueba:
 
 Cuando todo esté bien, cambia `PUBLIC_SITE_INDEXABLE` a `true` y vuelve a implementar. Comprueba entonces:
 
-- [ ] `https://www.tudominio.es/robots.txt` muestra `Allow: /` y la línea `Sitemap:`.
-- [ ] `https://www.tudominio.es/sitemap-index.xml` se abre y enlaza a `sitemap-0.xml` con 27 direcciones.
+- [ ] `https://www.alquilerenregla.es/robots.txt` muestra `Allow: /` y la línea `Sitemap:`.
+- [ ] `https://www.alquilerenregla.es/sitemap-index.xml` se abre y enlaza a `sitemap-0.xml` con 27 direcciones.
 - [ ] La franja amarilla de «Versión de revisión» ha desaparecido.
 - [ ] Desde la terminal, las cabeceras de seguridad están presentes:
 
 ```bash
-curl -sI https://www.tudominio.es/ | grep -i -E "content-security-policy|strict-transport|x-content-type"
+curl -sI https://www.alquilerenregla.es/ | grep -i -E "content-security-policy|strict-transport|x-content-type"
 ```
 
 Resultado esperado: tres líneas con esas cabeceras. (En Windows, si no tienes `curl`, usa una herramienta web de cabeceras HTTP.)

@@ -26,7 +26,10 @@
  * @property {boolean} cfAnalytics
  */
 
-const DEFAULT_URL = 'https://www.tu-dominio.es';
+/** Dominio elegido para el proyecto (se puede sustituir con PUBLIC_SITE_URL). */
+const DEFAULT_URL = 'https://www.alquilerenregla.es';
+/** Valor de ejemplo antiguo: nunca debe llegar a producción. */
+const PLACEHOLDER_URL = 'https://www.tu-dominio.es';
 
 /** @param {unknown} v */
 const str = (v) => (typeof v === 'string' ? v.trim() : '');
@@ -41,7 +44,7 @@ export function parseEnv(raw) {
   const siteUrl = (str(raw.PUBLIC_SITE_URL) || DEFAULT_URL).replace(/\/+$/, '');
   return {
     siteUrl,
-    siteName: str(raw.PUBLIC_SITE_NAME) || 'Alquiler Claro',
+    siteName: str(raw.PUBLIC_SITE_NAME) || 'Alquiler en Regla',
     indexable: str(raw.PUBLIC_SITE_INDEXABLE).toLowerCase() === 'true',
     owner: {
       name: str(raw.PUBLIC_OWNER_NAME),
@@ -98,7 +101,7 @@ export function validateEnv(cfg) {
   }
 
   if (cfg.indexable) {
-    if (cfg.siteUrl === DEFAULT_URL) errors.push('PUBLIC_SITE_URL sigue con el valor de ejemplo; pon tu dominio real.');
+    if (cfg.siteUrl === PLACEHOLDER_URL) errors.push('PUBLIC_SITE_URL sigue con el valor de ejemplo; pon tu dominio real.');
     if (!cfg.siteUrl.startsWith('https://')) errors.push('PUBLIC_SITE_URL debe usar https:// en producción.');
     const missing = [
       ['PUBLIC_OWNER_NAME', cfg.owner.name],

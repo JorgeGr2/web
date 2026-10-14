@@ -1,4 +1,4 @@
-# Alquiler Claro
+# Alquiler en Regla
 
 Calculadoras y guías gratuitas sobre el **alquiler de vivienda en España** para inquilinos y pequeños propietarios: actualización de la renta (IPC, IRAV y límite extraordinario del 2 %), carta de actualización, fin del contrato y prórrogas, desistimiento, devolución de la fianza, prorrateo, asequibilidad y rentabilidad. Cada resultado explica los pasos y cita la norma aplicada, con fecha de revisión.
 
@@ -75,8 +75,8 @@ Todas empiezan por `PUBLIC_` porque su valor es público. Ninguna es un secreto.
 
 | Variable | Obligatoria | Descripción |
 |---|---|---|
-| `PUBLIC_SITE_URL` | Sí | URL definitiva con https y sin barra final |
-| `PUBLIC_SITE_NAME` | No | Nombre visible (por defecto «Alquiler Claro») |
+| `PUBLIC_SITE_URL` | Sí | URL definitiva con https y sin barra final (por defecto `https://www.alquilerenregla.es`) |
+| `PUBLIC_SITE_NAME` | No | Nombre visible (por defecto «Alquiler en Regla») |
 | `PUBLIC_SITE_INDEXABLE` | Sí | `true` solo al lanzar; si no, `noindex` y robots bloqueante |
 | `PUBLIC_OWNER_NAME`, `PUBLIC_OWNER_NIF`, `PUBLIC_OWNER_ADDRESS`, `PUBLIC_CONTACT_EMAIL` | Sí para indexar | Datos del titular (LSSI-CE). La compilación falla si faltan con `PUBLIC_SITE_INDEXABLE=true` |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | No | Verificación de Search Console por etiqueta HTML |

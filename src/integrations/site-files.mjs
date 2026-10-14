@@ -16,7 +16,7 @@ import { usesThirdPartyAdsOrAnalytics } from '../config/env-schema.mjs';
  */
 export default function siteFiles(cfg) {
   return {
-    name: 'alquiler-claro:site-files',
+    name: 'alquiler-en-regla:site-files',
     hooks: {
       'astro:build:done': async ({ dir, logger }) => {
         if (cfg.adsense.publisherId) {
