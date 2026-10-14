@@ -1,0 +1,18 @@
+# 8. Riesgos principales y cómo reducirlos
+
+| # | Riesgo | Probabilidad | Impacto | Medidas ya implementadas | Medidas que te tocan |
+|---|---|---|---|---|---|
+| 1 | **Información jurídica desactualizada o errónea** (contenido YMYL) | Alta (normativa cambiante en 2026) | Alto: perjuicio a usuarios, pérdida de confianza, peor SEO | Datos normativos en un único archivo con fechas y estado; avisos de «pendiente de convalidación»; escenarios alternativos; fuentes oficiales en cada página; aviso de no asesoramiento; historial público de cambios; 69 pruebas unitarias de la lógica | Rutina mensual y tras cada BOE relevante (`docs/09`); revisar personalmente todo antes de publicar; considerar revisión por un profesional de las guías fiscales |
+| 2 | **RDL 29/2026 derogado o modificado** | Media | Medio | El estado se cambia en una línea (`estado`, `finEfectivo`) y la calculadora, la portada y la normativa se actualizan solas | Comprobar la votación de la Diputación Permanente y actualizar el mismo día |
+| 3 | **Poco tráfico orgánico** (competencia de portales y medios) | Media-alta | Alto | Foco en herramientas y casos concretos, SEO técnico completo, rendimiento alto | Validar demanda con Keyword Planner; publicar los briefs; conseguir enlaces legítimos |
+| 4 | **Respuestas de IA sin clic** (vista creada con IA) | Alta en consultas informativas | Medio | Prioridad a calculadoras con datos personales y documentos generados | Medir CTR por tipo de página y reforzar las herramientas |
+| 5 | **AdSense rechaza el sitio** | Media | Medio (retrasa ingresos) | Contenido original, páginas institucionales completas, navegación clara, sin anuncios de prueba | Completar datos del titular; añadir contenido útil; corregir según el motivo |
+| 6 | **RPM bajo** | Media | Medio | Público con valor comercial; ubicaciones que respetan la experiencia | Medir RPM real; no aumentar anuncios a costa de la experiencia |
+| 7 | **Costes fiscales** (alta censal, posible cuota de autónomos) | Depende de tu situación | Alto en escenarios de poco tráfico | Modelo financiero con escenario fiscal B | Consultar a un asesor antes de cobrar |
+| 8 | **Incumplimiento de privacidad o cookies** | Baja | Alto (sanciones de la AEPD) | Sin cookies ni scripts de terceros por defecto; textos legales que cambian según los servicios activados; CMP certificado de Google; GA4 con todo denegado por defecto | Configurar el mensaje de consentimiento antes de activar anuncios; mantener las políticas al día |
+| 9 | **Datos de titular incompletos (LSSI-CE)** | Media si se publica con prisa | Medio | La compilación **falla** si `PUBLIC_SITE_INDEXABLE=true` y faltan datos | Rellenar las variables |
+| 10 | **Tráfico inválido** | Baja | Alto (suspensión de AdSense) | Sin incentivos a clics; anuncios separados de botones | No hacer clic; no comprar tráfico; vigilar picos raros |
+| 11 | **Dependencia de Google** (algoritmo, AdSense) | Media | Alto | Sitio estático portable a cualquier alojamiento; contenido propio | Diversificar a medio plazo (boletín, afiliación transparente) si hay audiencia |
+| 12 | **Vulnerabilidades de dependencias** | Baja | Medio | Sitio estático sin servidor ni base de datos; dependencias fijadas; `npm audit` sin avisos a 14/10/2026; CSP estricta sin anuncios | `npm audit` mensual y actualizaciones |
+| 13 | **Marca o dominio en conflicto** | Baja-media | Medio | Nombre configurable | Comprobar marcas en la OEPM antes de comprar el dominio |
+| 14 | **Enlaces externos rotos** (BOE, INE, Google) | Media con el tiempo | Bajo | Enlaces a identificadores estables del BOE | Revisar enlaces externos cada trimestre (el QA solo comprueba los internos) |
