@@ -1,0 +1,152 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { FUENTES } from '../../data/normativa';
+---
+
+<ToolLayout
+  slug="cuanto-alquiler-puedo-pagar"
+  title="¿Cuánto alquiler puedo pagar? Calculadora según tu sueldo"
+  description="Calcula la renta máxima recomendable según tus ingresos netos, el esfuerzo que supone un piso concreto y el dinero que necesitas para entrar: fianza, garantías y primer mes."
+  h1="¿Cuánto alquiler puedo pagar?"
+  lead="Con tus ingresos netos y el porcentaje que quieras destinar a vivienda, calculamos tu renta máxima, el esfuerzo de un piso concreto y el dinero que necesitas para entrar a vivir."
+  fuentes={[FUENTES.lau, FUENTES.ley12_2023]}
+  relacionadas={['devolucion-fianza', 'prorrateo-alquiler', 'actualizacion-renta']}
+>
+  <Fragment slot="form">
+    <div class="field">
+      <label for="ingresosNetos">Ingresos netos mensuales del hogar</label>
+      <span class="hint" id="ingresosNetos-hint">Lo que entra cada mes después de impuestos. Si cobras pagas extra, divide el neto anual entre 12.</span>
+      <div class="input-affix">
+        <input id="ingresosNetos" name="ingresosNetos" type="text" inputmode="decimal" autocomplete="off" aria-describedby="ingresosNetos-hint ingresosNetos-error" placeholder="2000" />
+        <span class="affix">€</span>
+      </div>
+      <span class="field-error" id="ingresosNetos-error"></span>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="porcentaje">Porcentaje para vivienda</label>
+        <span class="hint" id="porcentaje-hint">Referencia habitual: 30 %.</span>
+        <div class="input-affix">
+          <input id="porcentaje" name="porcentaje" type="text" inputmode="decimal" autocomplete="off" value="30" aria-describedby="porcentaje-hint porcentaje-error" />
+          <span class="affix">%</span>
+        </div>
+        <span class="field-error" id="porcentaje-error"></span>
+      </div>
+      <div class="field">
+        <label for="suministros">Suministros al mes (opcional)</label>
+        <span class="hint" id="suministros-hint">Luz, agua, gas, internet…</span>
+        <div class="input-affix">
+          <input id="suministros" name="suministros" type="text" inputmode="decimal" autocomplete="off" aria-describedby="suministros-hint suministros-error" />
+          <span class="affix">€</span>
+        </div>
+        <span class="field-error" id="suministros-error"></span>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="rentaObjetivo">Renta de un piso concreto (opcional)</label>
+        <div class="input-affix">
+          <input id="rentaObjetivo" name="rentaObjetivo" type="text" inputmode="decimal" autocomplete="off" aria-describedby="rentaObjetivo-error" />
+          <span class="affix">€</span>
+        </div>
+        <span class="field-error" id="rentaObjetivo-error"></span>
+      </div>
+      <div class="field">
+        <label for="mesesGarantia">Garantía adicional que piden (meses)</label>
+        <span class="hint" id="mesesGarantia-hint">Entre 0 y 2 (máximo legal en vivienda).</span>
+        <input id="mesesGarantia" name="mesesGarantia" type="text" inputmode="decimal" autocomplete="off" value="0" aria-describedby="mesesGarantia-hint mesesGarantia-error" />
+        <span class="field-error" id="mesesGarantia-error"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="ahorro">Ahorros disponibles para entrar (opcional)</label>
+      <div class="input-affix">
+        <input id="ahorro" name="ahorro" type="text" inputmode="decimal" autocomplete="off" aria-describedby="ahorro-error" />
+        <span class="affix">€</span>
+      </div>
+      <span class="field-error" id="ahorro-error"></span>
+    </div>
+  </Fragment>
+
+  <h2 id="regla">La referencia del 30 %</h2>
+  <p>
+    Destinar como máximo alrededor del 30 % de los ingresos netos a la vivienda es una referencia muy extendida en estudios y políticas de
+    vivienda para considerar que el gasto es asumible. No es una ley ni una garantía: con ingresos bajos, incluso el 30 % puede dejar poco
+    margen para lo demás, y con ingresos altos se puede asumir algo más. Por eso la calculadora te deja elegir el porcentaje.
+  </p>
+  <p>
+    Incluir los suministros da una idea más realista: un piso barato pero con gastos altos puede salir más caro que otro con una renta algo
+    mayor.
+  </p>
+
+  <h2 id="entrada">El dinero que necesitas para entrar</h2>
+  <ul>
+    <li><strong>Fianza:</strong> una mensualidad, obligatoria (art. 36.1 LAU).</li>
+    <li><strong>Primera mensualidad</strong> (o la parte proporcional si entras a mitad de mes).</li>
+    <li><strong>Garantía adicional:</strong> opcional para el propietario y, en contratos de vivienda de hasta cinco o siete años, de hasta dos mensualidades (art. 36.5 LAU).</li>
+    <li><strong>Honorarios de agencia:</strong> no te corresponden: los gastos de gestión inmobiliaria y de formalización del contrato son a cargo del propietario (art. 20.1 LAU).</li>
+  </ul>
+  <p>
+    Algunos propietarios piden además un seguro de impago o avales. Pregunta antes de comprometerte y pide que cualquier cantidad entregada
+    quede reflejada en el contrato.
+  </p>
+
+  <h2 id="ayudas">Si el esfuerzo es alto</h2>
+  <p>
+    Existen ayudas públicas al alquiler (estatales y autonómicas) con requisitos de ingresos, edad o situación familiar que cambian con cada
+    convocatoria. Consulta la web de vivienda de tu comunidad autónoma antes de decidir.
+  </p>
+</ToolLayout>
+
+<script>
+  import { calcularAsequibilidad } from '../../lib/calc/asequibilidad';
+  import { euros } from '../../lib/formato';
+  import { conectarCalculadora, mostrarErrores, limpiarErrores, leerNum, pintarResultado, h, kv, cifra, renderAvisos, guardarEnUrl } from '../../lib/ui/dom';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+  const pct = (n: number) => `${n.toFixed(1).replace('.', ',')} %`;
+
+  function calcular() {
+    limpiarErrores(form);
+    const out = calcularAsequibilidad({
+      ingresosNetos: leerNum(form, 'ingresosNetos'),
+      porcentaje: leerNum(form, 'porcentaje'),
+      suministros: leerNum(form, 'suministros'),
+      rentaObjetivo: leerNum(form, 'rentaObjetivo'),
+      ahorro: leerNum(form, 'ahorro'),
+      mesesGarantia: leerNum(form, 'mesesGarantia'),
+    });
+    if (!out.ok) return mostrarErrores(form, out.errores);
+    guardarEnUrl(form);
+    const r = out.r;
+    const tieneSuministros = (leerNum(form, 'suministros') ?? 0) > 0;
+    const piso =
+      r.esfuerzoObjetivo !== null
+        ? [
+            h('h3', {}, 'El piso que estás mirando'),
+            kv([
+              ['Esfuerzo (solo renta)', pct(r.esfuerzoObjetivo)],
+              ['Esfuerzo con suministros', pct(r.esfuerzoObjetivoConSuministros ?? 0)],
+              ['Para entrar (fianza + 1.er mes + garantía indicada)', euros(r.entradaMinima ?? 0)],
+              ['Máximo legal que te pueden pedir al entrar', euros(r.entradaMaxima ?? 0)],
+            ]),
+            r.ahorroSuficiente === null
+              ? null
+              : h('div', { class: `callout ${r.ahorroSuficiente ? 'callout--ok' : 'callout--aviso'}` }, h('p', {}, r.ahorroSuficiente ? 'Tus ahorros cubren el dinero de entrada indicado.' : 'Tus ahorros no cubren el dinero de entrada indicado.')),
+          ]
+        : [];
+    pintarResultado(
+      panel,
+      'Tu presupuesto de alquiler',
+      cifra(tieneSuministros ? 'Renta máxima (descontando suministros)' : 'Renta máxima recomendable', euros(tieneSuministros ? r.rentaMaximaConSuministros : r.rentaMaxima)),
+      kv([
+        ['Presupuesto total de vivienda', euros(r.rentaMaxima)],
+        ['Renta máxima si pagas suministros aparte', euros(r.rentaMaximaConSuministros)],
+      ]),
+      ...piso,
+      ...renderAvisos(r.avisos),
+    );
+  }
+  conectarCalculadora(form, panel, calcular);
+</script>

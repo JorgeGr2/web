@@ -1,0 +1,30 @@
+---
+/** Plantilla para páginas de texto (institucionales). */
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbLd } from '../lib/seo';
+import { fechaLarga } from '../lib/fechas';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  h1: string;
+  revisado: string;
+  noindex?: boolean;
+}
+const { title, description, path, h1, revisado, noindex = false } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} path={path} noindex={noindex} jsonLd={[breadcrumbLd([{ label: h1, href: path }])]}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: h1 }]} />
+    <header class="page-head">
+      <h1>{h1}</h1>
+      <div class="page-meta"><span>Última actualización: <time datetime={revisado}>{fechaLarga(revisado)}</time></span></div>
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

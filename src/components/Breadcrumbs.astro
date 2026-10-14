@@ -1,0 +1,21 @@
+---
+export interface Miga {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Miga[];
+}
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Ruta de navegación">
+  <ol>
+    <li><a href="/">Inicio</a></li>
+    {
+      items.map((it, i) => (
+        <li>{it.href && i < items.length - 1 ? <a href={it.href}>{it.label}</a> : <span aria-current="page">{it.label}</span>}</li>
+      ))
+    }
+  </ol>
+</nav>

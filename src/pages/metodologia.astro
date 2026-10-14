@@ -1,0 +1,58 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<PageLayout
+  title="Cómo elaboramos y revisamos el contenido"
+  description={`Metodología de ${SITE.siteName}: fuentes oficiales que usamos, cómo se construyen y prueban las calculadoras, cómo revisamos cada página y cómo corregimos errores.`}
+  path="/metodologia/"
+  h1="Cómo elaboramos y revisamos el contenido"
+  revisado="2026-10-14"
+>
+  <h2>Fuentes que usamos</h2>
+  <p>Priorizamos siempre la fuente primaria:</p>
+  <ol>
+    <li><strong>Textos legales consolidados del BOE</strong> (Ley de Arrendamientos Urbanos, Ley 12/2023, reales decretos-leyes, Código Civil).</li>
+    <li><strong>Datos estadísticos oficiales del INE</strong> (IPC, IRAV) y resoluciones del Ministerio de Vivienda (sistema estatal de índices de referencia).</li>
+    <li>Leyes de Presupuestos para datos como el interés legal del dinero.</li>
+  </ol>
+  <p>
+    Usamos artículos de prensa o de despachos solo para detectar cambios y contrastar interpretaciones, nunca como única fuente de un dato. Cada
+    página enumera las fuentes oficiales en las que se basa.
+  </p>
+
+  <h2>Cómo se construyen las calculadoras</h2>
+  <ul>
+    <li>Cada regla legal se programa en una función independiente que recibe las fechas y datos del caso y devuelve el resultado y los pasos seguidos.</li>
+    <li>Las reglas que dependen de la fecha (por ejemplo, límites temporales o el tope del IRAV) se guardan en un único archivo de datos normativos con su fecha de inicio, de fin y su estado.</li>
+    <li>Cada calculadora tiene pruebas automáticas con casos resueltos a mano. Si una prueba falla, la web no se publica.</li>
+    <li>Cuando una norma tiene interpretaciones distintas o está pendiente de convalidación, la calculadora lo avisa en el resultado.</li>
+  </ul>
+
+  <h2>Revisión y actualización</h2>
+  <ul>
+    <li>Cada página muestra su fecha de última revisión.</li>
+    <li>Revisamos el estado normativo cada mes y, además, cada vez que se publica en el BOE una norma que afecta al alquiler.</li>
+    <li>Los cambios relevantes se anotan en el <a href="/normativa/#historial">historial de cambios</a>.</li>
+  </ul>
+
+  <h2>Uso de inteligencia artificial</h2>
+  <p>
+    Los textos y la lógica de las calculadoras se han elaborado con ayuda de herramientas de inteligencia artificial, a partir de las fuentes
+    oficiales citadas. El responsable del sitio revisa el contenido antes de publicarlo y cada vez que cambia la normativa, y responde de él.
+  </p>
+
+  <h2>Correcciones</h2>
+  <p>
+    Si encuentras un error, escríbenos desde <a href="/contacto/">contacto</a> indicando la página y, si puedes, la fuente que lo demuestra. Lo
+    revisaremos y, si procede, lo corregiremos y lo anotaremos en el historial.
+  </p>
+
+  <h2>Lo que no hacemos</h2>
+  <ul>
+    <li>No damos asesoramiento jurídico personalizado ni sustituimos a un abogado, gestor o asesor fiscal.</li>
+    <li>No recogemos los datos que escribes en las calculadoras.</li>
+    <li>No aceptamos pagos para modificar contenidos o resultados.</li>
+  </ul>
+</PageLayout>

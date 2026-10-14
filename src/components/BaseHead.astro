@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import { SITE, absoluteUrl } from '../config/site';
+
+export interface SeoProps {
+  title: string;
+  description: string;
+  /** Ruta de la página (por defecto, la actual). Siempre con barra final. */
+  path?: string;
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  /** Objetos JSON-LD adicionales. */
+  jsonLd?: Record<string, unknown>[];
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const { title, description, path, noindex = false, ogType = 'website', jsonLd = [], publishedTime, modifiedTime } = Astro.props as SeoProps;
+
+const canonical = absoluteUrl(path ?? Astro.url.pathname);
+// Se añade la marca solo si el título completo no supera ~65 caracteres.
+const withBrand = `${title} | ${SITE.siteName}`;
+const fullTitle = title.includes(SITE.siteName) || withBrand.length > 65 ? title : withBrand;
+const robots = !SITE.indexable || noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+const ogImage = absoluteUrl('/og/default.png');
+// Serializa JSON-LD escapando "<" para que el contenido nunca pueda cerrar la etiqueta.
+const ld = jsonLd.map((o) => JSON.stringify(o).replace(/</g, '\\u003c'));
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={robots} />
+<meta name="theme-color" content="#0d5c56" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#111615" media="(prefers-color-scheme: dark)" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<meta property="og:site_name" content={SITE.siteName} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${SITE.siteName}: calculadoras y guías del alquiler en España`} />
+<meta name="twitter:card" content="summary_large_image" />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+{SITE.googleSiteVerification && <meta name="google-site-verification" content={SITE.googleSiteVerification} />}
+{ld.map((json) => <script type="application/ld+json" set:html={json} />)}

@@ -1,0 +1,186 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { FUENTES } from '../../data/normativa';
+
+const AEAT_ALQUILER = {
+  texto: 'Agencia Tributaria (sede electrónica): manuales prácticos de Renta, rendimientos del capital inmobiliario',
+  url: 'https://sede.agenciatributaria.gob.es/',
+};
+---
+
+<ToolLayout
+  slug="rentabilidad-alquiler"
+  title="Calculadora de rentabilidad del alquiler: bruta, neta y con hipoteca"
+  description="Calcula la rentabilidad bruta y neta de un piso en alquiler con los gastos reales (IBI, comunidad, seguros, vacíos) y la rentabilidad sobre tu capital si lo compras con hipoteca."
+  h1="Calculadora de rentabilidad de un piso en alquiler"
+  lead="Introduce el precio, los gastos de compra y los gastos anuales para ver la rentabilidad bruta, la neta y, si hay hipoteca, la rentabilidad sobre el dinero que pones tú."
+  fuentes={[FUENTES.lau, FUENTES.ley12_2023, AEAT_ALQUILER]}
+  relacionadas={['actualizacion-renta', 'fin-contrato-alquiler', 'carta-actualizacion-renta']}
+>
+  <Fragment slot="form">
+    <fieldset>
+      <legend>Compra</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="precioCompra">Precio de compra</label>
+          <div class="input-affix"><input id="precioCompra" name="precioCompra" type="text" inputmode="decimal" autocomplete="off" aria-describedby="precioCompra-error" placeholder="200000" /><span class="affix">€</span></div>
+          <span class="field-error" id="precioCompra-error"></span>
+        </div>
+        <div class="field">
+          <label for="gastosCompra">Impuestos y gastos de compra</label>
+          <span class="hint" id="gastosCompra-hint">ITP o IVA y AJD, notaría, registro, gestoría.</span>
+          <div class="input-affix"><input id="gastosCompra" name="gastosCompra" type="text" inputmode="decimal" autocomplete="off" aria-describedby="gastosCompra-hint gastosCompra-error" /><span class="affix">€</span></div>
+          <span class="field-error" id="gastosCompra-error"></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="reforma">Reforma y mobiliario</label>
+        <div class="input-affix"><input id="reforma" name="reforma" type="text" inputmode="decimal" autocomplete="off" aria-describedby="reforma-error" /><span class="affix">€</span></div>
+        <span class="field-error" id="reforma-error"></span>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Alquiler</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="rentaMensual">Renta mensual</label>
+          <div class="input-affix"><input id="rentaMensual" name="rentaMensual" type="text" inputmode="decimal" autocomplete="off" aria-describedby="rentaMensual-error" placeholder="1000" /><span class="affix">€</span></div>
+          <span class="field-error" id="rentaMensual-error"></span>
+        </div>
+        <div class="field">
+          <label for="mesesVacios">Meses vacíos al año</label>
+          <span class="hint" id="mesesVacios-hint">Media prevista entre inquilinos.</span>
+          <input id="mesesVacios" name="mesesVacios" type="text" inputmode="decimal" autocomplete="off" value="0" aria-describedby="mesesVacios-hint mesesVacios-error" />
+          <span class="field-error" id="mesesVacios-error"></span>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Gastos anuales del propietario</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="ibi">IBI y tasas</label>
+          <div class="input-affix"><input id="ibi" name="ibi" type="text" inputmode="decimal" autocomplete="off" aria-describedby="ibi-error" /><span class="affix">€</span></div>
+          <span class="field-error" id="ibi-error"></span>
+        </div>
+        <div class="field">
+          <label for="comunidad">Comunidad</label>
+          <div class="input-affix"><input id="comunidad" name="comunidad" type="text" inputmode="decimal" autocomplete="off" aria-describedby="comunidad-error" /><span class="affix">€</span></div>
+          <span class="field-error" id="comunidad-error"></span>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="seguros">Seguros (hogar, impago)</label>
+          <div class="input-affix"><input id="seguros" name="seguros" type="text" inputmode="decimal" autocomplete="off" aria-describedby="seguros-error" /><span class="affix">€</span></div>
+          <span class="field-error" id="seguros-error"></span>
+        </div>
+        <div class="field">
+          <label for="mantenimiento">Mantenimiento y reparaciones</label>
+          <div class="input-affix"><input id="mantenimiento" name="mantenimiento" type="text" inputmode="decimal" autocomplete="off" aria-describedby="mantenimiento-error" /><span class="affix">€</span></div>
+          <span class="field-error" id="mantenimiento-error"></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="gestionPct">Gestión del alquiler (% de la renta cobrada)</label>
+        <div class="input-affix"><input id="gestionPct" name="gestionPct" type="text" inputmode="decimal" autocomplete="off" aria-describedby="gestionPct-error" /><span class="affix">%</span></div>
+        <span class="field-error" id="gestionPct-error"></span>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Hipoteca (opcional)</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="hipoteca">Importe del préstamo</label>
+          <div class="input-affix"><input id="hipoteca" name="hipoteca" type="text" inputmode="decimal" autocomplete="off" aria-describedby="hipoteca-error" /><span class="affix">€</span></div>
+          <span class="field-error" id="hipoteca-error"></span>
+        </div>
+        <div class="field">
+          <label for="interesPct">Tipo de interés anual</label>
+          <div class="input-affix"><input id="interesPct" name="interesPct" type="text" inputmode="decimal" autocomplete="off" aria-describedby="interesPct-error" /><span class="affix">%</span></div>
+          <span class="field-error" id="interesPct-error"></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="plazoAnios">Plazo (años)</label>
+        <input id="plazoAnios" name="plazoAnios" type="text" inputmode="numeric" autocomplete="off" aria-describedby="plazoAnios-error" />
+        <span class="field-error" id="plazoAnios-error"></span>
+      </div>
+    </fieldset>
+  </Fragment>
+
+  <h2 id="formulas">Las tres rentabilidades</h2>
+  <ul>
+    <li><strong>Rentabilidad bruta</strong> = renta anual ÷ precio de compra. Sirve para comparar anuncios rápidamente, pero exagera la realidad.</li>
+    <li><strong>Rentabilidad neta</strong> = (ingresos efectivos − gastos anuales) ÷ inversión total (precio + impuestos y gastos de compra + reforma). Es la que mejor refleja lo que gana la vivienda.</li>
+    <li><strong>Rentabilidad sobre capital propio</strong> = flujo de caja anual (beneficio neto − cuotas de la hipoteca) ÷ dinero que aportas tú. Mide el efecto de la financiación.</li>
+  </ul>
+
+  <h2 id="ejemplo">Ejemplo</h2>
+  <p>
+    Piso de 200.000 € con 20.000 € de impuestos y gastos de compra, alquilado por 1.000 € al mes sin meses vacíos, y 2.000 € de gastos anuales
+    (IBI, comunidad, seguros y mantenimiento):
+  </p>
+  <ul>
+    <li>Bruta: 12.000 ÷ 200.000 = <strong>6 %</strong>.</li>
+    <li>Neta: (12.000 − 2.000) ÷ 220.000 = <strong>4,55 %</strong>.</li>
+    <li>Con una hipoteca de 160.000 € al 3 % a 30 años (cuota de 674,57 €): flujo de caja de unos 1.905 € al año sobre 60.000 € aportados = <strong>3,18 %</strong>.</li>
+  </ul>
+
+  <h2 id="olvidos">Lo que se suele olvidar</h2>
+  <ul>
+    <li><strong>Meses vacíos e impagos.</strong> Un solo mes vacío al año reduce los ingresos un 8,3 %.</li>
+    <li><strong>Gastos que no puedes repercutir.</strong> Los honorarios de la inmobiliaria por formalizar el contrato corren a cargo del propietario (art. 20.1 LAU).</li>
+    <li><strong>Límites a la renta.</strong> En zonas de mercado tensionado y durante el periodo del RDL 29/2026, las subidas anuales están limitadas. Revisa la <a href="/calculadoras/actualizacion-renta/">calculadora de actualización</a>.</li>
+    <li><strong>Impuestos.</strong> La renta tributa en el IRPF como rendimiento del capital inmobiliario. Para contratos de vivienda habitual firmados desde el 26/05/2023, la reducción del rendimiento neto puede ser del 50 %, 60 %, 70 % o 90 % según el caso; para los anteriores se mantiene el 60 %. Consulta a la Agencia Tributaria o a un asesor.</li>
+  </ul>
+</ToolLayout>
+
+<script>
+  import { calcularRentabilidad } from '../../lib/calc/rentabilidad';
+  import { euros } from '../../lib/formato';
+  import { conectarCalculadora, mostrarErrores, limpiarErrores, leerNum, pintarResultado, h, kv, cifra, renderAvisos, guardarEnUrl } from '../../lib/ui/dom';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+  const pct = (n: number) => `${n.toFixed(2).replace('.', ',')} %`;
+  const n = (k: string) => leerNum(form, k);
+
+  function calcular() {
+    limpiarErrores(form);
+    const out = calcularRentabilidad({
+      precioCompra: n('precioCompra'), gastosCompra: n('gastosCompra'), reforma: n('reforma'), rentaMensual: n('rentaMensual'), mesesVacios: n('mesesVacios'),
+      ibi: n('ibi'), comunidad: n('comunidad'), seguros: n('seguros'), mantenimiento: n('mantenimiento'), gestionPct: n('gestionPct'),
+      hipoteca: n('hipoteca'), interesPct: n('interesPct'), plazoAnios: n('plazoAnios'),
+    });
+    if (!out.ok) return mostrarErrores(form, out.errores);
+    guardarEnUrl(form);
+    const r = out.r;
+    const hip = r.cuotaMensual !== null
+      ? [
+          h('h3', {}, 'Con hipoteca'),
+          kv([
+            ['Cuota mensual', euros(r.cuotaMensual)],
+            ['Intereses del primer año', euros(r.interesesPrimerAnio ?? 0)],
+            ['Capital propio aportado', euros(r.capitalPropio ?? 0)],
+            ['Flujo de caja anual', euros(r.flujoCajaAnual ?? 0)],
+            ['Rentabilidad sobre capital propio', r.rentabilidadCapitalPropio === null ? '—' : pct(r.rentabilidadCapitalPropio)],
+          ]),
+        ]
+      : [];
+    pintarResultado(
+      panel,
+      'Rentabilidad estimada',
+      cifra('Rentabilidad neta', pct(r.rentabilidadNeta), `Bruta: ${pct(r.rentabilidadBruta)}`),
+      kv([
+        ['Inversión total', euros(r.inversionTotal)],
+        ['Ingresos anuales', euros(r.ingresosAnuales)],
+        ['Gastos anuales', euros(r.gastosAnuales)],
+        ['Beneficio neto antes de impuestos', euros(r.beneficioNeto)],
+      ]),
+      ...hip,
+      ...renderAvisos(r.avisos),
+    );
+  }
+  conectarCalculadora(form, panel, calcular);
+</script>

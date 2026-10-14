@@ -1,0 +1,43 @@
+---
+/**
+ * Scripts de terceros. NO se carga nada si las variables de entorno están
+ * vacías (estado por defecto): el sitio funciona sin cookies ni rastreo.
+ *
+ * - Google AdSense: el mismo código sirve para verificar el sitio, mostrar
+ *   anuncios automáticos y el mensaje de consentimiento (CMP certificado de
+ *   Google, configurado en AdSense → Privacidad y mensajes).
+ * - Google Analytics 4: con Consent Mode v2 y todo denegado por defecto. El
+ *   CMP de Google actualiza el consentimiento cuando la persona elige.
+ * - Cloudflare Web Analytics manual (sin cookies), solo fuera de Cloudflare
+ *   Pages.
+ */
+import { SITE } from '../config/site';
+
+const { adsense, ga4Id, cfBeaconToken } = SITE;
+
+// Los valores ya están validados con un patrón estricto en env-schema.mjs;
+// JSON.stringify añade una segunda capa de escape.
+const consentDefaults = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
+gtag('set','ads_data_redaction',true);`;
+const gaConfig = ga4Id ? `gtag('js',new Date());gtag('config',${JSON.stringify(ga4Id)},{anonymize_ip:true});` : '';
+---
+
+{(adsense.client || ga4Id) && <script is:inline set:html={consentDefaults + gaConfig} />}
+{ga4Id && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`} />}
+{
+  adsense.client && (
+    <script
+      is:inline
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(adsense.client)}`}
+      crossorigin="anonymous"
+    />
+  )
+}
+{adsense.client && <meta name="google-adsense-account" content={adsense.client} />}
+{
+  cfBeaconToken && (
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfBeaconToken })} />
+  )
+}

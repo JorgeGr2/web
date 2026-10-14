@@ -1,0 +1,42 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<PageLayout
+  title="Publicidad e independencia editorial"
+  description={`Cómo se financia ${SITE.siteName}, cómo se identifican los anuncios y qué garantías de independencia editorial aplicamos a calculadoras y guías.`}
+  path="/publicidad/"
+  h1="Publicidad e independencia editorial"
+  revisado="2026-10-14"
+>
+  <h2>Cómo se financia el sitio</h2>
+  {
+    SITE.adsEnabled ? (
+      <p>
+        {SITE.siteName} es gratuito y se financia con anuncios servidos por Google AdSense. Los anuncios los selecciona Google de forma automática;
+        no elegimos a los anunciantes ni conocemos de antemano qué anuncio verás.
+      </p>
+    ) : (
+      <p>
+        Actualmente {SITE.siteName} <strong>no muestra publicidad</strong>. Más adelante podremos financiarlo con anuncios de Google AdSense; si lo
+        hacemos, lo indicaremos aquí y en la política de privacidad.
+      </p>
+    )
+  }
+
+  <h2>Nuestros compromisos</h2>
+  <ul>
+    <li>Los anuncios se identifican con la etiqueta «Publicidad» y se separan visualmente del contenido y de las calculadoras.</li>
+    <li>No colocamos anuncios dentro de los resultados, junto a los botones de cálculo ni con apariencia de enlaces de navegación.</li>
+    <li>No publicamos contenido patrocinado ni cobramos por aparecer en una guía o en una recomendación.</li>
+    <li>Actualmente no usamos enlaces de afiliación. Si algún día los usamos, los señalaremos en cada caso.</li>
+    <li>La lógica de las calculadoras y los textos no dependen de ningún anunciante.</li>
+  </ul>
+
+  <h2>Si ves un anuncio inapropiado</h2>
+  <p>
+    Puedes usar el icono de información del propio anuncio para indicar a Google que no quieres verlo, y escribirnos desde
+    <a href="/contacto/">contacto</a> con una captura para que revisemos la categoría y la bloqueemos si procede.
+  </p>
+</PageLayout>

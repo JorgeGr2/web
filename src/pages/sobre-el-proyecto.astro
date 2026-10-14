@@ -1,0 +1,42 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE, PENDIENTE } from '../config/site';
+---
+
+<PageLayout
+  title="Sobre el proyecto"
+  description={`Qué es ${SITE.siteName}, quién está detrás, por qué existe y cómo se financia este proyecto independiente de calculadoras y guías sobre el alquiler en España.`}
+  path="/sobre-el-proyecto/"
+  h1="Sobre el proyecto"
+  revisado="2026-10-14"
+>
+  <h2>Qué es {SITE.siteName}</h2>
+  <p>
+    Un sitio independiente con calculadoras y guías gratuitas para que inquilinos y pequeños propietarios en España entiendan sus contratos de
+    alquiler: cuánto puede subir la renta, cuándo termina el contrato, cuánto hay que avisar antes de irse o cuándo se debe devolver la fianza.
+  </p>
+
+  <h2>Por qué existe</h2>
+  <p>
+    Las reglas del alquiler dependen de la fecha en que se firmó cada contrato y han cambiado muchas veces en los últimos años: índices
+    distintos, límites temporales, decretos que entran en vigor y decaen. Mucha información disponible no distingue entre esos casos o no
+    explica de dónde salen las cifras. Aquí cada resultado muestra sus pasos, la norma aplicada y la fecha de revisión.
+  </p>
+
+  <h2>Quién está detrás</h2>
+  <p>
+    El proyecto lo gestiona <strong>{SITE.owner.name || PENDIENTE}</strong>, responsable del contenido. Puedes consultar los datos completos
+    en el <a href="/aviso-legal/">aviso legal</a> y escribir desde la página de <a href="/contacto/">contacto</a>.
+  </p>
+  <p>
+    {SITE.siteName} no es un despacho de abogados ni una inmobiliaria y no ofrece asesoramiento personalizado. Explicamos cómo trabajamos en
+    <a href="/metodologia/">nuestra metodología</a>.
+  </p>
+
+  <h2>Cómo se financia</h2>
+  <p>
+    El sitio es gratuito. {SITE.adsEnabled ? 'Se financia con publicidad de Google AdSense' : 'Podrá financiarse con publicidad en el futuro'},
+    siempre identificada y separada del contenido. Ningún anunciante influye en los textos ni en los resultados. Más información en
+    <a href="/publicidad/">publicidad e independencia</a>.
+  </p>
+</PageLayout>

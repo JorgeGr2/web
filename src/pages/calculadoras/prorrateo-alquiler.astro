@@ -1,0 +1,91 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { FUENTES } from '../../data/normativa';
+---
+
+<ToolLayout
+  slug="prorrateo-alquiler"
+  title="Prorrateo del alquiler: cuánto pagar si entras o sales a mitad de mes"
+  description="Calcula el alquiler proporcional si entras o dejas el piso a mitad de mes, con dos métodos habituales: días del mes y renta diaria anual. Gratis y sin registro."
+  h1="Calculadora de prorrateo del alquiler"
+  lead="Si entras a vivir o entregas las llaves a mitad de mes, aquí tienes lo que corresponde pagar por los días de ese mes con los dos métodos más usados."
+  fuentes={[FUENTES.lau]}
+  relacionadas={['devolucion-fianza', 'indemnizacion-desistimiento', 'cuanto-alquiler-puedo-pagar']}
+>
+  <Fragment slot="form">
+    <div class="field">
+      <label for="renta">Renta mensual</label>
+      <div class="input-affix">
+        <input id="renta" name="renta" type="text" inputmode="decimal" autocomplete="off" aria-describedby="renta-error" placeholder="900" />
+        <span class="affix">€</span>
+      </div>
+      <span class="field-error" id="renta-error"></span>
+    </div>
+    <fieldset class="field" aria-describedby="movimiento-error">
+      <legend>¿Entras o sales?</legend>
+      <div class="choices choices--inline">
+        <label class="choice"><input type="radio" name="movimiento" value="entrada" id="movimiento-entrada" /><span>Entro a vivir</span></label>
+        <label class="choice"><input type="radio" name="movimiento" value="salida" /><span>Dejo la vivienda</span></label>
+      </div>
+      <span class="field-error" id="movimiento-error"></span>
+    </fieldset>
+    <div class="field">
+      <label for="fecha">Fecha de entrada o de entrega de llaves</label>
+      <span class="hint" id="fecha-hint">Se cuentan tanto el día de entrada como el de salida.</span>
+      <input id="fecha" name="fecha" type="date" aria-describedby="fecha-hint fecha-error" />
+      <span class="field-error" id="fecha-error"></span>
+    </div>
+  </Fragment>
+
+  <h2 id="metodos">Los dos métodos de prorrateo</h2>
+  <p>La ley no fija un método para prorratear la renta de un mes incompleto; lo habitual es pactarlo en el contrato o al entregar las llaves. Los dos más usados son:</p>
+  <ol>
+    <li><strong>Proporción del mes:</strong> renta × días ocupados ÷ días que tiene ese mes. Es el más intuitivo: en un mes de 30 días, 15 días son media renta.</li>
+    <li><strong>Renta diaria anual:</strong> renta × 12 ÷ 365 × días ocupados. Da el mismo precio por día todo el año, sin depender de si el mes tiene 28, 30 o 31 días.</li>
+  </ol>
+  <p>La diferencia entre ambos suele ser de pocos euros. Lo importante es acordar uno y reflejarlo por escrito.</p>
+
+  <h2 id="ejemplo">Ejemplo</h2>
+  <p>Renta de 900 € y entrada el 15 de octubre (mes de 31 días): ocupas 17 días.</p>
+  <ul>
+    <li>Proporción del mes: 900 × 17 ÷ 31 = <strong>493,55 €</strong>.</li>
+    <li>Renta diaria anual: 900 × 12 ÷ 365 × 17 = <strong>503,01 €</strong>.</li>
+  </ul>
+
+  <h2 id="consejos">Consejos</h2>
+  <ul>
+    <li>Si entras a mitad de mes, pacta si el primer pago es la parte proporcional o el mes completo con ajuste en el siguiente.</li>
+    <li>Si sales, la fecha que cuenta es la de entrega efectiva de las llaves, que también inicia el plazo de un mes para devolver la fianza.</li>
+    <li>Si dejas el piso antes de que acabe el contrato, revisa también el <a href="/calculadoras/indemnizacion-desistimiento/">preaviso y la posible indemnización</a>.</li>
+  </ul>
+</ToolLayout>
+
+<script>
+  import { calcularProrrateo, type Movimiento } from '../../lib/calc/prorrateo';
+  import { euros } from '../../lib/formato';
+  import { conectarCalculadora, mostrarErrores, limpiarErrores, leerNum, leerFecha, leerRadio, pintarResultado, h, kv, cifra, guardarEnUrl } from '../../lib/ui/dom';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+
+  function calcular() {
+    limpiarErrores(form);
+    const out = calcularProrrateo({ renta: leerNum(form, 'renta'), fecha: leerFecha(form, 'fecha'), movimiento: leerRadio<Movimiento>(form, 'movimiento') });
+    if (!out.ok) return mostrarErrores(form, out.errores);
+    guardarEnUrl(form);
+    const r = out.r;
+    pintarResultado(
+      panel,
+      'Importe proporcional',
+      cifra('Proporción del mes', euros(r.importeMes), `${r.diasOcupados} de ${r.diasMes} días`),
+      kv([
+        ['Días que pagas', String(r.diasOcupados)],
+        ['Precio por día (mes)', euros(r.rentaDiariaMes)],
+        ['Método renta diaria anual', euros(r.importeDiarioAnual)],
+        ['Precio por día (año)', euros(r.rentaDiariaAnual)],
+      ]),
+      h('p', { class: 'small' }, 'Ambos métodos son válidos si se acuerdan. Usa el que diga tu contrato o el que pactéis por escrito.'),
+    );
+  }
+  conectarCalculadora(form, panel, calcular);
+</script>

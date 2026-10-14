@@ -1,0 +1,156 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import Callout from '../../components/Callout.astro';
+import { FUENTES } from '../../data/normativa';
+---
+
+<ToolLayout
+  slug="fin-contrato-alquiler"
+  title="¿Cuándo termina mi contrato de alquiler? Calculadora de prórrogas"
+  description="Calcula las fechas clave de tu contrato de alquiler: prórroga obligatoria de 5 o 7 años, prórroga tácita de 3 años y los plazos de preaviso de inquilino y propietario."
+  h1="¿Cuándo termina mi contrato de alquiler?"
+  lead="Calcula la duración mínima, las prórrogas y las fechas límite para avisar de que no se renueva, según la Ley de Arrendamientos Urbanos vigente para contratos desde marzo de 2019."
+  fuentes={[FUENTES.lau, FUENTES.rdl7_2019, FUENTES.ley12_2023, FUENTES.rdl29_2026, FUENTES.rdl28_2026]}
+  relacionadas={['indemnizacion-desistimiento', 'actualizacion-renta', 'devolucion-fianza']}
+  submitLabel="Ver fechas"
+>
+  <Fragment slot="aviso">
+    <Callout tipo="aviso" titulo="Prórrogas extraordinarias de 2026">
+      <p>
+        El RDL 29/2026 (en vigor desde el 08/10/2026 y pendiente de convalidación) prevé una prórroga extraordinaria para ciertos contratos de
+        vivienda habitual que el inquilino debe solicitar. Esta calculadora no la suma porque depende de requisitos concretos: revisa la
+        <a href="/normativa/">página de normativa</a>.
+      </p>
+    </Callout>
+  </Fragment>
+
+  <Fragment slot="form">
+    <div class="field">
+      <label for="fechaInicio">Fecha de inicio del contrato</label>
+      <span class="hint" id="fechaInicio-hint">La de firma o, si te dieron la vivienda más tarde, la de entrega de llaves (art. 9.1 LAU).</span>
+      <input id="fechaInicio" name="fechaInicio" type="date" aria-describedby="fechaInicio-hint fechaInicio-error" />
+      <span class="field-error" id="fechaInicio-error"></span>
+    </div>
+    <div class="field">
+      <label for="duracionPactadaAnios">Duración pactada en el contrato (años)</label>
+      <span class="hint" id="duracionPactadaAnios-hint">Lo que dice el contrato, por ejemplo «1 año prorrogable» → 1. Para meses, usa decimales (6 meses = 0,5).</span>
+      <input id="duracionPactadaAnios" name="duracionPactadaAnios" type="text" inputmode="decimal" autocomplete="off" aria-describedby="duracionPactadaAnios-hint duracionPactadaAnios-error" placeholder="1" />
+      <span class="field-error" id="duracionPactadaAnios-error"></span>
+    </div>
+    <fieldset class="field" aria-describedby="arrendador-error">
+      <legend>¿Quién es el propietario?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="arrendador" value="fisica" id="arrendador-fisica" /><span>Una persona física<small>Prórroga obligatoria hasta 5 años.</small></span></label>
+        <label class="choice"><input type="radio" name="arrendador" value="juridica" /><span>Una empresa o entidad (persona jurídica)<small>Prórroga obligatoria hasta 7 años.</small></span></label>
+      </div>
+      <span class="field-error" id="arrendador-error"></span>
+    </fieldset>
+  </Fragment>
+
+  <h2 id="como-funciona">Cómo funcionan la duración y las prórrogas</h2>
+  <p>En los contratos de vivienda habitual firmados desde el 6 de marzo de 2019, la ley establece tres tramos:</p>
+  <ol>
+    <li><strong>Duración pactada.</strong> La que acordáis en el contrato, por ejemplo un año.</li>
+    <li>
+      <strong>Prórroga obligatoria.</strong> Si la duración pactada es inferior a cinco años (siete si el propietario es una persona jurídica),
+      el contrato se prorroga por años hasta alcanzar ese mínimo. Es obligatoria para el propietario y voluntaria para el inquilino, que puede
+      no renovar avisando con al menos <strong>30 días</strong> de antelación al final de cada año (art. 9.1 LAU).
+    </li>
+    <li>
+      <strong>Prórroga tácita.</strong> Al cumplirse los cinco o siete años, si ninguna parte comunica que no quiere renovar —el propietario
+      con al menos <strong>cuatro meses</strong> de antelación y el inquilino con al menos <strong>dos meses</strong>—, el contrato se prorroga
+      por años hasta <strong>tres años más</strong>. Durante esos años, el inquilino puede irse avisando con un mes de antelación al final de
+      cada anualidad (art. 10.1 LAU).
+    </li>
+  </ol>
+
+  <h2 id="ejemplo">Ejemplo</h2>
+  <p>
+    Contrato de un año firmado el 1 de septiembre de 2024 con un propietario persona física: la duración pactada termina el 1/9/2025, la
+    prórroga obligatoria llega hasta el 1/9/2029, el propietario tendría que avisar antes del 1/5/2029 si no quiere renovar, y, si nadie
+    avisa, la prórroga tácita podría llegar hasta el 1/9/2032.
+  </p>
+
+  <h2 id="excepciones">Excepciones que conviene conocer</h2>
+  <ul>
+    <li><strong>Necesidad del propietario (art. 9.3 LAU).</strong> Si el contrato lo prevé expresamente, el propietario persona física puede recuperar la vivienda tras el primer año para él o familiares de primer grado, cónyuge en caso de separación o divorcio, avisando con dos meses de antelación.</li>
+    <li><strong>Vulnerabilidad (art. 10.2 LAU).</strong> Desde la Ley 12/2023, si el propietario es gran tenedor y el inquilino acredita vulnerabilidad, puede pedirse una prórroga extraordinaria de un año en determinadas condiciones.</li>
+    <li><strong>Zona de mercado residencial tensionado (art. 10.3 LAU).</strong> El inquilino puede pedir prórrogas anuales extraordinarias de hasta tres años en determinados supuestos.</li>
+    <li><strong>Contratos anteriores al 6/3/2019.</strong> Tienen otros plazos (5 + 3 años antes del 6/6/2013; 3 + 1 años entre esa fecha y el 5/3/2019, con un breve periodo regido por el RDL 21/2018). Más en la <a href="/guias/duracion-contrato-alquiler/">guía de duración del contrato</a>.</li>
+  </ul>
+
+  <h2 id="preguntas">Preguntas frecuentes</h2>
+  <div class="faq">
+    <details>
+      <summary>¿Puede el propietario echarme al terminar el primer año?</summary>
+      <div><p>No, salvo que el contrato incluya expresamente la cláusula de necesidad del artículo 9.3 y se cumplan sus requisitos. La prórroga obligatoria hasta cinco o siete años es un derecho del inquilino.</p></div>
+    </details>
+    <details>
+      <summary>¿Cómo debo comunicar que no renuevo?</summary>
+      <div><p>Por un medio que deje constancia de la fecha de recepción (burofax, correo certificado o un escrito con acuse firmado), respetando el plazo de preaviso que corresponda.</p></div>
+    </details>
+    <details>
+      <summary>¿Qué pasa al terminar los tres años de prórroga tácita?</summary>
+      <div><p>El contrato se extingue. Si las partes siguen con el alquiler, lo normal es firmar un contrato nuevo; si no se firma nada, puede discutirse si hay una tácita reconducción (art. 1566 del Código Civil). Conviene dejarlo por escrito.</p></div>
+    </details>
+  </div>
+</ToolLayout>
+
+<script>
+  import { calcularDuracion, type TipoArrendador } from '../../lib/calc/duracion';
+  import { fechaCorta, fechaLarga, hoyMadrid } from '../../lib/fechas';
+  import { conectarCalculadora, mostrarErrores, limpiarErrores, leerNum, leerFecha, leerRadio, pintarResultado, h, kv, cifra, renderAvisos, renderFundamentos, guardarEnUrl } from '../../lib/ui/dom';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+  const faseTxt = {
+    pactado: 'Estás dentro de la duración pactada',
+    'prorroga-obligatoria': 'Estás en la prórroga obligatoria',
+    'prorroga-tacita': 'Estás en la prórroga tácita',
+    finalizado: 'Ya habría terminado el plazo máximo de prórrogas',
+  } as const;
+
+  function calcular() {
+    limpiarErrores(form);
+    const hoy = hoyMadrid();
+    const out = calcularDuracion({
+      fechaInicio: leerFecha(form, 'fechaInicio'),
+      duracionPactadaAnios: leerNum(form, 'duracionPactadaAnios'),
+      arrendador: leerRadio<TipoArrendador>(form, 'arrendador'),
+      fechaReferencia: hoy,
+    });
+    if (!out.ok) return mostrarErrores(form, out.errores);
+    guardarEnUrl(form);
+    const r = out.r;
+    if (r.tipo === 'fuera-de-alcance') {
+      pintarResultado(panel, 'Tu contrato tiene otro régimen', ...renderAvisos(r.avisos), h('p', {}, h('a', { href: '/guias/duracion-contrato-alquiler/' }, 'Ver la guía de duración del contrato')));
+      return;
+    }
+    const lista = h('ol', { class: 'timeline' });
+    for (const hito of r.hitos) {
+      const li = h('li', { 'data-tipo': hito.tipo, 'data-pasado': hito.fecha < hoy ? 'true' : undefined, 'data-proximo': r.proximoHito === hito ? 'true' : undefined },
+        h('time', { datetime: hito.fecha }, fechaCorta(hito.fecha)),
+        h('span', { class: 't-title' }, hito.titulo),
+        h('span', { class: 't-detail' }, hito.detalle),
+      );
+      lista.append(li);
+    }
+    pintarResultado(
+      panel,
+      'Fechas de tu contrato',
+      cifra(faseTxt[r.fase], r.finPeriodoActual ? `Hasta el ${fechaCorta(r.finPeriodoActual)}` : '—', r.proximoHito ? `Próxima fecha clave: ${fechaLarga(r.proximoHito.fecha)} · ${r.proximoHito.titulo}` : undefined),
+      kv([
+        ['Fin de la duración pactada', fechaCorta(r.finPactado)],
+        [`Fin del mínimo legal (${r.minimoAnios} años)`, fechaCorta(r.finObligatoria)],
+        ['Preaviso del propietario, como tarde', fechaCorta(r.preavisoArrendador)],
+        ['Preaviso del inquilino, como tarde', fechaCorta(r.preavisoArrendatario)],
+        ['Fin máximo con prórroga tácita', fechaCorta(r.finMaximoTacita)],
+      ]),
+      h('h3', {}, 'Calendario completo'),
+      lista,
+      ...renderAvisos(r.avisos),
+      renderFundamentos(r.fundamentos),
+    );
+  }
+  conectarCalculadora(form, panel, calcular);
+</script>

@@ -1,0 +1,236 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import Callout from '../../components/Callout.astro';
+import { FUENTES } from '../../data/normativa';
+---
+
+<ToolLayout
+  slug="carta-actualizacion-renta"
+  title="Carta de actualización de la renta del alquiler: generador"
+  description="Genera gratis la carta para comunicar la actualización anual de la renta al inquilino, con el porcentaje aplicado, la nueva renta y la referencia al artículo 18 de la LAU."
+  h1="Generador de carta de actualización de la renta"
+  lead="Rellena los datos y obtendrás un texto listo para copiar, imprimir o descargar, con lo que exige la ley: el porcentaje aplicado y la nueva renta."
+  fuentes={[FUENTES.lau, FUENTES.ineIrav, FUENTES.ineIpc, FUENTES.rdl29_2026]}
+  relacionadas={['actualizacion-renta', 'fin-contrato-alquiler']}
+  submitLabel="Generar carta"
+>
+  <Fragment slot="aviso">
+    <Callout tipo="info" titulo="Primero, calcula el porcentaje">
+      <p>
+        Si no sabes qué porcentaje aplicar, usa antes la <a href="/calculadoras/actualizacion-renta/">calculadora de actualización</a>: al
+        terminar, el botón «Redactar la carta» rellena este formulario automáticamente.
+      </p>
+    </Callout>
+  </Fragment>
+
+  <Fragment slot="form">
+    <div class="field-row">
+      <div class="field">
+        <label for="arrendador">Nombre de la parte arrendadora</label>
+        <input id="arrendador" name="arrendador" type="text" autocomplete="name" data-no-share aria-describedby="arrendador-error" />
+        <span class="field-error" id="arrendador-error"></span>
+      </div>
+      <div class="field">
+        <label for="arrendatario">Nombre de la parte arrendataria</label>
+        <input id="arrendatario" name="arrendatario" type="text" autocomplete="off" data-no-share aria-describedby="arrendatario-error" />
+        <span class="field-error" id="arrendatario-error"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="direccionVivienda">Dirección de la vivienda alquilada</label>
+      <input id="direccionVivienda" name="direccionVivienda" type="text" autocomplete="off" data-no-share aria-describedby="direccionVivienda-error" />
+      <span class="field-error" id="direccionVivienda-error"></span>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fechaContrato">Fecha del contrato</label>
+        <input id="fechaContrato" name="fechaContrato" type="date" aria-describedby="fechaContrato-error" />
+        <span class="field-error" id="fechaContrato-error"></span>
+      </div>
+      <div class="field">
+        <label for="fechaActualizacion">Fecha de la actualización</label>
+        <span class="hint" id="fechaActualizacion-hint">Aniversario del contrato.</span>
+        <input id="fechaActualizacion" name="fechaActualizacion" type="date" aria-describedby="fechaActualizacion-hint fechaActualizacion-error" />
+        <span class="field-error" id="fechaActualizacion-error"></span>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="rentaActual">Renta mensual actual</label>
+        <div class="input-affix">
+          <input id="rentaActual" name="rentaActual" type="text" inputmode="decimal" autocomplete="off" aria-describedby="rentaActual-error" />
+          <span class="affix">€</span>
+        </div>
+        <span class="field-error" id="rentaActual-error"></span>
+      </div>
+      <div class="field">
+        <label for="pct">Porcentaje aplicado</label>
+        <div class="input-affix">
+          <input id="pct" name="pct" type="text" inputmode="decimal" autocomplete="off" aria-describedby="pct-error" />
+          <span class="affix">%</span>
+        </div>
+        <span class="field-error" id="pct-error"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="criterio">Índice o criterio aplicado</label>
+      <span class="hint" id="criterio-hint">Por ejemplo: «IRAV», «IPC» o «límite extraordinario del 2 % del Real Decreto-ley 29/2026».</span>
+      <input id="criterio" name="criterio" type="text" autocomplete="off" aria-describedby="criterio-hint criterio-error" />
+      <span class="field-error" id="criterio-error"></span>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="mesIndice">Mes del índice (opcional)</label>
+        <span class="hint" id="mesIndice-hint">El último publicado por el INE en la fecha de actualización.</span>
+        <input id="mesIndice" name="mesIndice" type="month" aria-describedby="mesIndice-hint" />
+      </div>
+      <div class="field">
+        <label for="normaAdicional">Norma adicional a citar (opcional)</label>
+        <span class="hint" id="normaAdicional-hint">Por ejemplo, «Real Decreto-ley 29/2026».</span>
+        <input id="normaAdicional" name="normaAdicional" type="text" autocomplete="off" aria-describedby="normaAdicional-hint" />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fechaEnvio">Fecha de envío</label>
+        <input id="fechaEnvio" name="fechaEnvio" type="date" data-no-share aria-describedby="fechaEnvio-error" />
+        <span class="field-error" id="fechaEnvio-error"></span>
+      </div>
+      <div class="field">
+        <label for="lugar">Lugar (opcional)</label>
+        <input id="lugar" name="lugar" type="text" autocomplete="address-level2" data-no-share />
+      </div>
+    </div>
+  </Fragment>
+
+  <Fragment slot="empty">
+    <h2 id="resultado-titulo">Tu carta</h2>
+    <p>Cuando pulses «Generar carta», aparecerá aquí el texto. Los nombres y la dirección no se guardan ni se añaden al enlace de la página.</p>
+  </Fragment>
+
+  <h2 id="que-debe-incluir">Qué debe incluir la comunicación de la actualización</h2>
+  <p>El artículo 18.3 de la Ley de Arrendamientos Urbanos exige que la actualización se notifique <strong>por escrito</strong> y que exprese el <strong>porcentaje de alteración aplicado</strong>. A partir de ahí, la nueva renta es exigible desde el mes siguiente a la notificación. La carta generada incluye:</p>
+  <ul>
+    <li>Identificación de las partes, la vivienda y la fecha del contrato.</li>
+    <li>El índice o criterio aplicado y, si procede, el mes del dato del INE.</li>
+    <li>El porcentaje aplicado, la renta actual y la nueva renta.</li>
+    <li>Desde cuándo se aplica, con la referencia al artículo 18.3 LAU.</li>
+    <li>El ofrecimiento de la certificación del INE, que el inquilino puede pedir.</li>
+  </ul>
+
+  <h2 id="como-enviarla">Cómo enviarla para que quede constancia</h2>
+  <p>
+    La ley no impone un medio concreto, pero conviene poder probar la fecha de recepción: burofax con certificación de contenido, correo
+    certificado con acuse de recibo, correo electrónico o mensajería si el contrato los admite como medio de notificación, o entrega en mano con
+    copia firmada. También es válida una nota en el recibo de la mensualidad anterior.
+  </p>
+  <p>
+    Envíala con tiempo: si la notificación llega en el mismo mes del aniversario, la nueva renta no se podrá cobrar hasta el mes siguiente.
+  </p>
+
+  <h2 id="si-eres-inquilino">Si eres inquilino y recibes la carta</h2>
+  <p>
+    Comprueba con la <a href="/calculadoras/actualizacion-renta/">calculadora</a> que el porcentaje es el permitido para tu contrato y tu fecha.
+    Si no estás de acuerdo, responde también por escrito explicando el motivo (por ejemplo, que se ha superado el IRAV o el límite del 2 %) y
+    pide, si quieres, la certificación del INE. Las asociaciones de consumidores y los servicios de vivienda de tu comunidad autónoma pueden
+    orientarte.
+  </p>
+
+  <h2 id="preguntas">Preguntas frecuentes</h2>
+  <div class="faq">
+    <details>
+      <summary>¿Es obligatorio enviar una carta?</summary>
+      <div><p>La ley exige una notificación por escrito con el porcentaje aplicado. Una carta, un burofax o una nota en el recibo anterior cumplen ese requisito; lo importante es que quede constancia.</p></div>
+    </details>
+    <details>
+      <summary>¿Puedo subir la renta sin avisar y cobrar después la diferencia?</summary>
+      <div><p>No. La renta actualizada solo es exigible desde el mes siguiente a la notificación, por lo que los meses anteriores a la comunicación no se pueden reclamar con la nueva cantidad.</p></div>
+    </details>
+    <details>
+      <summary>¿Este texto sirve como contrato o como acuerdo nuevo?</summary>
+      <div><p>No. Es una comunicación unilateral de la actualización pactada en el contrato. Si quieres pactar un porcentaje distinto, necesitas un acuerdo firmado por ambas partes.</p></div>
+    </details>
+  </div>
+</ToolLayout>
+
+<script>
+  import { generarCarta } from '../../lib/calc/carta';
+  import { hoyMadrid } from '../../lib/fechas';
+  import { mostrarErrores, limpiarErrores, leerNum, leerFecha, leerTexto, pintarResultado, h, kv, copiarTexto, descargarTexto, guardarEnUrl } from '../../lib/ui/dom';
+  import { euros, porcentaje } from '../../lib/formato';
+  import { fechaLarga } from '../../lib/fechas';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+  const envio = form.querySelector<HTMLInputElement>('#fechaEnvio')!;
+  if (!envio.value) envio.value = hoyMadrid();
+
+  function calcular() {
+    limpiarErrores(form);
+    const out = generarCarta({
+      arrendador: leerTexto(form, 'arrendador'),
+      arrendatario: leerTexto(form, 'arrendatario'),
+      direccionVivienda: leerTexto(form, 'direccionVivienda'),
+      fechaContrato: leerFecha(form, 'fechaContrato'),
+      fechaActualizacion: leerFecha(form, 'fechaActualizacion'),
+      rentaActual: leerNum(form, 'rentaActual'),
+      pct: leerNum(form, 'pct'),
+      criterio: leerTexto(form, 'criterio'),
+      mesIndice: leerTexto(form, 'mesIndice'),
+      fechaEnvio: leerFecha(form, 'fechaEnvio'),
+      lugar: leerTexto(form, 'lugar'),
+      normaAdicional: leerTexto(form, 'normaAdicional'),
+    });
+    if (!out.ok) {
+      // Al llegar desde la calculadora faltan los nombres: es normal.
+      mostrarErrores(form, out.errores);
+      return;
+    }
+    guardarEnUrl(form);
+    const carta = h('div', { class: 'letter', tabindex: '0', 'aria-label': 'Texto de la carta' }, out.texto);
+    const copiar = h('button', { type: 'button', class: 'btn btn--small' }, 'Copiar texto');
+    copiar.addEventListener('click', async () => {
+      copiar.textContent = (await copiarTexto(out.texto)) ? 'Texto copiado' : 'No se pudo copiar: selecciónalo a mano';
+    });
+    const descargar = h('button', { type: 'button', class: 'btn btn--ghost btn--small' }, 'Descargar .txt');
+    descargar.addEventListener('click', () => descargarTexto('carta-actualizacion-renta.txt', out.texto));
+    const imprimir = h('button', { type: 'button', class: 'btn btn--ghost btn--small' }, 'Imprimir o guardar en PDF');
+    imprimir.addEventListener('click', () => window.print());
+    pintarResultado(
+      panel,
+      'Tu carta de actualización',
+      kv([
+        ['Nueva renta', euros(out.rentaNueva)],
+        ['Porcentaje', porcentaje(leerNum(form, 'pct') ?? 0)],
+        ['Se aplica desde', fechaLarga(out.exigibleDesde)],
+      ]),
+      carta,
+      h('div', { class: 'result-actions' }, copiar, descargar, imprimir),
+      h('p', { class: 'small' }, 'Revisa el texto antes de enviarlo y adáptalo si tu contrato prevé otra forma de notificación.'),
+    );
+  }
+
+  // Si llegamos desde la calculadora, solo rellenamos sin mostrar errores aún.
+  const params = new URLSearchParams(location.search);
+  if (params.has('pct')) {
+    params.forEach((v, k) => {
+      const el = form.elements.namedItem(k);
+      if (el instanceof HTMLInputElement && el.dataset.noShare === undefined) el.value = v.slice(0, 200);
+    });
+    form.querySelector<HTMLInputElement>('#arrendador')?.focus();
+  }
+  form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    calcular();
+  });
+  const vacio = panel.cloneNode(true) as HTMLElement;
+  form.addEventListener('reset', () =>
+    setTimeout(() => {
+      limpiarErrores(form);
+      envio.value = hoyMadrid();
+      panel.replaceChildren(...Array.from(vacio.cloneNode(true).childNodes));
+      panel.dataset.state = 'empty';
+      history.replaceState(null, '', location.pathname);
+    }),
+  );
+</script>

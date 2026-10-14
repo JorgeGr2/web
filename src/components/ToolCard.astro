@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+import type { Herramienta } from '../data/herramientas.mjs';
+
+interface Props {
+  h: Herramienta;
+  headingLevel?: 2 | 3;
+}
+const { h, headingLevel = 3 } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+const publico = { inquilino: 'Para inquilinos', propietario: 'Para propietarios', ambos: 'Para inquilinos y propietarios' }[h.publico];
+---
+
+<li class="card tool-card">
+  <span class="icon-wrap"><Icon name={h.icono} /></span>
+  <Heading><a href={h.path}>{h.nombre}</a></Heading>
+  <p>{h.resumen}</p>
+  <span class="audience">{publico}</span>
+</li>

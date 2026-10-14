@@ -1,0 +1,70 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE, PENDIENTE, absoluteUrl } from '../config/site';
+const o = SITE.owner;
+---
+
+<PageLayout
+  title="Aviso legal"
+  description={`Aviso legal de ${SITE.siteName}: datos identificativos del titular, condiciones de uso, responsabilidad, propiedad intelectual y legislación aplicable.`}
+  path="/aviso-legal/"
+  h1="Aviso legal"
+  revisado="2026-10-14"
+>
+  <h2>1. Datos identificativos</h2>
+  <p>En cumplimiento del artículo 10 de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se informa de los datos del titular de este sitio web:</p>
+  <ul>
+    <li><strong>Titular:</strong> {o.name || PENDIENTE}</li>
+    <li><strong>NIF:</strong> {o.nif || PENDIENTE}</li>
+    <li><strong>Domicilio:</strong> {o.address || PENDIENTE}</li>
+    <li><strong>Correo electrónico:</strong> {o.email ? <a href={`mailto:${o.email}`}>{o.email}</a> : PENDIENTE}</li>
+    <li><strong>Sitio web:</strong> {absoluteUrl('/')}</li>
+  </ul>
+
+  <h2>2. Objeto</h2>
+  <p>
+    {SITE.siteName} ofrece calculadoras y contenidos informativos gratuitos sobre el alquiler de vivienda en España. El acceso es libre y no
+    requiere registro. El sitio puede financiarse mediante publicidad, que se identifica siempre como tal.
+  </p>
+
+  <h2>3. Condiciones de uso</h2>
+  <p>
+    Al usar el sitio te comprometes a hacerlo de forma lícita y a no realizar acciones que puedan dañarlo o impedir su uso normal por otras
+    personas, como intentar acceder a áreas no públicas, introducir código malicioso o generar tráfico automatizado.
+  </p>
+
+  <h2>4. Responsabilidad sobre la información</h2>
+  <p>
+    Los contenidos y resultados de las calculadoras tienen carácter <strong>general y orientativo</strong>. Se elaboran a partir de fuentes
+    oficiales y se revisan con la fecha que figura en cada página, pero la normativa cambia con frecuencia y cada caso puede tener
+    particularidades. <strong>No constituyen asesoramiento jurídico, fiscal ni financiero</strong>, y no sustituyen la consulta del texto oficial
+    de las normas ni el consejo de un profesional.
+  </p>
+  <p>
+    El titular no se hace responsable de las decisiones que se adopten basándose exclusivamente en la información del sitio, ni de los daños
+    derivados de interrupciones técnicas ajenas a su control. Si detectas un error, te agradeceremos que nos lo comuniques en la página de
+    <a href="/contacto/">contacto</a>; lo corregiremos y dejaremos constancia en el <a href="/normativa/">historial de cambios</a>.
+  </p>
+
+  <h2>5. Enlaces externos</h2>
+  <p>
+    El sitio enlaza a fuentes oficiales (BOE, INE, ministerios) y a otras webs de interés. No controlamos su contenido ni respondemos de él;
+    los enlaces se ofrecen para que puedas comprobar la información en su origen.
+  </p>
+
+  <h2>6. Propiedad intelectual</h2>
+  <p>
+    Los textos, el diseño y el código de las calculadoras de este sitio son obra de su titular, salvo que se indique otra cosa. Puedes citar
+    fragmentos breves indicando la fuente y enlazando a la página. Las disposiciones legales y resoluciones citadas no están sujetas a
+    propiedad intelectual (artículo 13 del texto refundido de la Ley de Propiedad Intelectual).
+  </p>
+
+  <h2>7. Protección de datos y cookies</h2>
+  <p>Consulta la <a href="/privacidad/">política de privacidad</a> y la <a href="/cookies/">política de cookies</a>.</p>
+
+  <h2>8. Legislación aplicable</h2>
+  <p>
+    Estas condiciones se rigen por la legislación española. Si eres consumidor, podrás acudir a los juzgados y tribunales de tu domicilio
+    conforme a la normativa de consumidores y usuarios.
+  </p>
+</PageLayout>

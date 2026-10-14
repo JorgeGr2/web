@@ -1,0 +1,58 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../config/site';
+
+const links = [
+  { href: '/calculadoras/', label: 'Calculadoras' },
+  { href: '/guias/', label: 'Guías' },
+  { href: '/normativa/', label: 'Normativa' },
+  { href: '/sobre-el-proyecto/', label: 'Sobre el proyecto' },
+];
+const current = Astro.url.pathname;
+const isCurrent = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label={`${SITE.siteName}, ir a la portada`}>
+      <Icon name="logo" />
+      <span>{SITE.siteName}</span>
+    </a>
+    <nav class="nav nav-desktop" aria-label="Principal">
+      <ul>
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <details class="nav-toggle">
+      <summary><Icon name="menu" class="icon" /><span>Menú</span></summary>
+      <nav class="nav" aria-label="Principal (móvil)">
+        <ul>
+          {
+            links.map((l) => (
+              <li>
+                <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .nav-toggle summary :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE, PENDIENTE, HOSTING } from '../config/site';
+const o = SITE.owner;
+---
+
+<PageLayout
+  title="Política de privacidad"
+  description={`Política de privacidad de ${SITE.siteName}: qué datos se tratan, con qué finalidad y base legal, cuánto tiempo se conservan y cómo ejercer tus derechos.`}
+  path="/privacidad/"
+  h1="Política de privacidad"
+  revisado="2026-10-14"
+>
+  <p>
+    Esta política explica cómo se tratan los datos personales en {SITE.siteName}, de acuerdo con el Reglamento (UE) 2016/679 (RGPD) y la Ley
+    Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).
+  </p>
+
+  <h2>1. Responsable del tratamiento</h2>
+  <ul>
+    <li><strong>Responsable:</strong> {o.name || PENDIENTE}</li>
+    <li><strong>NIF:</strong> {o.nif || PENDIENTE}</li>
+    <li><strong>Domicilio:</strong> {o.address || PENDIENTE}</li>
+    <li><strong>Contacto:</strong> {o.email ? <a href={`mailto:${o.email}`}>{o.email}</a> : PENDIENTE}</li>
+  </ul>
+
+  <h2>2. Datos que escribes en las calculadoras</h2>
+  <p>
+    Los cálculos se realizan íntegramente <strong>en tu navegador</strong>. Las cifras, fechas, nombres o direcciones que introduces en las
+    calculadoras y en el generador de cartas <strong>no se envían a ningún servidor ni se almacenan</strong>. Algunas calculadoras añaden los
+    valores numéricos a la dirección de la página para que puedas compartir el cálculo; los nombres y direcciones del generador de cartas no se
+    añaden.
+  </p>
+
+  <h2>3. Tratamientos que sí realizamos</h2>
+  <h3>Correo electrónico de contacto</h3>
+  <ul>
+    <li><strong>Datos:</strong> los que nos envíes (dirección de correo, nombre si lo indicas y el contenido del mensaje).</li>
+    <li><strong>Finalidad:</strong> responder a tu consulta o corregir el error que nos comuniques.</li>
+    <li><strong>Base legal:</strong> tu consentimiento al escribirnos y nuestro interés legítimo en atender las comunicaciones (art. 6.1.a y 6.1.f RGPD).</li>
+    <li><strong>Conservación:</strong> el tiempo necesario para atender tu mensaje y, como máximo, un año después, salvo que se necesite para atender responsabilidades legales.</li>
+  </ul>
+  <h3>Registros técnicos del alojamiento</h3>
+  <ul>
+    <li><strong>Datos:</strong> dirección IP, fecha y hora, página solicitada y datos técnicos del navegador.</li>
+    <li><strong>Finalidad:</strong> servir la web, garantizar su seguridad y prevenir abusos.</li>
+    <li><strong>Base legal:</strong> interés legítimo en el funcionamiento seguro del sitio (art. 6.1.f RGPD).</li>
+    <li><strong>Encargado:</strong> {HOSTING.nombre}, como proveedor de alojamiento. Consulta su <a href={HOSTING.privacidad} target="_blank" rel="noopener">política de privacidad</a>.</li>
+  </ul>
+  {
+    SITE.cfAnalytics && (
+      <>
+        <h3>Estadísticas de visitas sin cookies</h3>
+        <p>
+          Medimos el número de visitas de forma agregada con Cloudflare Web Analytics, que no utiliza cookies ni almacena información en tu
+          dispositivo y no sirve para identificarte. Base legal: interés legítimo en conocer qué páginas son útiles (art. 6.1.f RGPD).
+        </p>
+      </>
+    )
+  }
+  {
+    SITE.analyticsEnabled && (
+      <>
+        <h3>Google Analytics</h3>
+        <p>
+          Si das tu consentimiento en el mensaje de privacidad, usamos Google Analytics 4 (Google Ireland Ltd.) para obtener estadísticas de uso.
+          Sin consentimiento, no se guardan cookies de analítica. Base legal: tu consentimiento (art. 6.1.a RGPD), que puedes retirar en cualquier
+          momento desde «Configuración de privacidad y cookies» en el pie de página.
+        </p>
+      </>
+    )
+  }
+  {
+    SITE.adsEnabled && (
+      <>
+        <h3>Publicidad de Google AdSense</h3>
+        <p>
+          Mostramos anuncios de Google AdSense (Google Ireland Ltd.). Google y sus socios pueden usar cookies e identificadores para mostrar,
+          medir y, si das tu consentimiento, personalizar anuncios. El consentimiento se recoge con la plataforma de gestión del consentimiento
+          certificada de Google. Puedes consultar
+          <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">cómo utiliza Google los datos de los sitios que usan sus servicios</a>.
+          Base legal: tu consentimiento (art. 6.1.a RGPD) para el almacenamiento y la personalización, y el interés legítimo de Google en los
+          términos que figuran en su mensaje de consentimiento.
+        </p>
+      </>
+    )
+  }
+  {
+    !SITE.cfAnalytics && !SITE.analyticsEnabled && !SITE.adsEnabled && (
+      <p>Actualmente <strong>no utilizamos herramientas de analítica ni de publicidad</strong> en este sitio.</p>
+    )
+  }
+
+  <h2>4. Transferencias internacionales</h2>
+  <p>
+    Algunos proveedores (como Cloudflare o Google) pueden tratar datos fuera del Espacio Económico Europeo. En esos casos se amparan en
+    mecanismos previstos por el RGPD, como el Marco de Privacidad de Datos UE-EE. UU. o las cláusulas contractuales tipo de la Comisión Europea.
+  </p>
+
+  <h2>5. Tus derechos</h2>
+  <p>
+    Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad escribiendo a
+    {o.email ? <a href={`mailto:${o.email}`}>{o.email}</a> : 'la dirección de contacto indicada arriba'}. Si consideras que no hemos atendido
+    correctamente tu solicitud, puedes reclamar ante la <a href="https://www.aepd.es/" target="_blank" rel="noopener">Agencia Española de Protección de Datos</a>.
+  </p>
+
+  <h2>6. Menores</h2>
+  <p>El sitio no está dirigido a menores de 14 años y no recogemos conscientemente sus datos.</p>
+
+  <h2>7. Cambios en esta política</h2>
+  <p>Si cambiamos los servicios que utilizamos (por ejemplo, al activar publicidad o analítica), actualizaremos esta política y su fecha.</p>
+</PageLayout>

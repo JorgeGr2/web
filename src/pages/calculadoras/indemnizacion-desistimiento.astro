@@ -1,0 +1,168 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { FUENTES } from '../../data/normativa';
+---
+
+<ToolLayout
+  slug="indemnizacion-desistimiento"
+  title="Dejar el piso de alquiler antes de tiempo: preaviso e indemnización"
+  description="Calcula si puedes dejar tu piso de alquiler antes de que acabe el contrato, la fecha mínima de salida con 30 días de preaviso y la indemnización máxima según el artículo 11 de la LAU."
+  h1="Calculadora para dejar el piso de alquiler antes de tiempo"
+  lead="Comprueba si cumples los seis meses y los 30 días de preaviso, cuál es la fecha más temprana para irte y cuánto te podrían reclamar como indemnización."
+  fuentes={[FUENTES.lau, FUENTES.codigoCivil]}
+  relacionadas={['fin-contrato-alquiler', 'devolucion-fianza', 'prorrateo-alquiler']}
+>
+  <Fragment slot="form">
+    <div class="field">
+      <label for="renta">Renta mensual actual</label>
+      <div class="input-affix">
+        <input id="renta" name="renta" type="text" inputmode="decimal" autocomplete="off" aria-describedby="renta-error" placeholder="900" />
+        <span class="affix">€</span>
+      </div>
+      <span class="field-error" id="renta-error"></span>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fechaInicio">Inicio del contrato</label>
+        <input id="fechaInicio" name="fechaInicio" type="date" aria-describedby="fechaInicio-error" />
+        <span class="field-error" id="fechaInicio-error"></span>
+      </div>
+      <div class="field">
+        <label for="fechaFinPeriodo">Fin del periodo en curso</label>
+        <span class="hint" id="fechaFinPeriodo-hint">Fin de la duración pactada o de la prórroga anual en la que estás. <a href="/calculadoras/fin-contrato-alquiler/">¿No lo sabes?</a></span>
+        <input id="fechaFinPeriodo" name="fechaFinPeriodo" type="date" aria-describedby="fechaFinPeriodo-hint fechaFinPeriodo-error" />
+        <span class="field-error" id="fechaFinPeriodo-error"></span>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fechaComunicacion">Fecha en que avisas al propietario</label>
+        <input id="fechaComunicacion" name="fechaComunicacion" type="date" aria-describedby="fechaComunicacion-error" />
+        <span class="field-error" id="fechaComunicacion-error"></span>
+      </div>
+      <div class="field">
+        <label for="fechaSalida">Fecha de salida y entrega de llaves</label>
+        <input id="fechaSalida" name="fechaSalida" type="date" aria-describedby="fechaSalida-error" />
+        <span class="field-error" id="fechaSalida-error"></span>
+      </div>
+    </div>
+    <fieldset class="field" aria-describedby="clausula-error">
+      <legend>¿Tu contrato incluye una indemnización por desistimiento?</legend>
+      <span class="hint">Suele decir algo como «el arrendatario indemnizará con una mensualidad por cada año que reste por cumplir».</span>
+      <div class="choices choices--inline">
+        <label class="choice"><input type="radio" name="clausula" value="si" id="clausula-si" /><span>Sí</span></label>
+        <label class="choice"><input type="radio" name="clausula" value="no" /><span>No</span></label>
+        <label class="choice"><input type="radio" name="clausula" value="nose" /><span>No lo sé</span></label>
+      </div>
+      <span class="field-error" id="clausula-error"></span>
+    </fieldset>
+  </Fragment>
+
+  <h2 id="que-dice-la-ley">Qué dice la ley</h2>
+  <p>
+    El artículo 11 de la Ley de Arrendamientos Urbanos (redacción vigente desde el 6 de junio de 2013) permite al inquilino <strong>desistir del
+    contrato una vez transcurridos al menos seis meses</strong>, siempre que lo comunique al propietario con una <strong>antelación mínima de
+    treinta días</strong>.
+  </p>
+  <p>
+    Las partes pueden pactar que, en caso de desistimiento, el inquilino indemnice con <strong>una mensualidad de la renta en vigor por cada año
+    del contrato que reste por cumplir</strong>. Los periodos inferiores a un año dan lugar a la parte proporcional. Si el contrato no lo pacta,
+    no hay indemnización.
+  </p>
+
+  <h2 id="formula">La fórmula</h2>
+  <p><strong>Indemnización máxima = renta mensual × días que faltan para el fin del periodo ÷ 365</strong></p>
+  <p>
+    Ejemplo: renta de 900 €, salida el 15/07/2025 y fin del periodo en curso el 15/01/2026 (184 días): 900 × 184 ÷ 365 = <strong>453,70 €</strong>.
+    Es aproximadamente media mensualidad, porque falta medio año.
+  </p>
+
+  <h2 id="dudas">Dudas habituales en los tribunales</h2>
+  <ul>
+    <li><strong>¿Qué periodo cuenta como «año que reste»?</strong> La interpretación más extendida toma el periodo en curso (la duración pactada o la prórroga anual en la que estás), porque las prórrogas son voluntarias para el inquilino. La calculadora usa ese criterio.</li>
+    <li><strong>¿Se puede pactar más?</strong> La ley fija un máximo; una penalización superior puede considerarse abusiva o nula, sobre todo si el propietario es profesional.</li>
+    <li><strong>Moderación.</strong> Algunos tribunales reducen la indemnización si el propietario vuelve a alquilar enseguida (art. 1154 del Código Civil).</li>
+    <li><strong>Antes de seis meses.</strong> Irse antes no es un desistimiento amparado por el artículo 11: el propietario podría reclamar las rentas hasta completar ese plazo u otros perjuicios. Lo más seguro es negociarlo por escrito.</li>
+  </ul>
+
+  <h2 id="pasos">Pasos para irte sin problemas</h2>
+  <ol>
+    <li>Comunica tu decisión por escrito con al menos 30 días de antelación (burofax o un escrito con acuse firmado).</li>
+    <li>Indica la fecha de entrega de llaves y pide que se revise el estado de la vivienda ese día.</li>
+    <li>Haz fotos y un inventario el día de la salida.</li>
+    <li>Reclama la fianza: el propietario tiene un mes desde la entrega de llaves. Usa la <a href="/calculadoras/devolucion-fianza/">calculadora de devolución de fianza</a>.</li>
+    <li>Si sales a mitad de mes, calcula el <a href="/calculadoras/prorrateo-alquiler/">prorrateo de la renta</a>.</li>
+  </ol>
+
+  <h2 id="preguntas">Preguntas frecuentes</h2>
+  <div class="faq">
+    <details>
+      <summary>¿El propietario puede quedarse la fianza como indemnización?</summary>
+      <div><p>La fianza garantiza el cumplimiento de las obligaciones del inquilino. Si hay una indemnización pactada y debida, el propietario puede intentar compensarla con la fianza, pero debe justificarlo; si no hay cláusula, no puede retenerla por el desistimiento.</p></div>
+    </details>
+    <details>
+      <summary>¿Cuenta el preaviso desde que envío la carta o desde que la recibe?</summary>
+      <div><p>Lo prudente es contar desde la recepción por el propietario, que es cuando la comunicación produce efectos. Por eso conviene un medio con acuse de recibo y dejar algún día de margen.</p></div>
+    </details>
+    <details>
+      <summary>¿Y si el contrato es de antes de junio de 2013?</summary>
+      <div><p>Se aplica la redacción original del artículo 11, más restrictiva, y la jurisprudencia es variable. La calculadora no cubre ese caso: consulta a un profesional.</p></div>
+    </details>
+  </div>
+</ToolLayout>
+
+<script>
+  import { calcularDesistimiento, type Clausula } from '../../lib/calc/desistimiento';
+  import { euros } from '../../lib/formato';
+  import { fechaCorta } from '../../lib/fechas';
+  import { conectarCalculadora, mostrarErrores, limpiarErrores, leerNum, leerFecha, leerRadio, pintarResultado, h, kv, cifra, renderAvisos, renderFundamentos, guardarEnUrl } from '../../lib/ui/dom';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+
+  function calcular() {
+    limpiarErrores(form);
+    const out = calcularDesistimiento({
+      renta: leerNum(form, 'renta'),
+      fechaInicio: leerFecha(form, 'fechaInicio'),
+      fechaComunicacion: leerFecha(form, 'fechaComunicacion'),
+      fechaSalida: leerFecha(form, 'fechaSalida'),
+      fechaFinPeriodo: leerFecha(form, 'fechaFinPeriodo'),
+      clausula: leerRadio<Clausula>(form, 'clausula'),
+    });
+    if (!out.ok) return mostrarErrores(form, out.errores);
+    guardarEnUrl(form);
+    const r = out.r;
+    const pasos = h('ol', { class: 'steps' }, ...r.pasos.map((p) => h('li', {}, p)));
+    if (r.tipo === 'fuera-de-alcance') {
+      pintarResultado(panel, 'Tu contrato tiene otro régimen', ...renderAvisos(r.avisos), renderFundamentos(r.fundamentos));
+      return;
+    }
+    if (r.tipo === 'fin-de-periodo') {
+      pintarResultado(panel, 'No es una salida anticipada', cifra('Indemnización', euros(0), 'Sales al terminar el periodo en curso'), pasos, renderFundamentos(r.fundamentos));
+      return;
+    }
+    const cumple = r.cumpleSeisMeses && r.cumplePreaviso;
+    pintarResultado(
+      panel,
+      cumple ? 'Puedes irte en la fecha indicada' : 'Revisa la fecha de salida',
+      cifra(
+        r.indemnizacion > 0 ? 'Indemnización máxima' : 'Indemnización',
+        euros(r.indemnizacion),
+        r.indemnizacion > 0 ? `${r.diasRestantes} días hasta el fin del periodo en curso` : 'Sin cláusula, no se debe indemnización',
+      ),
+      kv([
+        ['Seis meses cumplidos el', fechaCorta(r.fechaSeisMeses)],
+        ['Fin del preaviso de 30 días', fechaCorta(r.fechaPreaviso)],
+        ['Fecha más temprana para salir', fechaCorta(r.fechaMinimaSalida)],
+        ['¿Cumple los seis meses?', r.cumpleSeisMeses ? 'Sí' : 'No'],
+        ['¿Cumple el preaviso?', r.cumplePreaviso ? 'Sí' : 'No'],
+      ]),
+      h('h3', {}, 'Cómo lo hemos calculado'),
+      pasos,
+      ...renderAvisos(r.avisos),
+      renderFundamentos(r.fundamentos),
+    );
+  }
+  conectarCalculadora(form, panel, calcular);
+</script>

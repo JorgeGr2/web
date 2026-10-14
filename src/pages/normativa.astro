@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Callout from '../components/Callout.astro';
+import Fuentes from '../components/Fuentes.astro';
+import Revision from '../components/Revision.astro';
+import { LIMITES_EXTRAORDINARIOS, ETIQUETA_ESTADO, ESTADO_NORMATIVO_FECHA, FUENTES, ULTIMO_IRAV_COMPROBADO, INTERES_LEGAL } from '../data/normativa';
+import { CAMBIOS } from '../data/cambios';
+import { fechaCorta, fechaLarga, mesLargo } from '../lib/fechas';
+import { porcentaje } from '../lib/formato';
+import { breadcrumbLd } from '../lib/seo';
+
+const anioInteres = Math.max(...Object.keys(INTERES_LEGAL).map(Number));
+---
+
+<BaseLayout
+  title="Normativa del alquiler en 2026: estado actual y cambios"
+  description="Estado actualizado de la normativa del alquiler de vivienda en España: límite del 2 % del RDL 29/2026, decretos de 2026 decaídos y derogados, IRAV vigente e historial de cambios."
+  path="/normativa/"
+  jsonLd={[breadcrumbLd([{ label: 'Normativa', href: '/normativa/' }])]}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Normativa' }]} />
+    <header class="page-head">
+      <h1>Estado de la normativa del alquiler</h1>
+      <p class="lead">
+        Qué normas aplican hoy nuestras calculadoras, desde cuándo y con qué estado. Revisado el <time datetime={ESTADO_NORMATIVO_FECHA}>{fechaLarga(ESTADO_NORMATIVO_FECHA)}</time>.
+      </p>
+    </header>
+
+    <div class="prose">
+      <Callout tipo="aviso" titulo="Situación cambiante">
+        <p>
+          En 2026 se han aprobado varios reales decretos-leyes sobre el alquiler. Algunos no fueron convalidados por el Congreso y el último está
+          pendiente de convalidación por la Diputación Permanente. Actualizamos esta página y las calculadoras cuando cambia la situación; si
+          ves que algo ha cambiado antes que nosotros, <a href="/contacto/">avísanos</a>.
+        </p>
+      </Callout>
+
+      <h2 id="limites-2026">Límites extraordinarios a la actualización de la renta en 2026</h2>
+      <div class="table-wrap">
+        <table>
+          <caption class="visually-hidden">Reales decretos-leyes de 2026 con límites a la actualización de la renta</caption>
+          <thead>
+            <tr><th scope="col">Norma</th><th scope="col">Vigencia</th><th scope="col">Límite</th><th scope="col">Estado</th></tr>
+          </thead>
+          <tbody>
+            {
+              LIMITES_EXTRAORDINARIOS.map((l) => (
+                <tr>
+                  <td><a href={l.fuente.url} target="_blank" rel="noopener">{l.norma}</a></td>
+                  <td>
+                    Desde el {fechaCorta(l.desde)}
+                    {l.finEfectivo ? ` hasta el ${fechaCorta(l.finEfectivo)}` : ` (previsto hasta el ${fechaCorta(l.hasta)})`}
+                  </td>
+                  <td>
+                    {l.reglaPrecioReferencia ? 'Sin subida si la renta supera el índice de referencia; si no, nuevo pacto o máximo ' : 'Máximo '}
+                    {porcentaje(l.limitePct, 0)} sin nuevo pacto
+                  </td>
+                  <td>
+                    <span class={`badge ${l.estado === 'vigente-pendiente-convalidacion' ? 'badge--warn' : l.estado === 'decaida' || l.estado === 'derogada' ? 'badge--danger' : 'badge--ok'}`}>
+                      {ETIQUETA_ESTADO[l.estado]}
+                    </span>
+                    <br />
+                    <span class="small">{l.nota}</span>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Qué dice el Real Decreto-ley 29/2026 sobre la actualización</h3>
+      <p>
+        Para las actualizaciones anuales de la renta comprendidas entre su entrada en vigor (8 de octubre de 2026) y el 31 de diciembre de 2027:
+      </p>
+      <ul>
+        <li>Si la renta supera el límite máximo que resulta del sistema estatal de índices de precios de referencia, <strong>no procede ningún incremento</strong>.</li>
+        <li>En los demás casos, el incremento será el que resulte de un <strong>nuevo pacto</strong> entre las partes y, en ausencia de pacto, <strong>no podrá superar el 2 %</strong>.</li>
+      </ul>
+      <p>
+        El mismo decreto modifica otros aspectos de la Ley de Arrendamientos Urbanos (prórrogas extraordinarias, alquiler por habitaciones,
+        información en la publicidad de ofertas y régimen de los contratos anteriores a la Ley 12/2023). Para cualquier decisión, consulta el
+        <a href={FUENTES.rdl29_2026.url} target="_blank" rel="noopener">texto en el BOE</a>.
+      </p>
+      <p>
+        El <a href={FUENTES.rdl28_2026.url} target="_blank" rel="noopener">Real Decreto-ley 28/2026</a>, publicado el mismo día, adopta medidas
+        sobre la estabilidad de los contratos de vivienda habitual. Nuestras calculadoras todavía no incorporan sus efectos específicos.
+      </p>
+      <p>
+        <strong>Si el decreto se convalida</strong>, el límite seguirá hasta el 31/12/2027. <strong>Si se deroga</strong>, dejará de aplicarse a las
+        actualizaciones posteriores y volverán a regir solo las reglas generales (cláusula del contrato e IRAV para los contratos firmados desde
+        el 26/05/2023).
+      </p>
+
+      <h2 id="reglas-estables">Reglas generales que aplican las calculadoras</h2>
+      <ul>
+        <li><strong>Actualización (art. 18 LAU):</strong> solo si el contrato la prevé y en cada aniversario; exigible desde el mes siguiente a la notificación por escrito.</li>
+        <li><strong>Tope del IRAV:</strong> para contratos firmados desde el 26/05/2023, la subida no puede superar el IRAV publicado por el INE (desde el 1/1/2025). Último dato comprobado: {porcentaje(ULTIMO_IRAV_COMPROBADO.valorPct)} ({mesLargo(ULTIMO_IRAV_COMPROBADO.mesDato)}, publicado el {fechaCorta(ULTIMO_IRAV_COMPROBADO.publicadoEl)}).</li>
+        <li><strong>Duración (arts. 9 y 10 LAU):</strong> prórroga obligatoria hasta 5 años (7 si el arrendador es persona jurídica) y tácita de hasta 3 años, para contratos desde el 6/3/2019.</li>
+        <li><strong>Desistimiento (art. 11 LAU):</strong> tras seis meses y con 30 días de preaviso; indemnización pactable de una mensualidad por año restante, proporcional.</li>
+        <li><strong>Fianza (art. 36 LAU):</strong> una mensualidad en vivienda; garantía adicional máxima de dos; devolución en un mes desde la entrega de llaves con interés legal después ({porcentaje(INTERES_LEGAL[anioInteres] ?? 0)} en {anioInteres}).</li>
+      </ul>
+
+      <h2 id="historial">Historial de cambios del sitio</h2>
+      <ol class="changelog">
+        {
+          CAMBIOS.map((c) => (
+            <li>
+              <time datetime={c.fecha}>{fechaCorta(c.fecha)}</time>: {c.texto}
+            </li>
+          ))
+        }
+      </ol>
+
+      <Fuentes fuentes={[FUENTES.rdl29_2026, FUENTES.rdl28_2026, FUENTES.rdl26_2026, FUENTES.rdl8_2026, FUENTES.lau, FUENTES.ley12_2023, FUENTES.ineIrav, FUENTES.serpavi]} />
+      <Revision fecha={ESTADO_NORMATIVO_FECHA} />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .changelog li + li {
+    margin-top: var(--space-2);
+  }
+  .changelog time {
+    font-weight: 650;
+  }
+</style>

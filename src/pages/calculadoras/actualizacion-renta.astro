@@ -1,0 +1,338 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import Callout from '../../components/Callout.astro';
+import { FUENTES, ULTIMO_IRAV_COMPROBADO, LIMITES_EXTRAORDINARIOS, ETIQUETA_ESTADO, ESTADO_NORMATIVO_FECHA } from '../../data/normativa';
+import { fechaCorta, mesLargo } from '../../lib/fechas';
+import { porcentaje } from '../../lib/formato';
+
+const rdl29 = LIMITES_EXTRAORDINARIOS.find((l) => l.id === 'rdl-29-2026')!;
+const irav = ULTIMO_IRAV_COMPROBADO;
+---
+
+<ToolLayout
+  slug="actualizacion-renta"
+  title="Calculadora de actualización del alquiler 2026: IPC, IRAV y límite del 2 %"
+  description="Calcula cuánto puede subir tu alquiler según la fecha de tu contrato: IPC o IRAV, tope de la Ley de Vivienda y límite extraordinario del 2 % del RDL 29/2026. Con pasos y base legal."
+  h1="Calculadora de actualización de la renta del alquiler"
+  lead="Introduce los datos de tu contrato y te diremos qué porcentaje se puede aplicar en tu próxima revisión anual, la nueva renta y por qué, con la norma vigente en tu fecha."
+  fuentes={[FUENTES.lau, FUENTES.ley12_2023, FUENTES.ineIrav, FUENTES.ineIpc, FUENTES.ineCalendario, FUENTES.rdl29_2026, FUENTES.serpaviWeb, FUENTES.serpavi]}
+  relacionadas={['carta-actualizacion-renta', 'fin-contrato-alquiler', 'indemnizacion-desistimiento']}
+>
+  <Fragment slot="aviso">
+    <Callout tipo="aviso" titulo={`Normativa en cambio (revisada el ${fechaCorta(ESTADO_NORMATIVO_FECHA)})`}>
+      <p>
+        El {rdl29.norma} limita las actualizaciones anuales entre el {fechaCorta(rdl29.desde)} y el {fechaCorta(rdl29.hasta)}. Estado:
+        <strong>{ETIQUETA_ESTADO[rdl29.estado].toLowerCase()}</strong>. La calculadora lo aplica automáticamente según tu fecha. Consulta los
+        detalles en <a href="/normativa/">el estado de la normativa</a>.
+      </p>
+    </Callout>
+  </Fragment>
+
+  <Fragment slot="form">
+    <div class="field">
+      <label for="renta">Renta mensual actual</label>
+      <span class="hint" id="renta-hint">La que pagas ahora, sin gastos de comunidad ni suministros.</span>
+      <div class="input-affix">
+        <input id="renta" name="renta" type="text" inputmode="decimal" autocomplete="off" aria-describedby="renta-hint renta-error" placeholder="850" />
+        <span class="affix">€</span>
+      </div>
+      <span class="field-error" id="renta-error"></span>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="fechaFirma">Fecha de firma del contrato</label>
+        <span class="hint" id="fechaFirma-hint">Decide qué reglas se aplican.</span>
+        <input id="fechaFirma" name="fechaFirma" type="date" aria-describedby="fechaFirma-hint fechaFirma-error" />
+        <span class="field-error" id="fechaFirma-error"></span>
+      </div>
+      <div class="field">
+        <label for="fechaActualizacion">Fecha de la actualización</label>
+        <span class="hint" id="fechaActualizacion-hint">El aniversario del contrato de este año.</span>
+        <input id="fechaActualizacion" name="fechaActualizacion" type="date" aria-describedby="fechaActualizacion-hint fechaActualizacion-error" />
+        <span class="field-error" id="fechaActualizacion-error"></span>
+      </div>
+    </div>
+
+    <fieldset class="field" aria-describedby="clausula-error">
+      <legend>¿Qué dice tu contrato sobre la actualización?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="clausula" value="ipc" id="clausula-ipc" /><span>Se actualiza con el IPC<small>Lo más habitual en contratos antiguos.</small></span></label>
+        <label class="choice"><input type="radio" name="clausula" value="irav" /><span>Se actualiza con el IRAV<small>El índice del INE para alquileres desde 2025.</small></span></label>
+        <label class="choice"><input type="radio" name="clausula" value="igc" /><span>Se actualiza con el IGC<small>Índice de Garantía de Competitividad.</small></span></label>
+        <label class="choice"><input type="radio" name="clausula" value="fijo" /><span>Un porcentaje fijo<small>Por ejemplo, «un 3 % anual».</small></span></label>
+        <label class="choice"><input type="radio" name="clausula" value="ninguna" /><span>No dice nada de actualizar<small>Sin cláusula, la renta no se actualiza.</small></span></label>
+      </div>
+      <span class="field-error" id="clausula-error"></span>
+    </fieldset>
+
+    <div class="field" data-show="indice">
+      <label for="indicePct" data-label-indice>Variación anual del índice pactado</label>
+      <span class="hint" id="indicePct-hint"><span data-hint-mes>Usa el último dato publicado en la fecha de actualización.</span> Puedes consultarlo en la <a href="https://www.ine.es/varipc/" target="_blank" rel="noopener">calculadora del IPC del INE</a>.</span>
+      <div class="input-affix">
+        <input id="indicePct" name="indicePct" type="text" inputmode="decimal" autocomplete="off" aria-describedby="indicePct-hint indicePct-error" placeholder="2,9" />
+        <span class="affix">%</span>
+      </div>
+      <span class="field-error" id="indicePct-error"></span>
+    </div>
+
+    <div class="field" data-show="irav">
+      <label for="iravPct">Variación anual del IRAV</label>
+      <span class="hint" id="iravPct-hint">
+        <span data-irav-motivo>Hace falta si tu contrato se firmó desde el 26/05/2023 (tope legal) o si se actualiza con el IRAV.</span>
+        Último dato que hemos comprobado: {mesLargo(irav.mesDato)} = {porcentaje(irav.valorPct)} (publicado el {fechaCorta(irav.publicadoEl)}).
+        <a href={irav.fuente.url} target="_blank" rel="noopener">Comprueba el dato vigente en el INE</a>.
+      </span>
+      <div class="input-affix">
+        <input id="iravPct" name="iravPct" type="text" inputmode="decimal" autocomplete="off" aria-describedby="iravPct-hint iravPct-error" placeholder="2,47" />
+        <span class="affix">%</span>
+      </div>
+      <span class="field-error" id="iravPct-error"></span>
+    </div>
+
+    <fieldset class="field" data-show="referencia" aria-describedby="superaReferencia-hint superaReferencia-error">
+      <legend>¿Tu renta supera el índice de referencia estatal?</legend>
+      <span class="hint" id="superaReferencia-hint">
+        Con el {rdl29.norma}, si la renta supera el valor máximo del <a href="https://serpavi.mivau.gob.es/" target="_blank" rel="noopener">sistema estatal de índices de referencia (SERPAVI)</a> para tu vivienda, no puede subir.
+      </span>
+      <div class="choices choices--inline">
+        <label class="choice"><input type="radio" name="superaReferencia" value="no" id="superaReferencia-no" /><span>No</span></label>
+        <label class="choice"><input type="radio" name="superaReferencia" value="si" /><span>Sí</span></label>
+        <label class="choice"><input type="radio" name="superaReferencia" value="nose" /><span>No lo sé</span></label>
+      </div>
+      <span class="field-error" id="superaReferencia-error"></span>
+    </fieldset>
+
+    <div class="field" data-show="pacto">
+      <label for="nuevoPactoPct">Nuevo acuerdo por escrito (opcional)</label>
+      <span class="hint" id="nuevoPactoPct-hint">Solo si propietario e inquilino habéis acordado expresamente otro porcentaje para esta actualización. Déjalo vacío si no.</span>
+      <div class="input-affix">
+        <input id="nuevoPactoPct" name="nuevoPactoPct" type="text" inputmode="decimal" autocomplete="off" aria-describedby="nuevoPactoPct-hint nuevoPactoPct-error" />
+        <span class="affix">%</span>
+      </div>
+      <span class="field-error" id="nuevoPactoPct-error"></span>
+    </div>
+  </Fragment>
+
+  <h2 id="como-se-calcula">Cómo se calcula la actualización del alquiler</h2>
+  <p>
+    La renta solo se puede actualizar si el contrato lo prevé y únicamente en la fecha en que se cumple cada año de contrato (artículo 18.1 de la
+    Ley de Arrendamientos Urbanos). La operación es siempre la misma:
+  </p>
+  <p><strong>Nueva renta = renta actual × (1 + porcentaje aplicable ÷ 100)</strong></p>
+  <p>
+    Lo difícil es saber qué <em>porcentaje aplicable</em> corresponde, porque depende de tres cosas: lo que dice tu contrato, la fecha en que se
+    firmó y las normas vigentes en la fecha de la actualización.
+  </p>
+
+  <h2 id="que-porcentaje">Qué porcentaje se aplica según tu contrato</h2>
+  <div class="table-wrap">
+    <table>
+      <caption class="visually-hidden">Porcentaje aplicable según la fecha del contrato y de la actualización</caption>
+      <thead>
+        <tr><th scope="col">Contrato firmado</th><th scope="col">Actualización</th><th scope="col">Qué se aplica</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Antes del 26/05/2023</td><td>Desde 2025</td><td>Lo que diga el contrato (IPC, IGC, porcentaje fijo…).</td></tr>
+        <tr><td>Desde el 26/05/2023</td><td>Desde 2025</td><td>Lo que diga el contrato, con el <strong>IRAV como máximo</strong> (Ley 12/2023).</td></tr>
+        <tr><td>Cualquier fecha</td><td>{fechaCorta(rdl29.desde)} a {fechaCorta(rdl29.hasta)}</td><td>Si la renta supera el índice de referencia estatal: <strong>sin subida</strong>. Si no, lo que se pacte de nuevo o, sin pacto, <strong>máximo 2 %</strong> ({rdl29.norma}, {ETIQUETA_ESTADO[rdl29.estado].toLowerCase()}).</td></tr>
+        <tr><td>Sin cláusula de actualización</td><td>Cualquiera</td><td>La renta <strong>no cambia</strong>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Las actualizaciones anteriores a 2025 tuvieron sus propios topes temporales: entre el 31 de marzo de 2022 y el 31 de diciembre de 2023, en
+    ausencia de nuevo acuerdo, la subida quedó limitada a la variación del IGC (con un máximo del 2 %), y en 2024 el límite fue del 3 %. La
+    calculadora no las calcula; lo explicamos en la guía <a href="/guias/indice-actualizacion-alquiler-segun-fecha/">qué índice se aplica a mi contrato</a>.
+  </p>
+
+  <h2 id="que-mes">Qué mes del índice hay que usar</h2>
+  <p>
+    Se usa el <strong>último índice publicado en la fecha de la actualización</strong>. El INE publica cada mes, hacia mediados de mes, el dato del
+    mes anterior. Por ejemplo, para una actualización el 1 de noviembre de 2026, el último dato publicado será normalmente el de septiembre de
+    2026 si ya ha salido, o el de agosto si no. La calculadora te indica el mes probable al elegir la fecha; confírmalo en el
+    <a href="https://www.ine.es/dynt3/Calendario/calenHTML.htm" target="_blank" rel="noopener">calendario del INE</a>.
+  </p>
+  <p>
+    El <strong>IRAV</strong> lo calcula el INE como el menor de tres valores: la variación anual del IPC general, la del IPC subyacente y una tasa
+    media ajustada. Por eso suele ser igual o inferior al IPC. Más detalles en <a href="/guias/irav-indice-alquiler/">la guía del IRAV</a>.
+  </p>
+
+  <h2 id="cuando-se-paga">Desde cuándo se paga la nueva renta</h2>
+  <p>
+    La renta actualizada es exigible <strong>a partir del mes siguiente a aquel en que se notifique por escrito</strong>, indicando el porcentaje
+    aplicado (artículo 18.3 LAU). Es válida una nota en el recibo del mes anterior, y el inquilino puede pedir la certificación del INE. Si el
+    propietario no la comunica, no puede cobrar con efecto retroactivo los meses ya pasados. Para redactar el aviso puedes usar el
+    <a href="/calculadoras/carta-actualizacion-renta/">generador de carta de actualización</a>.
+  </p>
+
+  <h2 id="ejemplo">Ejemplo resuelto</h2>
+  <p>
+    Contrato firmado el 1 de noviembre de 2024 por 1.000 € al mes, con cláusula de actualización por IPC. Actualización el 1 de noviembre de
+    2026. Supongamos un IPC del 3 % y un IRAV del 2,47 %, y que la renta no supera el índice de referencia:
+  </p>
+  <ol>
+    <li>Por ser posterior al 26/05/2023, el IPC (3 %) se limita al IRAV: 2,47 %.</li>
+    <li>La fecha cae en el periodo del {rdl29.norma}: sin nuevo acuerdo, máximo 2 %.</li>
+    <li>Nueva renta: 1.000 € × 1,02 = <strong>1.020 €</strong> (20 € más al mes, 240 € al año).</li>
+  </ol>
+  <p>Los valores del IPC de este ejemplo son ilustrativos: usa siempre los datos publicados por el INE para tu fecha.</p>
+
+  <h2 id="preguntas">Preguntas frecuentes</h2>
+  <div class="faq">
+    <details>
+      <summary>¿Me pueden subir el alquiler si el contrato no dice nada?</summary>
+      <div><p>No. Según el artículo 18.1 de la LAU, en defecto de pacto expreso no se aplica actualización. Cualquier subida necesitaría un acuerdo nuevo entre ambas partes.</p></div>
+    </details>
+    <details>
+      <summary>¿Qué pasa si el IPC es negativo?</summary>
+      <div><p>Depende de la redacción de la cláusula. Si dice que la renta «se actualizará conforme a la variación del IPC», la variación negativa reduciría la renta. Algunas cláusulas solo prevén subidas; léela con atención.</p></div>
+    </details>
+    <details>
+      <summary>¿Qué es un «gran tenedor»?</summary>
+      <div><p>La Ley 12/2023 lo define como la persona física o jurídica titular de más de diez inmuebles urbanos de uso residencial o de más de 1.500 m² construidos de uso residencial (sin contar garajes ni trasteros). En zonas tensionadas, la comunidad autónoma puede rebajar el umbral a cinco inmuebles en esa zona.</p></div>
+    </details>
+    <details>
+      <summary>¿Cómo sé si mi renta supera el índice de referencia?</summary>
+      <div><p>Consultando el <a href="https://serpavi.mivau.gob.es/" target="_blank" rel="noopener">SERPAVI del Ministerio de Vivienda</a> con la dirección o la referencia catastral y los datos de la vivienda. Da un rango de precios; la renta máxima se toma del valor superior. Solo cubre viviendas en edificios colectivos de más de cinco años y entre 30 y 150 m² construidos.</p></div>
+    </details>
+    <details>
+      <summary>¿Puede el propietario actualizar la renta cuando quiera?</summary>
+      <div><p>No. Solo en la fecha en que se cumple cada año de vigencia del contrato y siguiendo la cláusula pactada. Entre actualizaciones, cualquier cambio de renta requiere el acuerdo de ambas partes.</p></div>
+    </details>
+  </div>
+</ToolLayout>
+
+<script>
+  import { calcularActualizacion, esContratoLey12, textoMesIndice, type Clausula, type RespuestaSN } from '../../lib/calc/actualizacion';
+  import { limiteParaFecha, limiteEnVigor } from '../../data/normativa';
+  import { euros, porcentaje } from '../../lib/formato';
+  import { hoyMadrid, sumarAnios } from '../../lib/fechas';
+  import { conectarCalculadora, mostrarErrores, limpiarErrores, leerNum, leerFecha, leerRadio, pintarResultado, h, kv, cifra, renderAvisos, renderFundamentos, guardarEnUrl, copiarTexto } from '../../lib/ui/dom';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+  const show = (k: string, v: boolean) => form.querySelectorAll<HTMLElement>(`[data-show="${k}"]`).forEach((el) => (el.hidden = !v));
+
+  function actualizarCampos() {
+    const clausula = leerRadio<Clausula>(form, 'clausula');
+    const firma = leerFecha(form, 'fechaFirma');
+    const act = leerFecha(form, 'fechaActualizacion');
+    const ley12 = firma ? esContratoLey12(firma) : false;
+    const necesitaIndice = clausula === 'ipc' || clausula === 'igc' || clausula === 'fijo';
+    show('indice', necesitaIndice);
+    show('irav', clausula === 'irav' || (ley12 && necesitaIndice));
+    const lim = act ? limiteParaFecha(act) : undefined;
+    const activo = Boolean(lim && limiteEnVigor(lim) && clausula && clausula !== 'ninguna');
+    show('referencia', activo && Boolean(lim?.reglaPrecioReferencia));
+    show('pacto', activo);
+    const label = form.querySelector<HTMLElement>('[data-label-indice]');
+    if (label) label.textContent = clausula === 'fijo' ? 'Porcentaje fijo que dice tu contrato' : clausula === 'igc' ? 'Variación anual del IGC' : 'Variación anual del IPC';
+    const hintMes = form.querySelector<HTMLElement>('[data-hint-mes]');
+    if (hintMes && act) hintMes.textContent = clausula === 'fijo' ? 'El porcentaje que figure en la cláusula.' : textoMesIndice(act);
+  }
+
+  // Al elegir la fecha de firma, propone el próximo aniversario.
+  form.fechaFirma.addEventListener('change', () => {
+    const firma = leerFecha(form, 'fechaFirma');
+    const act = form.querySelector<HTMLInputElement>('#fechaActualizacion')!;
+    if (!firma || act.value) return;
+    const hoy = hoyMadrid();
+    let n = 1;
+    while (sumarAnios(firma, n) < hoy && n < 60) n++;
+    act.value = sumarAnios(firma, n);
+  });
+  form.addEventListener('change', actualizarCampos);
+  form.addEventListener('input', actualizarCampos);
+  actualizarCampos();
+
+  function calcular() {
+    limpiarErrores(form);
+    actualizarCampos();
+    const visible = (k: string) => !form.querySelector<HTMLElement>(`[data-show="${k}"]`)?.hidden;
+    const out = calcularActualizacion({
+      renta: leerNum(form, 'renta'),
+      fechaFirma: leerFecha(form, 'fechaFirma'),
+      fechaActualizacion: leerFecha(form, 'fechaActualizacion'),
+      clausula: leerRadio<Clausula>(form, 'clausula'),
+      indicePct: visible('indice') ? leerNum(form, 'indicePct') : null,
+      iravPct: visible('irav') ? leerNum(form, 'iravPct') : null,
+      superaReferencia: visible('referencia') ? leerRadio<RespuestaSN>(form, 'superaReferencia') : null,
+      nuevoPactoPct: visible('pacto') ? leerNum(form, 'nuevoPactoPct') : null,
+    });
+    if (!out.ok) {
+      mostrarErrores(form, out.errores);
+      return;
+    }
+    guardarEnUrl(form);
+    const r = out.r;
+
+    if (r.tipo === 'sin-actualizacion') {
+      pintarResultado(panel, 'Tu renta no se actualiza', cifra('Renta mensual', euros(r.rentaActual), 'Sin cambios'), h('ol', { class: 'steps' }, ...r.pasos.map((p) => h('li', {}, p))), ...renderAvisos(r.avisos), renderFundamentos(r.fundamentos));
+      return;
+    }
+    if (r.tipo === 'fuera-de-alcance') {
+      pintarResultado(
+        panel,
+        'Esta fecha queda fuera de la calculadora',
+        h('p', {}, 'La calculadora cubre actualizaciones desde el 1 de enero de 2025.'),
+        h('ol', { class: 'steps' }, ...r.pasos.map((p) => h('li', {}, p))),
+        h('p', {}, h('a', { href: '/guias/indice-actualizacion-alquiler-segun-fecha/' }, 'Consulta qué se aplicaba en cada periodo')),
+      );
+      return;
+    }
+
+    const signo = r.diferenciaMensual >= 0 ? '+' : '−';
+    const clausula = leerRadio<Clausula>(form, 'clausula')!;
+    const lim = limiteParaFecha(leerFecha(form, 'fechaActualizacion'));
+    const cartaParams = new URLSearchParams({
+      rentaActual: String(r.rentaActual),
+      pct: String(r.pct),
+      fechaContrato: leerFecha(form, 'fechaFirma'),
+      fechaActualizacion: leerFecha(form, 'fechaActualizacion'),
+      criterio: r.criterio,
+      normaAdicional: lim && limiteEnVigor(lim) ? lim.norma : '',
+      mesIndice: clausula === 'fijo' ? '' : r.mesIndice.probable,
+    });
+
+    const enlace = h('button', { type: 'button', class: 'btn btn--ghost btn--small' }, 'Copiar enlace a este cálculo');
+    enlace.addEventListener('click', async () => {
+      const ok = await copiarTexto(location.href);
+      enlace.textContent = ok ? 'Enlace copiado' : 'No se pudo copiar';
+    });
+    const imprimir = h('button', { type: 'button', class: 'btn btn--ghost btn--small' }, 'Imprimir');
+    imprimir.addEventListener('click', () => window.print());
+
+    pintarResultado(
+      panel,
+      'Resultado de la actualización',
+      cifra('Nueva renta mensual', euros(r.rentaNueva), `${porcentaje(r.pct)} · ${signo}${euros(Math.abs(r.diferenciaMensual))} al mes`),
+      kv([
+        ['Renta actual', euros(r.rentaActual)],
+        ['Porcentaje aplicable', porcentaje(r.pct)],
+        ['Diferencia mensual', `${signo}${euros(Math.abs(r.diferenciaMensual))}`],
+        ['Diferencia en 12 meses', `${signo}${euros(Math.abs(r.diferenciaAnual))}`],
+      ]),
+      r.alternativo
+        ? h('div', { class: 'callout callout--aviso' }, h('p', { class: 'callout__title' }, 'Escenario alternativo'), h('p', {}, `${r.alternativo.etiqueta}: ${porcentaje(r.alternativo.pct)} → ${euros(r.alternativo.rentaNueva)} al mes.`))
+        : null,
+      h('h3', {}, 'Cómo lo hemos calculado'),
+      h('ol', { class: 'steps' }, ...r.pasos.map((p) => h('li', {}, p))),
+      h('p', {}, r.regimen),
+      ...renderAvisos(r.avisos),
+      h('h3', {}, 'Desde cuándo se paga'),
+      h('p', {}, 'La nueva renta es exigible desde el mes siguiente a la notificación por escrito con el porcentaje aplicado (art. 18.3 LAU). No se puede cobrar con efecto retroactivo.'),
+      clausula !== 'fijo' ? h('p', { class: 'small' }, `Índice a usar: ${textoMesIndice(leerFecha(form, 'fechaActualizacion'))}`) : null,
+      h(
+        'div',
+        { class: 'result-actions' },
+        h('a', { class: 'btn btn--small', href: `/calculadoras/carta-actualizacion-renta/?${cartaParams.toString()}` }, 'Redactar la carta de actualización'),
+        enlace,
+        imprimir,
+      ),
+      renderFundamentos(r.fundamentos),
+    );
+  }
+
+  conectarCalculadora(form, panel, calcular);
+</script>

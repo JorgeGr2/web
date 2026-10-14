@@ -1,0 +1,103 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Fuentes from '../../components/Fuentes.astro';
+import Revision from '../../components/Revision.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import { HERRAMIENTAS } from '../../data/herramientas.mjs';
+import { articleLd, breadcrumbLd } from '../../lib/seo';
+import { fechaLarga } from '../../lib/fechas';
+
+export async function getStaticPaths() {
+  const guias = await getCollection('guias');
+  return guias.map((g) => ({ params: { slug: g.id }, props: { guia: g } }));
+}
+
+const { guia } = Astro.props;
+const { Content, headings } = await render(guia);
+const path = `/guias/${guia.id}/`;
+const toc = headings.filter((h) => h.depth === 2);
+const herramientas = guia.data.herramientas
+  .map((s) => HERRAMIENTAS.find((h) => h.slug === s))
+  .filter((h): h is NonNullable<typeof h> => Boolean(h));
+const ld = [
+  breadcrumbLd([{ label: 'Guías', href: '/guias/' }, { label: guia.data.h1, href: path }]),
+  articleLd({ title: guia.data.h1, description: guia.data.description, path, published: guia.data.publicado, modified: guia.data.actualizado }),
+];
+---
+
+<BaseLayout
+  title={guia.data.title}
+  description={guia.data.description}
+  path={path}
+  ogType="article"
+  jsonLd={ld}
+  publishedTime={guia.data.publicado}
+  modifiedTime={guia.data.actualizado}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Guías', href: '/guias/' }, { label: guia.data.h1 }]} />
+    <header class="page-head">
+      <h1>{guia.data.h1}</h1>
+      <p class="lead">{guia.data.resumen}</p>
+      <div class="page-meta">
+        <span>Actualizada el <time datetime={guia.data.actualizado}>{fechaLarga(guia.data.actualizado)}</time></span>
+        <span>Publicada el <time datetime={guia.data.publicado}>{fechaLarga(guia.data.publicado)}</time></span>
+      </div>
+    </header>
+    <div class="with-aside">
+      <article class="prose">
+        <Content />
+        <AdSlot posicion="inarticle" />
+        <Fuentes fuentes={guia.data.fuentes} />
+        <Revision fecha={guia.data.actualizado} />
+      </article>
+      <aside>
+        {
+          toc.length > 2 && (
+            <nav class="card toc" aria-labelledby="toc-titulo">
+              <h2 id="toc-titulo" class="aside-title">En esta guía</h2>
+              <ol>
+                {toc.map((h) => (
+                  <li>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
+        {
+          herramientas.length > 0 && (
+            <>
+              <h2 class="aside-title tools-title">Calculadoras útiles</h2>
+              <ul class="card-grid aside-grid">
+                {herramientas.map((h) => (
+                  <ToolCard h={h} />
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .aside-title {
+    font-size: 1.05rem;
+    margin: 0 0 var(--space-3);
+  }
+  .tools-title {
+    margin-top: var(--space-5);
+  }
+  .aside-grid {
+    grid-template-columns: 1fr;
+  }
+  .aside-grid :global(h3) {
+    font-size: 1rem;
+  }
+</style>

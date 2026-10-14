@@ -1,0 +1,37 @@
+---
+/**
+ * Bloque de anuncio manual de AdSense. No renderiza NADA si no hay ID de
+ * cliente o de bloque: no hay huecos vacíos ni anuncios de prueba.
+ *
+ * Reglas de colocación (políticas de AdSense y experiencia de usuario):
+ * - Siempre separado del formulario y de los botones de las calculadoras.
+ * - Etiquetado como "Publicidad".
+ * - Nunca dentro de un resultado ni imitando la navegación.
+ */
+import { SITE } from '../config/site';
+
+interface Props {
+  posicion: 'inarticle' | 'footer';
+}
+const { posicion } = Astro.props;
+const slotId = posicion === 'inarticle' ? SITE.adsense.slotInArticle : SITE.adsense.slotFooter;
+const show = Boolean(SITE.adsense.client && slotId);
+---
+
+{
+  show && (
+    <aside class="ad-slot no-print" aria-label="Publicidad">
+      <span class="ad-slot__label">Publicidad</span>
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client={SITE.adsense.client}
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+      <script is:inline src="/js/ads.js" defer />
+    </aside>
+  )
+}
+

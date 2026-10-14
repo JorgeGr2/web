@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import { HERRAMIENTAS } from '../../data/herramientas.mjs';
+import { breadcrumbLd } from '../../lib/seo';
+
+const grupos = [
+  { titulo: 'Para inquilinos y propietarios', items: HERRAMIENTAS.filter((h) => h.publico === 'ambos') },
+  { titulo: 'Sobre todo para inquilinos', items: HERRAMIENTAS.filter((h) => h.publico === 'inquilino') },
+  { titulo: 'Sobre todo para propietarios', items: HERRAMIENTAS.filter((h) => h.publico === 'propietario') },
+];
+---
+
+<BaseLayout
+  title="Calculadoras del alquiler de vivienda en España"
+  description="Todas las calculadoras gratuitas de alquiler: subida de la renta con IPC e IRAV, carta de actualización, fin del contrato, fianza, preaviso, prorrateo, asequibilidad y rentabilidad."
+  path="/calculadoras/"
+  jsonLd={[breadcrumbLd([{ label: 'Calculadoras', href: '/calculadoras/' }])]}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Calculadoras' }]} />
+    <header class="page-head">
+      <h1>Calculadoras del alquiler</h1>
+      <p class="lead">Herramientas gratuitas que aplican la Ley de Arrendamientos Urbanos y las normas vigentes en cada fecha. Elige la que corresponde a tu situación.</p>
+    </header>
+    {
+      grupos.map((g) => (
+        <section class="section">
+          <h2>{g.titulo}</h2>
+          <ul class="card-grid">
+            {g.items.map((h) => (
+              <ToolCard h={h} />
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

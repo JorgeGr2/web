@@ -1,0 +1,62 @@
+---
+import { SITE } from '../config/site';
+import { HERRAMIENTAS } from '../data/herramientas.mjs';
+import { ESTADO_NORMATIVO_FECHA } from '../data/normativa';
+import { fechaCorta } from '../lib/fechas';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <section aria-labelledby="f-calc">
+        <h2 id="f-calc">Calculadoras</h2>
+        <ul>
+          {HERRAMIENTAS.map((h) => <li><a href={h.path}>{h.nombre}</a></li>)}
+        </ul>
+      </section>
+      <section aria-labelledby="f-info">
+        <h2 id="f-info">Información</h2>
+        <ul>
+          <li><a href="/guias/">Guías</a></li>
+          <li><a href="/normativa/">Estado de la normativa</a></li>
+          <li><a href="/metodologia/">Cómo elaboramos el contenido</a></li>
+          <li><a href="/sobre-el-proyecto/">Sobre el proyecto</a></li>
+          <li><a href="/contacto/">Contacto y correcciones</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="f-legal">
+        <h2 id="f-legal">Legal</h2>
+        <ul>
+          <li><a href="/aviso-legal/">Aviso legal</a></li>
+          <li><a href="/privacidad/">Política de privacidad</a></li>
+          <li><a href="/cookies/">Política de cookies</a></li>
+          <li><a href="/publicidad/">Publicidad e independencia</a></li>
+          {
+            SITE.adsEnabled && (
+              <li>
+                <button type="button" class="linklike" data-privacy-settings>
+                  Configuración de privacidad y cookies
+                </button>
+                <script is:inline src="/js/privacy.js" defer />
+              </li>
+            )
+          }
+        </ul>
+      </section>
+      <section aria-labelledby="f-about">
+        <h2 id="f-about">Importante</h2>
+        <p>
+          La información y las calculadoras son orientativas y no sustituyen el asesoramiento de un profesional. Normativa revisada
+          a {fechaCorta(ESTADO_NORMATIVO_FECHA)}.
+        </p>
+      </section>
+    </div>
+    <div class="footer-bottom">
+      <span>© {year} {SITE.siteName}</span>
+      <span>Calculadoras gratuitas · Los datos que escribes en las calculadoras no salen de tu navegador</span>
+    </div>
+  </div>
+</footer>
+

@@ -1,0 +1,76 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+const ga = SITE.ga4Id ? `_ga_${SITE.ga4Id.replace(/^G-/, '')}` : '';
+---
+
+<PageLayout
+  title="Política de cookies"
+  description={`Política de cookies de ${SITE.siteName}: qué cookies y tecnologías similares se usan, para qué, cuánto duran y cómo puedes aceptarlas, rechazarlas o retirarlas.`}
+  path="/cookies/"
+  h1="Política de cookies"
+  revisado="2026-10-14"
+>
+  <p>
+    Las cookies son pequeños archivos que una web guarda en tu navegador. Esta política explica cuáles se usan en {SITE.siteName}, conforme al
+    artículo 22.2 de la LSSI-CE y a la Guía sobre el uso de las cookies de la Agencia Española de Protección de Datos.
+  </p>
+
+  {
+    !SITE.adsEnabled && !SITE.analyticsEnabled ? (
+      <>
+        <h2>Cookies que usamos</h2>
+        <p>
+          <strong>Este sitio no utiliza cookies</strong>, ni propias ni de terceros, ni otras tecnologías que almacenen información en tu
+          dispositivo. Por eso no te mostramos un aviso de cookies. Las calculadoras funcionan sin guardar nada.
+        </p>
+        <p>Si en el futuro incorporamos publicidad o analítica, te pediremos el consentimiento antes de usar cookies no necesarias y actualizaremos esta página.</p>
+      </>
+    ) : (
+      <>
+        <h2>Cookies que usamos</h2>
+        <p>
+          No usamos cookies propias. Las cookies de terceros que se indican a continuación solo se instalan si las aceptas en el mensaje de
+          consentimiento, salvo las técnicas necesarias para recordar tu elección.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <caption class="visually-hidden">Cookies de terceros</caption>
+            <thead>
+              <tr><th scope="col">Proveedor</th><th scope="col">Cookies</th><th scope="col">Finalidad</th><th scope="col">Duración</th></tr>
+            </thead>
+            <tbody>
+              {SITE.adsEnabled && (
+                <>
+                  <tr><td>Google (mensaje de consentimiento)</td><td>FCCDCF, FCNEC</td><td>Guardar tus preferencias de consentimiento</td><td>Hasta 13 meses</td></tr>
+                  <tr><td>Google AdSense</td><td>__gads, __gpi, __eoi, IDE y otras de Google</td><td>Mostrar y medir anuncios, limitar su repetición, prevenir fraude y, con tu consentimiento, personalizarlos</td><td>Hasta 13 meses</td></tr>
+                </>
+              )}
+              {SITE.analyticsEnabled && (
+                <tr><td>Google Analytics</td><td>_ga, {ga}</td><td>Estadísticas de uso agregadas</td><td>2 años</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Más información en la <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">política de cookies de Google</a>.
+          La lista exacta puede variar; Google la detalla en su mensaje de consentimiento.
+        </p>
+        <h2>Cómo aceptar, rechazar o cambiar tu elección</h2>
+        <p>
+          En tu primera visita verás un mensaje con las opciones de aceptar, rechazar o gestionar las opciones. Puedes cambiar tu decisión en
+          cualquier momento desde el enlace «Configuración de privacidad y cookies» del pie de página.
+        </p>
+      </>
+    )
+  }
+
+  <h2>Cómo bloquear o borrar cookies en tu navegador</h2>
+  <p>También puedes configurar tu navegador para bloquear o eliminar cookies:</p>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647?hl=es" target="_blank" rel="noopener">Google Chrome</a></li>
+    <li><a href="https://support.mozilla.org/es/kb/Borrar%20cookies" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+    <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+    <li><a href="https://support.microsoft.com/es-es/microsoft-edge" target="_blank" rel="noopener">Microsoft Edge</a></li>
+  </ul>
+</PageLayout>

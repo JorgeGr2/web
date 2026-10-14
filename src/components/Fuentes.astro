@@ -1,0 +1,32 @@
+---
+import type { Fuente } from '../data/normativa';
+interface Props {
+  fuentes: Fuente[];
+  titulo?: string;
+  id?: string;
+}
+const { fuentes, titulo = 'Fuentes oficiales', id = 'fuentes' } = Astro.props;
+const unicas = fuentes.filter((f, i, arr) => arr.findIndex((x) => x.url === f.url) === i);
+---
+
+<section class="sources" aria-labelledby={`${id}-titulo`}>
+  <h2 id={`${id}-titulo`} class="h3">{titulo}</h2>
+  <ul>
+    {
+      unicas.map((f) => (
+        <li>
+          <a href={f.url} rel="noopener" target="_blank">
+            {f.texto}
+            <span class="visually-hidden"> (se abre en una pestaña nueva)</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .h3 {
+    font-size: var(--fs-h3);
+  }
+</style>

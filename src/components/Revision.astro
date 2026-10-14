@@ -1,0 +1,19 @@
+---
+import { fechaLarga } from '../lib/fechas';
+interface Props {
+  fecha: string;
+}
+const { fecha } = Astro.props;
+---
+
+<div class="review-box">
+  <p>
+    <strong>Última revisión:</strong> <time datetime={fecha}>{fechaLarga(fecha)}</time>. Revisamos esta página cuando cambia la
+    normativa o se publican datos nuevos. Si encuentras un error, <a href="/contacto/">avísanos</a> y lo corregiremos indicando la
+    fecha del cambio. Consulta <a href="/metodologia/">cómo elaboramos y revisamos el contenido</a>.
+  </p>
+  <p>
+    Esta información es general y orientativa; no constituye asesoramiento jurídico ni fiscal. Para decisiones importantes,
+    consulta el texto oficial de la norma o a un profesional.
+  </p>
+</div>

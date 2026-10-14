@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbLd } from '../../lib/seo';
+import { fechaCorta } from '../../lib/fechas';
+
+const guias = (await getCollection('guias')).sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<BaseLayout
+  title="Guías sobre el alquiler de vivienda en España"
+  description="Guías claras sobre el alquiler en España: IRAV, límite del 2 %, qué índice aplica a tu contrato, fianza, duración y prórrogas, irse antes de tiempo y quién paga cada gasto."
+  path="/guias/"
+  jsonLd={[breadcrumbLd([{ label: 'Guías', href: '/guias/' }])]}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Guías' }]} />
+    <header class="page-head">
+      <h1>Guías del alquiler</h1>
+      <p class="lead">Explicaciones paso a paso, con el artículo de la ley y la fecha de revisión, para entender tu contrato antes de calcular o reclamar.</p>
+    </header>
+    <ul class="article-list card">
+      {
+        guias.map((g) => (
+          <li>
+            <a href={`/guias/${g.id}/`}>{g.data.h1}</a>
+            <p>
+              {g.data.resumen} <span class="small">· Revisada el {fechaCorta(g.data.actualizado)}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

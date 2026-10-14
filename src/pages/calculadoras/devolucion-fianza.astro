@@ -1,0 +1,154 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { FUENTES, INTERES_LEGAL } from '../../data/normativa';
+import { porcentaje } from '../../lib/formato';
+
+const anios = Object.keys(INTERES_LEGAL).map(Number).sort((a, b) => b - a).slice(0, 6);
+---
+
+<ToolLayout
+  slug="devolucion-fianza"
+  title="Devolución de la fianza del alquiler: plazo e intereses"
+  description="Calcula el plazo legal de un mes para devolver la fianza del alquiler y los intereses de demora si el propietario se retrasa, con el interés legal del dinero de cada año."
+  h1="Calculadora de devolución de la fianza e intereses de demora"
+  lead="Averigua hasta cuándo tiene el propietario para devolverte la fianza y cuántos intereses se generan si se retrasa. Incluye cuánto te pueden pedir de fianza y garantías al firmar."
+  fuentes={[FUENTES.lau, FUENTES.codigoCivil]}
+  relacionadas={['indemnizacion-desistimiento', 'prorrateo-alquiler', 'cuanto-alquiler-puedo-pagar']}
+>
+  <Fragment slot="form">
+    <div class="field">
+      <label for="importe">Fianza (o saldo) pendiente de devolver</label>
+      <span class="hint" id="importe-hint">Si el propietario descuenta daños o deudas justificados, pon lo que queda por devolver.</span>
+      <div class="input-affix">
+        <input id="importe" name="importe" type="text" inputmode="decimal" autocomplete="off" aria-describedby="importe-hint importe-error" placeholder="900" />
+        <span class="affix">€</span>
+      </div>
+      <span class="field-error" id="importe-error"></span>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fechaEntregaLlaves">Fecha de entrega de llaves</label>
+        <input id="fechaEntregaLlaves" name="fechaEntregaLlaves" type="date" aria-describedby="fechaEntregaLlaves-error" />
+        <span class="field-error" id="fechaEntregaLlaves-error"></span>
+      </div>
+      <div class="field">
+        <label for="fechaDevolucion">Fecha de devolución</label>
+        <span class="hint" id="fechaDevolucion-hint">Si aún no te la han devuelto, pon la fecha de hoy.</span>
+        <input id="fechaDevolucion" name="fechaDevolucion" type="date" aria-describedby="fechaDevolucion-hint fechaDevolucion-error" />
+        <span class="field-error" id="fechaDevolucion-error"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="tipoManual">Tipo de interés (opcional)</label>
+      <span class="hint" id="tipoManual-hint">Déjalo vacío para usar el interés legal del dinero de cada año.</span>
+      <div class="input-affix">
+        <input id="tipoManual" name="tipoManual" type="text" inputmode="decimal" autocomplete="off" aria-describedby="tipoManual-hint tipoManual-error" />
+        <span class="affix">%</span>
+      </div>
+      <span class="field-error" id="tipoManual-error"></span>
+    </div>
+  </Fragment>
+
+  <h2 id="plazo">Plazo para devolver la fianza</h2>
+  <p>
+    El artículo 36.4 de la Ley de Arrendamientos Urbanos establece que el saldo de la fianza que deba restituirse al final del alquiler
+    <strong>devengará el interés legal</strong> si, transcurrido <strong>un mes desde la entrega de las llaves</strong>, no se ha devuelto. El
+    plazo se cuenta de fecha a fecha: si entregas las llaves el 10 de enero, el propietario tiene hasta el 10 de febrero.
+  </p>
+  <p>
+    El propietario puede descontar las cantidades que justifique por rentas o suministros impagados o por daños que vayan más allá del desgaste
+    normal por el uso. Lo que no esté justificado debe devolverse.
+  </p>
+
+  <h2 id="intereses">Cómo se calculan los intereses</h2>
+  <p><strong>Intereses = saldo pendiente × interés legal del dinero × días de retraso ÷ 365</strong></p>
+  <p>
+    Si el retraso abarca varios años, se aplica el tipo de cada año a sus días. El interés legal lo fija cada año la Ley de Presupuestos
+    Generales del Estado. Estos son los tipos que usa la calculadora:
+  </p>
+  <div class="table-wrap">
+    <table>
+      <caption class="visually-hidden">Interés legal del dinero por año</caption>
+      <thead><tr><th scope="col">Año</th><th scope="col">Interés legal</th></tr></thead>
+      <tbody>
+        {anios.map((a) => <tr><td>{a}</td><td>{porcentaje(INTERES_LEGAL[a] ?? 0)}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Ejemplo: fianza de 800 € devuelta con 59 días de retraso en 2026: 800 × 3,25 % × 59 ÷ 365 = <strong>4,20 €</strong>. Los intereses son
+    modestos; lo importante es recuperar la fianza.
+  </p>
+
+  <h2 id="cuanto">Cuánto te pueden pedir al firmar</h2>
+  <ul>
+    <li><strong>Fianza legal:</strong> una mensualidad de renta en el alquiler de vivienda y dos en el de uso distinto (art. 36.1 LAU). Es obligatoria.</li>
+    <li><strong>Garantía adicional:</strong> en vivienda, para contratos de hasta cinco años (siete si el propietario es persona jurídica), como máximo dos mensualidades (art. 36.5 LAU).</li>
+    <li><strong>Honorarios de la inmobiliaria:</strong> los gastos de gestión inmobiliaria y de formalización del contrato corren a cargo del propietario (art. 20.1 LAU).</li>
+  </ul>
+  <p>Con una renta de 900 €, lo máximo que se puede exigir al entrar en una vivienda es: 900 € de fianza + 1.800 € de garantía adicional + la primera mensualidad.</p>
+
+  <h2 id="reclamar">Cómo reclamar la fianza</h2>
+  <ol>
+    <li>Pide la devolución por escrito, indicando el número de cuenta y la fecha de entrega de llaves.</li>
+    <li>Si pasa el mes, envía un burofax con certificación de contenido reclamando el importe y los intereses desde el día siguiente al fin del plazo.</li>
+    <li>Si no hay respuesta, puedes acudir a la mediación de tu comunidad autónoma o al juzgado. En reclamaciones de hasta 2.000 € no es obligatorio ir con abogado ni procurador.</li>
+  </ol>
+  <p>
+    En la mayoría de las comunidades autónomas el propietario está obligado a depositar la fianza en un organismo autonómico (disposición
+    adicional tercera de la LAU). Consulta en ese organismo cómo se gestiona su devolución en tu territorio.
+  </p>
+</ToolLayout>
+
+<script>
+  import { calcularDevolucionFianza } from '../../lib/calc/fianza';
+  import { euros, porcentaje } from '../../lib/formato';
+  import { fechaCorta, hoyMadrid } from '../../lib/fechas';
+  import { conectarCalculadora, mostrarErrores, limpiarErrores, leerNum, leerFecha, pintarResultado, h, kv, cifra, renderAvisos, renderFundamentos, guardarEnUrl } from '../../lib/ui/dom';
+
+  const form = document.querySelector<HTMLFormElement>('#calc')!;
+  const panel = document.querySelector<HTMLElement>('#resultado')!;
+  const dev = form.querySelector<HTMLInputElement>('#fechaDevolucion')!;
+  if (!dev.value) dev.value = hoyMadrid();
+
+  function calcular() {
+    limpiarErrores(form);
+    const out = calcularDevolucionFianza({
+      importe: leerNum(form, 'importe'),
+      fechaEntregaLlaves: leerFecha(form, 'fechaEntregaLlaves'),
+      fechaDevolucion: leerFecha(form, 'fechaDevolucion'),
+      tipoManual: leerNum(form, 'tipoManual'),
+    });
+    if (!out.ok) return mostrarErrores(form, out.errores);
+    guardarEnUrl(form);
+    const r = out.r;
+    const tabla = r.tramos.length
+      ? h(
+          'div',
+          { class: 'table-wrap' },
+          h(
+            'table',
+            {},
+            h('thead', {}, h('tr', {}, h('th', { scope: 'col' }, 'Periodo'), h('th', { scope: 'col' }, 'Días'), h('th', { scope: 'col' }, 'Tipo'), h('th', { scope: 'col' }, 'Intereses'))),
+            h('tbody', {}, ...r.tramos.map((t) => h('tr', {}, h('td', {}, `${fechaCorta(t.desde)} – ${fechaCorta(t.hasta)}`), h('td', {}, String(t.dias)), h('td', {}, porcentaje(t.tipoPct) + (t.tipoEstimado ? ' *' : '')), h('td', {}, euros(t.interes))))),
+          ),
+        )
+      : null;
+    pintarResultado(
+      panel,
+      r.enPlazo ? 'Devolución dentro de plazo' : 'Devolución con retraso',
+      cifra(r.enPlazo ? 'Plazo límite' : 'Total a reclamar', r.enPlazo ? fechaCorta(r.fechaLimite) : euros(r.totalReclamable), r.enPlazo ? 'Sin intereses de demora' : `Incluye ${euros(r.intereses)} de intereses por ${r.diasRetraso} días`),
+      kv([
+        ['Plazo límite de devolución', fechaCorta(r.fechaLimite)],
+        ['Días de retraso', String(r.diasRetraso)],
+        ['Intereses de demora', euros(r.intereses)],
+      ]),
+      tabla,
+      h('ol', { class: 'steps' }, ...r.pasos.map((p) => h('li', {}, p))),
+      ...renderAvisos(r.avisos),
+      renderFundamentos(r.fundamentos),
+    );
+  }
+  conectarCalculadora(form, panel, calcular);
+  form.addEventListener('reset', () => setTimeout(() => (dev.value = hoyMadrid())));
+</script>

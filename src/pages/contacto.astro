@@ -1,0 +1,43 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Callout from '../components/Callout.astro';
+import { SITE, PENDIENTE } from '../config/site';
+const email = SITE.owner.email;
+---
+
+<PageLayout
+  title="Contacto y correcciones"
+  description={`Contacta con ${SITE.siteName} para comunicar errores, sugerir mejoras o proponer nuevas calculadoras. No ofrecemos asesoramiento jurídico personalizado.`}
+  path="/contacto/"
+  h1="Contacto y correcciones"
+  revisado="2026-10-14"
+>
+  <p>Puedes escribirnos para:</p>
+  <ul>
+    <li>Comunicar un error o un cambio normativo que aún no hemos recogido.</li>
+    <li>Sugerir una calculadora o una guía que te haría falta.</li>
+    <li>Cualquier cuestión sobre privacidad o sobre el aviso legal.</li>
+  </ul>
+
+  <p class="contact-line">
+    Correo electrónico:
+    {email ? <a href={`mailto:${email}?subject=${encodeURIComponent(`Consulta sobre ${SITE.siteName}`)}`}>{email}</a> : <strong>{PENDIENTE}</strong>}
+  </p>
+
+  <Callout tipo="info" titulo="Antes de escribir">
+    <p>
+      No podemos estudiar casos particulares ni dar asesoramiento jurídico. Si tienes un conflicto con tu contrato, te recomendamos acudir a
+      un profesional, a una asociación de consumidores o a los servicios de vivienda de tu comunidad autónoma.
+    </p>
+  </Callout>
+
+  <h2>Para comunicar un error</h2>
+  <p>Indica la dirección de la página, qué dato crees que está mal y, si es posible, el enlace a la fuente oficial que lo demuestra. Así podremos revisarlo antes.</p>
+  <p>Trataremos tu correo solo para responderte, como se explica en la <a href="/privacidad/">política de privacidad</a>.</p>
+</PageLayout>
+
+<style>
+  .contact-line {
+    font-size: var(--fs-lg);
+  }
+</style>

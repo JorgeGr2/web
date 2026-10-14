@@ -1,0 +1,119 @@
+---
+/**
+ * Plantilla común de las calculadoras.
+ * Slots:
+ *  - form:    campos del formulario (el <form> lo pone la plantilla)
+ *  - empty:   contenido del panel de resultados antes de calcular
+ *  - aviso:   avisos sobre la herramienta (encima)
+ *  - default: explicación, ejemplos, base legal y preguntas frecuentes
+ *  - related: enlaces relacionados (barra lateral)
+ */
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AdSlot from '../components/AdSlot.astro';
+import Fuentes from '../components/Fuentes.astro';
+import Revision from '../components/Revision.astro';
+import Icon from '../components/Icon.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { herramienta, HERRAMIENTAS } from '../data/herramientas.mjs';
+import type { Fuente } from '../data/normativa';
+import { breadcrumbLd } from '../lib/seo';
+import { fechaLarga } from '../lib/fechas';
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  h1: string;
+  lead: string;
+  fuentes: Fuente[];
+  relacionadas?: string[];
+  submitLabel?: string;
+}
+
+const { slug, title, description, h1, lead, fuentes, relacionadas = [], submitLabel = 'Calcular' } = Astro.props;
+const h = herramienta(slug);
+const rel = relacionadas.map((s) => HERRAMIENTAS.find((x) => x.slug === s)).filter((x): x is NonNullable<typeof x> => Boolean(x));
+const ld = [breadcrumbLd([{ label: 'Calculadoras', href: '/calculadoras/' }, { label: h.nombre, href: h.path }])];
+---
+
+<BaseLayout title={title} description={description} path={h.path} jsonLd={ld} modifiedTime={h.revisado}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Calculadoras', href: '/calculadoras/' }, { label: h.nombre }]} />
+    <header class="page-head">
+      <h1>{h1}</h1>
+      <p class="lead">{lead}</p>
+      <div class="page-meta">
+        <span>Revisado el <time datetime={h.revisado}>{fechaLarga(h.revisado)}</time></span>
+        <span class="badge"><Icon name="lock" class="i" /> Gratis, sin registro, sin enviar datos</span>
+      </div>
+    </header>
+
+    <slot name="aviso" />
+
+    <div class="tool">
+      <form class="tool__form" id="calc" novalidate>
+        <div class="error-summary" data-error-summary hidden role="alert"></div>
+        <slot name="form" />
+        <div class="btn-row">
+          <button class="btn" type="submit">{submitLabel}</button>
+          <button class="btn btn--ghost" type="reset">Restablecer</button>
+        </div>
+        <p class="privacy-note">
+          <Icon name="lock" />
+          <span>El cálculo se hace en tu navegador. No guardamos ni enviamos los datos que escribes.</span>
+        </p>
+        <noscript>
+          <p class="callout callout--aviso">Esta calculadora necesita JavaScript activado. La explicación de abajo describe cómo hacer el cálculo a mano.</p>
+        </noscript>
+      </form>
+      <section class="tool__result" id="resultado" aria-live="polite" data-state="empty" aria-labelledby="resultado-titulo">
+        <slot name="empty">
+          <h2 id="resultado-titulo">Resultado</h2>
+          <p>Rellena los datos y pulsa «{submitLabel}». Verás el resultado, los pasos del cálculo y la norma aplicada.</p>
+        </slot>
+      </section>
+    </div>
+
+    <div class="with-aside">
+      <article class="prose">
+        <slot />
+        <AdSlot posicion="inarticle" />
+        <Fuentes fuentes={fuentes} />
+        <Revision fecha={h.revisado} />
+      </article>
+      <aside aria-label="Calculadoras relacionadas">
+        <slot name="related" />
+        {
+          rel.length > 0 && (
+            <>
+              <h2 class="aside-title">Relacionadas</h2>
+              <ul class="card-grid aside-grid">
+                {rel.map((r) => (
+                  <ToolCard h={r} />
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-meta :global(.i) {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+  .aside-title {
+    font-size: 1.05rem;
+    margin: 0 0 var(--space-3);
+  }
+  .aside-grid {
+    grid-template-columns: 1fr;
+  }
+  .aside-grid :global(h3) {
+    font-size: 1rem;
+  }
+</style>
