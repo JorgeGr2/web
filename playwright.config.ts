@@ -14,7 +14,9 @@ export default defineConfig({
     timezoneId: 'Europe/Madrid',
   },
   webServer: {
-    command: 'npx astro preview --host 127.0.0.1 --port 4321',
+    // --ignore-lock: no se detiene si quedó un aviso de «servidor ya en marcha»
+    // de una ejecución anterior interrumpida.
+    command: 'npx astro preview --host 127.0.0.1 --port 4321 --ignore-lock',
     url: 'http://127.0.0.1:4321/',
     reuseExistingServer: true,
     timeout: 60_000,

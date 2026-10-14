@@ -33,7 +33,7 @@ npm run test:e2e
 
 1. **Crea la propiedad en [Google Search Console](https://search.google.com/search-console).** Elige **Propiedad de dominio** y escribe `alquilerenregla.es`.
 2. **Verifícala por DNS** (recomendado): Search Console te da un registro TXT; en Cloudflare ve a **DNS → Registros → Añadir registro**, tipo `TXT`, nombre `@`, contenido el valor que te den. Pulsa «Verificar» en Search Console (puede tardar unos minutos).
-   - Alternativa: propiedad de prefijo de URL con etiqueta HTML → copia solo el valor `content="..."` en `PUBLIC_GOOGLE_SITE_VERIFICATION` y vuelve a implementar.
+   - Alternativa: propiedad de **prefijo de URL** con `https://www.alquilerenregla.es/` y método «Etiqueta HTML» → copia solo el valor `content="..."` en `PUBLIC_GOOGLE_SITE_VERIFICATION` y vuelve a implementar.
 3. **Envía el sitemap:** en Search Console → **Sitemaps** → escribe `sitemap-index.xml` → Enviar. Estado esperado: «Correcto», con 27 URL descubiertas.
 4. **Comprueba la indexación** de las páginas importantes: usa la barra de **Inspección de URLs** con la portada y la calculadora de actualización → «Solicitar indexación». No esperes que todas las páginas se indexen enseguida: puede tardar de días a semanas y Google no indexa todo lo que se envía.
 5. **Detecta problemas técnicos:** revisa cada semana **Indexación → Páginas** (motivos de no indexación), **Experiencia → Métricas web principales** y **Seguridad y acciones manuales**.

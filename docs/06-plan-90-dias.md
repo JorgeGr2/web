@@ -9,7 +9,7 @@ El calendario empieza el día en que la web se publica con su dominio. Las fecha
 - [ ] Desplegar en Cloudflare Pages con el dominio (`docs/03-guia-despliegue.md`) y comprobar la lista del paso 10.
 - [ ] Poner `PUBLIC_SITE_INDEXABLE=true`.
 - [ ] Crear y verificar Search Console (propiedad de dominio) y enviar `sitemap-index.xml`.
-- [ ] Activar Cloudflare Web Analytics y el reenvío de `contacto@`.
+- [ ] Activar Cloudflare Web Analytics (el reenvío de `contacto@` ya debe funcionar desde el paso 9 de `docs/03`).
 
 **Semana 2 · Indexación y seguimiento**
 - [ ] Solicitar indexación de la portada, `/calculadoras/actualizacion-renta/`, `/guias/limite-subida-alquiler-2-por-ciento/` y `/guias/irav-indice-alquiler/`.

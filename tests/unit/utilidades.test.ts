@@ -70,9 +70,26 @@ describe('configuración por variables de entorno', () => {
     const errors = validateEnv(parseEnv({ PUBLIC_SITE_INDEXABLE: 'true' }));
     expect(errors.join(' ')).toContain('PUBLIC_OWNER_NAME');
   });
-  it('indexar rechaza el dominio de ejemplo antiguo', () => {
-    const errors = validateEnv(parseEnv({ PUBLIC_SITE_INDEXABLE: 'true', PUBLIC_SITE_URL: 'https://www.tu-dominio.es' }));
-    expect(errors.join(' ')).toContain('valor de ejemplo');
+  it('indexar rechaza los dominios de ejemplo de la documentación', () => {
+    for (const url of ['https://www.tu-dominio.es', 'https://www.tu-dominio.es/', 'https://www.tudominio.es', 'https://tu-dominio.es', 'https://TUDOMINIO.com']) {
+      const errors = validateEnv(parseEnv({ PUBLIC_SITE_INDEXABLE: 'true', PUBLIC_SITE_URL: url }));
+      expect(errors.join(' '), url).toContain('valor de ejemplo');
+    }
+  });
+  it('un dominio que solo contiene la palabra no se confunde con el de ejemplo', () => {
+    const errors = validateEnv(parseEnv({ PUBLIC_SITE_INDEXABLE: 'true', PUBLIC_SITE_URL: 'https://www.mitudominio.es' }));
+    expect(errors.join(' ')).not.toContain('valor de ejemplo');
+  });
+  it('indexar con el dominio por defecto y el titular completo es válido', () => {
+    const cfg = parseEnv({
+      PUBLIC_SITE_INDEXABLE: 'true',
+      PUBLIC_OWNER_NAME: 'Nombre Apellido',
+      PUBLIC_OWNER_NIF: '00000000T',
+      PUBLIC_OWNER_ADDRESS: 'Calle 1, 28000 Madrid',
+      PUBLIC_CONTACT_EMAIL: 'contacto@alquilerenregla.es',
+    });
+    expect(cfg.siteUrl).toBe('https://www.alquilerenregla.es');
+    expect(validateEnv(cfg)).toEqual([]);
   });
   it('configuración de producción completa', () => {
     const cfg = parseEnv({

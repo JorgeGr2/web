@@ -9,7 +9,7 @@
 | Instalación limpia | `npm ci` | Correcta, `found 0 vulnerabilities` |
 | Auditoría de dependencias | `npm audit` | `found 0 vulnerabilities` |
 | Tipos (TypeScript + Astro) | `npm run check` | `0 errors, 0 warnings, 0 hints` (71 archivos) |
-| Pruebas unitarias | `npm test` | **69 pruebas superadas** (3 archivos): lógica de las 8 calculadoras, fechas, formatos, configuración, CSP, periodos normativos |
+| Pruebas unitarias | `npm test` | **73 pruebas superadas** (3 archivos): lógica de las 8 calculadoras, fechas, formatos, configuración, CSP, periodos normativos |
 | Compilación | `npm run build` | 28 páginas generadas |
 | QA del sitio compilado | `npm run qa:dist` | `Páginas analizadas: 28. URLs en el sitemap: 27.` → **sin errores** |
 | QA en modo producción simulado (indexable, AdSense, GA4 con IDs ficticios) | variables de prueba + `build` + `qa:dist` | Sin errores; `ads.txt` correcto; `robots.txt` con `Sitemap:`; `index, follow` en las páginas |
@@ -49,7 +49,7 @@ Capturas reales en `docs/qa/`:
 - `calculadora-movil-resultado.jpg`
 - `fin-contrato-escritorio.jpg`
 
-Problemas detectados durante la revisión y **corregidos**: desbordamiento horizontal de 7 px en móvil por una tabla ancha, palabras pegadas por la compresión de HTML, tarjeta de guías sin margen interior, tablas desplazables sin acceso por teclado y nombres de regiones duplicados.
+Problemas detectados durante la revisión y **corregidos**: desbordamiento horizontal de 7 px en móvil por una tabla ancha, palabras pegadas por la compresión de HTML, tarjeta de guías sin margen interior, tablas desplazables sin acceso por teclado, nombres de regiones duplicados y, tras el cambio de nombre, que las pruebas de navegador no arrancaban por sí solas el servidor de vista previa cuando quedaba un aviso de «servidor ya en marcha» de una ejecución anterior (ahora usan `--ignore-lock`).
 
 ## 10.4 Lo que no se ha podido comprobar en este entorno
 

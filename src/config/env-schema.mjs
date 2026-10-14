@@ -28,8 +28,8 @@
 
 /** Dominio elegido para el proyecto (se puede sustituir con PUBLIC_SITE_URL). */
 const DEFAULT_URL = 'https://www.alquilerenregla.es';
-/** Valor de ejemplo antiguo: nunca debe llegar a producción. */
-const PLACEHOLDER_URL = 'https://www.tu-dominio.es';
+/** Dominios de ejemplo de la documentación: nunca deben llegar a producción. */
+const PLACEHOLDER_HOST = /(^|\.)tu-?dominio\.(es|com)$/i;
 
 /** @param {unknown} v */
 const str = (v) => (typeof v === 'string' ? v.trim() : '');
@@ -101,7 +101,7 @@ export function validateEnv(cfg) {
   }
 
   if (cfg.indexable) {
-    if (cfg.siteUrl === PLACEHOLDER_URL) errors.push('PUBLIC_SITE_URL sigue con el valor de ejemplo; pon tu dominio real.');
+    if (esDominioDeEjemplo(cfg.siteUrl)) errors.push('PUBLIC_SITE_URL sigue con el valor de ejemplo; pon tu dominio real.');
     if (!cfg.siteUrl.startsWith('https://')) errors.push('PUBLIC_SITE_URL debe usar https:// en producción.');
     const missing = [
       ['PUBLIC_OWNER_NAME', cfg.owner.name],
@@ -118,6 +118,15 @@ export function validateEnv(cfg) {
     }
   }
   return errors;
+}
+
+/** @param {string} url */
+function esDominioDeEjemplo(url) {
+  try {
+    return PLACEHOLDER_HOST.test(new URL(url).hostname);
+  } catch {
+    return false;
+  }
 }
 
 /**

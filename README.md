@@ -75,9 +75,9 @@ Todas empiezan por `PUBLIC_` porque su valor es público. Ninguna es un secreto.
 
 | Variable | Obligatoria | Descripción |
 |---|---|---|
-| `PUBLIC_SITE_URL` | Sí | URL definitiva con https y sin barra final (por defecto `https://www.alquilerenregla.es`) |
+| `PUBLIC_SITE_URL` | No (recomendada) | URL canónica con https y sin barra final. Si no se define, se usa `https://www.alquilerenregla.es`; cámbiala solo si publicas en otro dominio. Con `PUBLIC_SITE_INDEXABLE=true` la compilación rechaza el dominio de ejemplo y las URL sin https |
 | `PUBLIC_SITE_NAME` | No | Nombre visible (por defecto «Alquiler en Regla») |
-| `PUBLIC_SITE_INDEXABLE` | Sí | `true` solo al lanzar; si no, `noindex` y robots bloqueante |
+| `PUBLIC_SITE_INDEXABLE` | Para publicar | Por defecto `false` (`noindex` y robots bloqueante). Ponla a `true` solo al lanzar |
 | `PUBLIC_OWNER_NAME`, `PUBLIC_OWNER_NIF`, `PUBLIC_OWNER_ADDRESS`, `PUBLIC_CONTACT_EMAIL` | Sí para indexar | Datos del titular (LSSI-CE). La compilación falla si faltan con `PUBLIC_SITE_INDEXABLE=true` |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | No | Verificación de Search Console por etiqueta HTML |
 | `PUBLIC_ADSENSE_CLIENT` | No | `ca-pub-` + 16 dígitos. Activa el código de AdSense y genera `ads.txt` |

@@ -5,9 +5,10 @@
 | # | Tarea | Por qué | Dónde |
 |---|---|---|---|
 | 1 | Comprobar la marca «Alquiler en Regla» en la OEPM y comprar `alquilerenregla.es` (DonDominio u OVHcloud) | No puedo comprar ni registrar nada en tu nombre | `docs/03`, paso 5 |
-| 2 | Crear la cuenta de Cloudflare (gratis) y conectar el repositorio | Requiere tus credenciales | `docs/03`, paso 7 |
-| 3 | Fusionar la rama `claude/sweet-dijkstra-tw4ipu` en `main` (pull request en GitHub) | Publicar desde la rama principal | `docs/03`, paso 7.1 |
+| 2 | Crear la rama `main` a partir de `claude/sweet-dijkstra-tw4ipu` y hacerla rama por defecto en GitHub | Cloudflare publicará desde `main`, que aún no existe | `docs/03`, paso 7.1 |
+| 3 | Crear la cuenta de Cloudflare (gratis) y conectar el repositorio | Requiere tus credenciales | `docs/03`, paso 7.2 |
 | 4 | Rellenar tus datos de titular (`PUBLIC_OWNER_NAME`, `PUBLIC_OWNER_NIF`, `PUBLIC_OWNER_ADDRESS`, `PUBLIC_CONTACT_EMAIL`) en el panel de Cloudflare | Obligatorio por la LSSI-CE; no invento identidades | `docs/03`, paso 8 |
+| 4 bis | Conectar el dominio a Cloudflare: añadir `alquilerenregla.es`, cambiar los servidores DNS en el registrador (desactivando antes DNSSEC si está activo), añadir `www.alquilerenregla.es` y `alquilerenregla.es` como dominios personalizados, redirección a `www` y reenvío de `contacto@` | Sin esto la web solo se ve en `*.pages.dev` y el correo del aviso legal no funciona | `docs/03`, paso 9 |
 | 5 | **Revisar personalmente todos los textos** y aprobarlos | La metodología afirma que el responsable revisa el contenido. Si no vas a revisarlo, cambia ese párrafo en `src/pages/metodologia.astro` | Todas las páginas |
 | 6 | Verificar en el BOE los puntos de la lista 12.2 | Algunos datos proceden de resúmenes de búsqueda; contrastarlos reduce el riesgo jurídico | `docs/09` |
 | 7 | Probar la web en un iPhone (Safari) y en Firefox | En el entorno solo había Chromium | — |
@@ -31,7 +32,7 @@ Marcados como verificados con fuentes oficiales o múltiples fuentes en la inves
 | # | Tarea | Cuándo | Dónde |
 |---|---|---|---|
 | 9 | Crear y verificar Search Console; enviar el sitemap | Día 1 | `docs/04`, fase B |
-| 10 | Activar Cloudflare Web Analytics y `contacto@` con Email Routing | Día 1 | `docs/03`, paso 9 |
+| 10 | Activar Cloudflare Web Analytics (el reenvío de `contacto@` ya debe funcionar desde la tarea 4 bis) | Día 1 | `docs/03`, paso 9 |
 | 11 | Seguir el estado de convalidación del RDL 29/2026 y actualizar el archivo de normativa | En cuanto se vote | `docs/09` |
 | 12 | Actualizar el IRAV cada mes | Día 15-16 de cada mes | `docs/09` |
 | 13 | Validar volúmenes con Keyword Planner | Primer mes | `docs/02`, 2.6 |
@@ -45,7 +46,7 @@ Marcados como verificados con fuentes oficiales o múltiples fuentes en la inves
 
 | Prioridad | Acción | Impacto | Coste | Riesgo si no se hace |
 |---|---|---|---|---|
-| 1 | Publicar con dominio y datos del titular (tareas 1-8) | Muy alto: sin esto no hay tráfico ni AdSense | Bajo (dominio) + 2-4 h | Proyecto parado |
+| 1 | Publicar con dominio y datos del titular (tareas 1-8, incluida la 4 bis) | Muy alto: sin esto no hay tráfico ni AdSense | Bajo (dominio) + 2-4 h | Proyecto parado |
 | 2 | Search Console + sitemap (tarea 9) | Alto | 0 € · 30 min | Indexación lenta y sin datos |
 | 3 | Rutina normativa mensual (tareas 11-12) | Alto (confianza y exactitud) | 0 € · 20 min/mes | Información errónea en un tema YMYL |
 | 4 | Briefs 17 (zonas tensionadas), 21 (gran tenedor) y 28 (checklist) | Alto | Tiempo de redacción | Perder la demanda ligada a los decretos de 2026 |

@@ -40,7 +40,7 @@ web/
 | [Git](https://git-scm.com/downloads) | Descargar y subir el código | Gratis |
 | Cuenta de [GitHub](https://github.com/) (ya la tienes: `JorgeGr2`) | Guardar el código | Gratis |
 | Cuenta de [Cloudflare](https://dash.cloudflare.com/sign-up) | Alojamiento, DNS, HTTPS, analítica sin cookies y reenvío de correo | Gratis (plan Free) |
-| Un registrador de dominios | Comprar el dominio | Pago anual (ver paso 5) |
+| Un registrador de dominios (DonDominio u OVHcloud) | Comprar `alquilerenregla.es` | Pago anual (ver paso 5) |
 | Opcional: [Visual Studio Code](https://code.visualstudio.com/) | Editar textos cómodamente | Gratis |
 
 Al instalar Node.js en Windows, deja marcadas las opciones por defecto. Para comprobar la instalación, abre una terminal («Terminal» en Mac; «PowerShell» en Windows) y escribe:
@@ -68,7 +68,7 @@ cd web
 git checkout claude/sweet-dijkstra-tw4ipu
 ```
 
-Resultado esperado: se crea la carpeta `web` y el último comando dice `Switched to a new branch 'claude/sweet-dijkstra-tw4ipu'` (o similar).
+Resultado esperado: se crea la carpeta `web`. El último comando dirá `Already on 'claude/sweet-dijkstra-tw4ipu'` si esa ya es la rama por defecto, o `Switched to a new branch 'claude/sweet-dijkstra-tw4ipu'` si no lo es; las dos respuestas son correctas. (Cuando hayas creado `main` en el paso 7.1, usa `git checkout main`.)
 
 **Todos los comandos siguientes se ejecutan dentro de la carpeta `web`.**
 
@@ -116,15 +116,16 @@ npm run preview
 
 y abre `http://localhost:4321/`.
 
-## 5. Comprar y configurar el dominio
+## 5. Comprar el dominio
 
 El nombre elegido es **Alquiler en Regla** y el dominio, **`alquilerenregla.es`** (libre el 14/10/2026 según tu comprobación).
 
-1. **Antes de pagar**, busca «Alquiler en Regla» en la web de la [Oficina Española de Patentes y Marcas](https://www.oepm.es/) por si hay una marca igual o parecida registrada para servicios inmobiliarios o de información.
+1. **Antes de pagar**, busca «Alquiler en Regla» (y variantes parecidas) en la web de la [Oficina Española de Patentes y Marcas](https://www.oepm.es/) y en [TMview](https://www.tmdn.org/tmview/), que incluye las marcas de la Unión Europea, válidas también en España. Fíjate sobre todo en las registradas para servicios inmobiliarios, de información o de publicación en línea. Si aparece una igual o muy parecida, no compres el dominio y elige otro nombre: además de las variables `PUBLIC_SITE_NAME` y `PUBLIC_SITE_URL` (paso 8), habrá que cambiar el nombre y la URL por defecto en `src/config/env-schema.mjs` y el texto de la imagen social en `scripts/generate-assets.mjs` (y ejecutar `npm run assets`).
 2. **Dónde comprarlo.** Cloudflare Registrar no vende dominios `.es` (hay una petición abierta en su foro), así que cómpralo en un registrador acreditado y usa Cloudflare solo para el DNS (paso 9). Recomendado: **DonDominio** (español, especializado en dominios, sin empujar a contratar alojamiento) u **OVHcloud** (europeo, precios publicados). IONOS, Arsys o Hostinger también valen, pero suelen tener un primer año barato y una renovación más cara. Compara siempre el **precio de renovación**.
-3. **Al comprar:** crea la cuenta con tus datos reales (titular: tú, con tu DNI o NIE), elige 1 año, **no añadas extras** (alojamiento, correo, SSL, constructor web: Cloudflare los da gratis), activa la **renovación automática** y el bloqueo de transferencia.
-4. **Opcional:** si `alquilerenregla.com` está libre, puedes comprarlo a precio de coste en Cloudflare Registrar y redirigirlo al `.es` para proteger el nombre.
+3. **Al comprar:** crea la cuenta con datos reales. El titular del dominio debe ser el mismo que pondrás en el aviso legal (`PUBLIC_OWNER_NAME`): tú, con tu DNI o NIE, o tu empresa, con su NIF. Elige 1 año y **no añadas extras** (alojamiento, certificado SSL, constructor web ni buzón de correo): la web ya está hecha y Cloudflare da gratis el alojamiento, el HTTPS y el reenvío de correo (reenvía a tu correo personal; no es un buzón). Activa la **renovación automática** y el bloqueo de transferencia si el registrador lo ofrece.
+4. **Opcional:** si `alquilerenregla.com` está libre, puedes registrarlo para proteger el nombre. Hazlo después del paso 9, desde el panel de Cloudflare (**Registro de dominios → Registrar dominios**), donde se vende a precio de coste. Para que lleve al `.es`, crea en ese dominio un registro DNS `A` con nombre `@`, contenido `192.0.2.1` y proxy activado (nube naranja), y una regla de redirección 301 hacia `https://www.alquilerenregla.es`. Suma su renovación a los costes del paso 12.
 5. Guarda los correos de confirmación. No compartas contraseñas ni códigos de autorización en ningún chat.
+6. **No cambies nada más en el registrador por ahora.** Los servidores DNS, `www`, el HTTPS y el correo se configuran en el paso 9, después de crear la web en Cloudflare (pasos 7 y 8).
 
 ## 6. Qué alojamiento recomiendo y por qué
 
@@ -145,31 +146,32 @@ Cloudflare está integrando Pages dentro de «Workers»; si los menús no coinci
 
 ## 7. Subir el código al alojamiento
 
-### 7.1 Llevar el código a la rama principal
+### 7.1 Crear la rama principal `main`
 
-El código está en la rama `claude/sweet-dijkstra-tw4ipu`. Lo normal es fusionarlo en `main`:
+Ahora mismo el repositorio solo tiene la rama `claude/sweet-dijkstra-tw4ipu`, que es la rama por defecto; `main` todavía no existe. Créala a partir de ella:
 
 1. Entra en `https://github.com/JorgeGr2/web`.
-2. Pulsa **Compare & pull request** junto a la rama (o **Pull requests → New pull request**, base `main`, compare `claude/sweet-dijkstra-tw4ipu`).
-3. Revisa los cambios y pulsa **Create pull request** y después **Merge pull request**.
+2. Pulsa el selector de ramas (arriba a la izquierda, donde pone `claude/sweet-dijkstra-tw4ipu`), escribe `main` y pulsa **Create branch main from claude/sweet-dijkstra-tw4ipu**.
+3. Ve a **Settings → General → Default branch**, pulsa el icono de las dos flechas, elige `main` y confirma con **Update**.
 
-(Si el repositorio aún no tiene rama `main`, en GitHub ve a **Settings → General → Default branch** y elige la rama de trabajo, o crea `main` desde ella.)
+Resultado esperado: `main` aparece como rama por defecto. A partir de ahora, los cambios hechos en otras ramas se llevan a `main` con un pull request (**Pull requests → New pull request**, base `main` → **Create pull request** → **Merge pull request**).
 
 ### 7.2 Crear el proyecto en Cloudflare Pages
 
 1. Entra en el [panel de Cloudflare](https://dash.cloudflare.com/) → **Workers y Pages** → **Crear** → pestaña **Pages** → **Conectar a Git**.
 2. Autoriza a Cloudflare a acceder a tu GitHub y elige el repositorio `JorgeGr2/web`.
 3. Configuración de compilación:
+   - **Nombre del proyecto:** `alquiler-en-regla` (Cloudflare propone `web`, el nombre del repositorio). Este nombre fija la dirección provisional `https://alquiler-en-regla.pages.dev`; si está ocupada, Cloudflare le añade un sufijo.
    - **Rama de producción:** `main`
    - **Framework preset:** Astro
    - **Comando de compilación:** `npm run build`
    - **Directorio de salida:** `dist`
-4. Antes de pulsar «Guardar e implementar», añade las variables del paso 8.
+4. Antes de pulsar «Guardar e implementar», abre en esa misma pantalla **Variables de entorno (avanzado)** y añade las variables de la tabla del paso 8.
 5. Pulsa **Guardar e implementar**. Resultado esperado: tras 1–2 minutos, «Éxito» y una dirección del tipo `https://alquiler-en-regla.pages.dev`.
 
 ## 8. Configurar las variables de entorno
 
-En el proyecto de Pages: **Configuración → Variables y secretos** (entorno de *Producción*). Ninguna es secreta: todas acaban visibles en la web.
+Durante la creación del proyecto se añaden en **Variables de entorno (avanzado)** (paso 7.2); después se cambian en **Configuración → Variables y secretos** (entorno de *Producción*). Ninguna es secreta: todas acaban visibles en la web.
 
 | Variable | Valor en el primer despliegue | Valor al lanzar |
 |---|---|---|
@@ -193,12 +195,12 @@ Si la compilación falla con «Configuración no válida», el mensaje dice exac
 
 ## 9. Conectar el dominio y HTTPS
 
-1. En Cloudflare: **Añadir un dominio** (plan Free). Cloudflare te mostrará **dos servidores de nombres** (por ejemplo `xxx.ns.cloudflare.com`).
-2. En el panel de tu registrador, cambia los **servidores DNS** del dominio por esos dos. La propagación tarda de minutos a 24-48 h; Cloudflare te avisará por correo cuando esté activo.
-3. En el proyecto de Pages → **Dominios personalizados** → **Configurar un dominio** → escribe `www.alquilerenregla.es` → Cloudflare crea el registro DNS. Repite con `alquilerenregla.es`.
+1. En Cloudflare: **Añadir un dominio** → `alquilerenregla.es` → plan **Free**. Cloudflare copia los registros DNS que ya tenga el dominio. Si ves registros `A`, `AAAA` o `CNAME` para `alquilerenregla.es` o `www` que no has creado tú (suelen ser la página de aparcamiento del registrador), bórralos: Pages creará los suyos en el punto 3. Al terminar te mostrará **dos servidores de nombres** (por ejemplo `xxx.ns.cloudflare.com`).
+2. En el panel de tu registrador (DonDominio u OVHcloud), abre la opción **Servidores DNS** del dominio, elige servidores personalizados y pon esos dos. Si el dominio tiene **DNSSEC** activado en el registrador, desactívalo antes del cambio (si no, el dominio dejará de funcionar); podrás activarlo después desde Cloudflare. La propagación tarda de minutos a 24-48 h, y Cloudflare te avisará por correo cuando el dominio esté **Activo**.
+3. **Cuando el dominio aparezca como «Activo» en Cloudflare**, ve al proyecto de Pages → **Dominios personalizados** → **Configurar un dominio** → escribe `www.alquilerenregla.es` → Cloudflare crea el registro DNS. Repite con `alquilerenregla.es`.
 4. Para que solo haya una versión, crea una redirección: **Reglas → Reglas de redirección → Crear regla** con la plantilla «Redirigir de raíz a WWW» (301). Así `alquilerenregla.es` lleva a `https://www.alquilerenregla.es`.
 5. **HTTPS:** Cloudflare emite el certificado automáticamente. En **SSL/TLS → Certificados perimetrales**, activa «Usar siempre HTTPS».
-6. **Correo de contacto (opcional, gratis):** **Correo electrónico → Enrutamiento de correo** → crea `contacto@alquilerenregla.es` que reenvíe a tu correo personal.
+6. **Correo de contacto (necesario si usas `contacto@alquilerenregla.es`; gratis):** **Correo electrónico → Enrutamiento de correo** → crea `contacto@alquilerenregla.es` para que reenvíe a tu correo personal y confirma el mensaje de verificación que Cloudflare envía a tu correo. Es solo un reenvío: contestarás desde tu correo personal. Hazlo antes del paso 10, porque esta dirección aparece en el aviso legal y en la página de contacto.
 7. **Analítica sin cookies (opcional):** en el proyecto de Pages → **Métricas → Web Analytics → Habilitar**, y pon `PUBLIC_CF_ANALYTICS_ENABLED=true` para que la política de privacidad lo mencione.
 
 ## 10. Comprobar la web pública y abrirla a Google
@@ -207,6 +209,7 @@ Con el sitio aún en modo revisión, comprueba:
 
 - [ ] `https://www.alquilerenregla.es/` carga con candado (HTTPS) y la redirección desde `alquilerenregla.es` funciona.
 - [ ] El aviso legal, la privacidad y el contacto muestran **tus datos reales** (no «Pendiente de completar»).
+- [ ] Un correo de prueba enviado a `contacto@alquilerenregla.es` llega a tu buzón personal.
 - [ ] Las 8 calculadoras dan resultado con un ejemplo de su página.
 - [ ] Desde el móvil se ve bien y el menú funciona.
 - [ ] Revisas y apruebas todos los textos (ver `docs/12-tareas-pendientes-y-proximas-acciones.md`).
@@ -246,7 +249,7 @@ Mantén las dependencias al día cada 1–3 meses: `npm outdated` para ver versi
 
 | Concepto | Coste | Notas |
 |---|---|---|
-| Dominio | Pago anual al registrador | Varía según extensión y registrador; compara la renovación |
+| Dominio `alquilerenregla.es` | Pago anual al registrador | Compara el precio de renovación, no solo el del primer año. Si compras también `alquilerenregla.com` (paso 5.4), suma su renovación |
 | Alojamiento (Cloudflare Pages Free) | 0 € | Suficiente salvo crecimiento extraordinario |
 | DNS, HTTPS, reenvío de correo, Web Analytics | 0 € | Incluidos en el plan Free de Cloudflare |
 | Google Search Console, AdSense, Analytics | 0 € | — |
