@@ -6,6 +6,7 @@ resumen: 'Una mensualidad obligatoria, garantías adicionales de hasta dos meses
 publicado: '2026-10-14'
 actualizado: '2026-10-14'
 orden: 5
+categoria: 'dinero'
 herramientas: ['devolucion-fianza', 'cuanto-alquiler-puedo-pagar']
 fuentes:
   - texto: 'Ley 29/1994, de Arrendamientos Urbanos, artículo 36 y disposición adicional tercera (BOE)'

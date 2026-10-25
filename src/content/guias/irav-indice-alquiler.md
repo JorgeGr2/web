@@ -4,8 +4,9 @@ description: 'Qué es el IRAV, cómo lo calcula el INE, a qué contratos de alqu
 h1: 'IRAV: qué es el índice de referencia del alquiler y cuándo se aplica'
 resumen: 'El índice del INE que limita la subida anual de los contratos firmados desde el 26 de mayo de 2023: cómo se calcula, dónde consultarlo y qué mes usar.'
 publicado: '2026-10-14'
-actualizado: '2026-10-14'
+actualizado: '2026-10-25'
 orden: 1
+categoria: 'renta'
 herramientas: ['actualizacion-renta', 'carta-actualizacion-renta']
 fuentes:
   - texto: 'INE: Índice de Referencia de Arrendamientos de Vivienda (IRAV), últimos datos'
@@ -44,7 +45,7 @@ Como es el menor de los tres valores, el IRAV suele ser **igual o inferior al IP
 
 El INE publica el IRAV **cada mes, en las mismas fechas que el IPC**, normalmente hacia mediados del mes siguiente al de referencia. El dato oficial está en la sección del IRAV de INEbase (enlace en las fuentes, al final de la guía).
 
-El último dato que hemos comprobado en la web del INE es el de **agosto de 2026: 2,47 %**, publicado el 15 de septiembre de 2026. El de mayo de 2026 fue del 2,48 %. Comprueba siempre si hay un dato más reciente antes de calcular.
+El último dato que hemos comprobado en la web del INE es el de **septiembre de 2026: 2,54 %**, publicado el 14 de octubre de 2026. El de agosto fue del 2,47 %. El dato de octubre se publicará, según la pauta habitual, hacia mediados de noviembre. Comprueba siempre si hay un dato más reciente antes de calcular.
 
 ## Qué mes del IRAV hay que usar
 
@@ -56,7 +57,7 @@ Se toma el **último índice publicado en la fecha de la actualización**. Como 
 | Del 12 al 15 | Depende del día exacto de publicación: consulta el calendario del INE |
 | Del 16 al último día | El del mes anterior |
 
-Ejemplo: para una actualización el 1 de noviembre de 2026, el último dato publicado será el de septiembre si el INE ya lo había difundido a mediados de octubre; si no, el de agosto. La [calculadora de actualización](/calculadoras/actualizacion-renta/) te indica el mes probable según la fecha que introduzcas.
+Ejemplo: para una actualización el 1 de noviembre de 2026, el último dato publicado es el de septiembre (2,54 %), que el INE difundió el 14 de octubre. La [calculadora de actualización](/calculadoras/actualizacion-renta/) te indica el mes probable según la fecha que introduzcas.
 
 ## Ejemplo práctico
 

@@ -2,10 +2,11 @@
 title: 'Límite del 2 % al alquiler (RDL 29/2026): a quién afecta'
 description: 'Qué dice el RDL 29/2026 sobre la subida del alquiler: máximo 2 % sin nuevo pacto, sin subida si se supera el índice de referencia y estado de convalidación.'
 h1: 'Límite del 2 % a la subida del alquiler: qué dice el RDL 29/2026'
-resumen: 'Hasta el 31 de diciembre de 2027, sin nuevo acuerdo la renta no puede subir más del 2 %, y no puede subir nada si supera el índice de referencia. Estado a 14/10/2026.'
+resumen: 'Hasta el 31 de diciembre de 2027, sin nuevo acuerdo la renta no puede subir más del 2 %, y no puede subir nada si supera el índice de referencia. Estado a 25/10/2026.'
 publicado: '2026-10-14'
-actualizado: '2026-10-14'
+actualizado: '2026-10-25'
 orden: 2
+categoria: 'renta'
 herramientas: ['actualizacion-renta', 'carta-actualizacion-renta', 'fin-contrato-alquiler']
 fuentes:
   - texto: 'Real Decreto-ley 29/2026, de 6 de octubre (BOE-A-2026-20823)'
@@ -22,7 +23,7 @@ fuentes:
     url: 'https://serpavi.mivau.gob.es/'
 ---
 
-**Estado a 14 de octubre de 2026:** el Real Decreto-ley 29/2026 está **en vigor desde el 8 de octubre de 2026** y **pendiente de convalidación**. Con las Cortes disueltas, decide la Diputación Permanente del Congreso. Actualizaremos esta guía en cuanto haya votación.
+**Estado a 25 de octubre de 2026:** el Real Decreto-ley 29/2026 está **en vigor desde el 8 de octubre de 2026** y **pendiente de convalidación**. Con las Cortes disueltas, decide la Diputación Permanente del Congreso, que a esa fecha todavía no lo ha votado. Actualizaremos esta guía en cuanto haya votación.
 
 ## Qué dice sobre la subida del alquiler
 
@@ -49,7 +50,7 @@ Ten en cuenta que el SERPAVI solo cubre viviendas en edificios de viviendas cole
 | Situación | Resultado |
 | --- | --- |
 | Contrato con cláusula IPC, renta por debajo del índice de referencia, sin nuevo acuerdo, IPC del 3 % | Máximo **2 %** |
-| Contrato posterior al 26/05/2023, IRAV del 2,47 %, sin nuevo acuerdo | Máximo **2 %** (el límite extraordinario es menor que el IRAV) |
+| Contrato posterior al 26/05/2023, IRAV del 2,54 %, sin nuevo acuerdo | Máximo **2 %** (el límite extraordinario es menor que el IRAV) |
 | Índice pactado del 1,5 % | **1,5 %** (el límite no obliga a subir más) |
 | Renta por encima del índice de referencia | **Sin subida** |
 | Contrato sin cláusula de actualización | **Sin subida** |

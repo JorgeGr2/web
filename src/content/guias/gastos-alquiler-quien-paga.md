@@ -6,6 +6,7 @@ resumen: 'La regla general y lo que se puede pactar: gastos generales con import
 publicado: '2026-10-14'
 actualizado: '2026-10-14'
 orden: 8
+categoria: 'dinero'
 herramientas: ['cuanto-alquiler-puedo-pagar', 'rentabilidad-alquiler', 'actualizacion-renta']
 fuentes:
   - texto: 'Ley 29/1994, de Arrendamientos Urbanos, artículos 20 y 21 (BOE)'

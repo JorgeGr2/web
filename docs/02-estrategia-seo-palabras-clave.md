@@ -92,7 +92,7 @@ Palabras clave **descartadas** por ahora: «precio alquiler [ciudad]» (dominado
 
 ## 2.4 Plan editorial: 30 contenidos prioritarios
 
-Ordenados por **oportunidad / dificultad**. Los 16 primeros están **publicados** en el código; los 14 siguientes son **briefs** listos para redactar. No publiques un brief hasta poder cumplir sus «datos necesarios» con fuentes oficiales.
+Ordenados por **oportunidad / dificultad**. Los 16 primeros están **publicados** en el código desde el 14/10/2026. El 25/10/2026 se publicaron 8 guías más (tabla «Publicados el 25/10/2026»), que cubren los briefs 17, 24, 25, 26, 27 y 28; el resto siguen siendo **briefs** listos para redactar. No publiques un brief hasta poder cumplir sus «datos necesarios» con fuentes oficiales.
 
 ### Publicados (1-16)
 
@@ -117,7 +117,22 @@ Para cada uno, el título SEO, el H1 y la metadescripción están en el código 
 | 15 | /calculadoras/cuanto-alquiler-puedo-pagar/ | Presupuesto | Regla del 30 % · Dinero de entrada · Ayudas | Máximos legales de entrada | Fianza | — |
 | 16 | /calculadoras/rentabilidad-alquiler/ | Inversión | Tres rentabilidades · Ejemplo · Olvidos | Con hipoteca | Actualización | — |
 
+### Publicados el 25/10/2026
+
+| URL | Objetivo de búsqueda | Brief que cubre | Elementos originales |
+|---|---|---|---|
+| /guias/zonas-tensionadas-alquiler/ | Saber si su vivienda está en zona tensionada y qué implica | 17 | Resumen de efectos por parte, lista de comprobación y enlace al buscador oficial |
+| /guias/venta-piso-alquilado-derechos-inquilino/ | Qué pasa si venden el piso alquilado | 25 | Tabla de supuestos del art. 14, pasos para el inquilino |
+| /guias/reparaciones-obras-alquiler/ | Quién paga cada avería | 27 | Tabla de averías frecuentes, rebaja de renta por obras |
+| /guias/recuperar-vivienda-necesidad-propietario/ | Si el propietario puede recuperar la vivienda | 24 | Ejemplo con fechas, regímenes 2013-2019 y desde 2019 |
+| /guias/subarrendar-ceder-contrato-alquiler/ | Subarrendar o ceder el contrato | — (nuevo) | Tabla subarriendo frente a cesión, divorcio (art. 15) |
+| /guias/fallecimiento-inquilino-alquiler/ | Quién se queda el contrato si muere el inquilino | 26 | Orden de prelación, plazo de tres meses, fallecimiento del propietario |
+| /guias/contrato-alquiler-que-debe-incluir/ | Revisar un contrato antes de firmar | 28 (en formato guía) | Lista cláusula a cláusula con artículo y cláusulas nulas |
+| /guias/entrega-llaves-fin-contrato-alquiler/ | Dejar el piso sin perder la fianza | — (nuevo) | Desgaste frente a daño, lista de comprobación, modelo de documento de entrega |
+
 ### Briefs pendientes (17-30)
+
+Los briefs 17, 24, 25, 26, 27 y 28 ya están publicados (tabla anterior). Se mantienen abajo como referencia.
 
 **17. Zonas tensionadas** — Título SEO: «Zonas tensionadas: qué son y qué municipios están declarados» · H1: «Zonas de mercado residencial tensionado: qué son y cómo te afectan» · Objetivo: saber si su municipio lo es y qué implica. · H2: Qué es · Quién la declara · Lista de zonas declaradas (fecha) · Efectos para inquilinos · Efectos para propietarios y grandes tenedores · Cómo comprobarlo · Datos/fuentes: resoluciones trimestrales del Ministerio de Vivienda en el BOE con la relación de zonas, Ley 12/2023 (arts. 17-18). · Original: tabla fechada por comunidad con enlace a cada resolución. · Enlaces: calculadora de actualización, guía límite, rentabilidad. · Meta: «Qué es una zona tensionada, qué municipios están declarados según el BOE y cómo afecta a la renta, las prórrogas y los grandes tenedores.» · CTA: comprobar la subida.
 

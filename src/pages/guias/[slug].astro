@@ -9,6 +9,7 @@ import ToolCard from '../../components/ToolCard.astro';
 import { HERRAMIENTAS } from '../../data/herramientas.mjs';
 import { articleLd, breadcrumbLd } from '../../lib/seo';
 import { fechaLarga } from '../../lib/fechas';
+import { SITE } from '../../config/site';
 
 export async function getStaticPaths() {
   const guias = await getCollection('guias');
@@ -19,6 +20,11 @@ const { guia } = Astro.props;
 const { Content, headings } = await render(guia);
 const path = `/guias/${guia.id}/`;
 const toc = headings.filter((h) => h.depth === 2);
+// Hasta tres guías del mismo bloque temático, para seguir leyendo.
+const relacionadas = (await getCollection('guias'))
+  .filter((g) => g.data.categoria === guia.data.categoria && g.id !== guia.id)
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .slice(0, 3);
 const herramientas = guia.data.herramientas
   .map((s) => HERRAMIENTAS.find((h) => h.slug === s))
   .filter((h): h is NonNullable<typeof h> => Boolean(h));
@@ -43,6 +49,7 @@ const ld = [
       <h1>{guia.data.h1}</h1>
       <p class="lead">{guia.data.resumen}</p>
       <div class="page-meta">
+        {SITE.owner.name && <span>Por <a href="/sobre-el-proyecto/">{SITE.owner.name}</a></span>}
         <span>Actualizada el <time datetime={guia.data.actualizado}>{fechaLarga(guia.data.actualizado)}</time></span>
         <span>Publicada el <time datetime={guia.data.publicado}>{fechaLarga(guia.data.publicado)}</time></span>
       </div>
@@ -53,6 +60,23 @@ const ld = [
         <AdSlot posicion="inarticle" />
         <Fuentes fuentes={guia.data.fuentes} />
         <Revision fecha={guia.data.actualizado} />
+        {
+          relacionadas.length > 0 && (
+            <section class="related" aria-labelledby="relacionadas-titulo">
+              <h2 id="relacionadas-titulo" class="h3">Sigue leyendo</h2>
+              <ul>
+                {relacionadas.map((g) => (
+                  <li>
+                    <a href={`/guias/${g.id}/`}>{g.data.h1}</a>
+                  </li>
+                ))}
+              </ul>
+              <p class="small">
+                <a href="/guias/">Ver todas las guías</a>
+              </p>
+            </section>
+          )
+        }
       </article>
       <aside aria-label="Índice de la guía y calculadoras relacionadas">
         {
@@ -87,6 +111,11 @@ const ld = [
 </BaseLayout>
 
 <style>
+  .related {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--c-border);
+  }
   .aside-title {
     font-size: 1.05rem;
     margin: 0 0 var(--space-3);

@@ -10,7 +10,7 @@ Adaptada a esta web (Astro estático en Cloudflare Pages, público en España). 
 
 1. **Publica la web con su dominio definitivo** siguiendo `docs/03-guia-despliegue.md`. AdSense revisa el dominio que des de alta, así que no lo solicites con la dirección `*.pages.dev`.
 2. **Completa tus datos de titular** (`PUBLIC_OWNER_*`): el aviso legal, la privacidad y el contacto deben mostrar datos reales. Un sitio anónimo transmite poca confianza a usuarios, a Google y a AdSense.
-3. **Revisa todo el contenido personalmente.** Lee las 8 calculadoras y las 8 guías, comprueba los cálculos con tus propios ejemplos y contrasta los datos normativos con el BOE (lista en `docs/12-tareas-pendientes-y-proximas-acciones.md`). La página de metodología afirma que el responsable revisa el contenido: haz que sea verdad.
+3. **Revisa todo el contenido personalmente.** Lee las 8 calculadoras y las 16 guías, comprueba los cálculos con tus propios ejemplos y contrasta los datos normativos con el BOE (lista en `docs/12-tareas-pendientes-y-proximas-acciones.md`). La página de metodología afirma que el responsable revisa el contenido: haz que sea verdad.
 4. **Comprueba las políticas vigentes:**
    - [Requisitos de elegibilidad de AdSense](https://support.google.com/adsense/answer/9724): mayor de 18 años, contenido propio que cumpla las políticas y poder editar el HTML (este proyecto lo permite).
    - [Políticas del programa AdSense](https://support.google.com/adsense/answer/48182) y [Políticas para editores de Google](https://support.google.com/publisherpolicies/answer/10502938).
@@ -25,7 +25,7 @@ npm run test:e2e
 
 7. **Sin contenido copiado, páginas vacías ni errores.** Todo el contenido es original; no añadas textos copiados de otras webs ni páginas «en construcción». La comprobación `qa:dist` detecta enlaces rotos, metadatos duplicados y texto de relleno.
 
-¿Cuánto contenido hace falta? Google no publica un mínimo de páginas ni de tráfico. Lo que pesa es que el sitio sea útil, navegable y original. Con las 16 páginas de contenido actuales el sitio tiene una base razonable; añadir 4-6 contenidos más del plan editorial antes de solicitar AdSense reduce el riesgo de rechazo por «contenido de poco valor».
+¿Cuánto contenido hace falta? Google no publica un mínimo de páginas ni de tráfico. Lo que pesa es que el sitio sea útil, navegable y original. Desde el 25/10/2026 el sitio tiene 24 páginas de contenido (8 calculadoras y 16 guías). La primera solicitud, hecha con 16 páginas y la web recién publicada, se rechazó por «contenido de poco valor»: ver el plan en la fase C, paso 6.
 
 ---
 
@@ -34,7 +34,7 @@ npm run test:e2e
 1. **Crea la propiedad en [Google Search Console](https://search.google.com/search-console).** Elige **Propiedad de dominio** y escribe `alquilerenregla.es`.
 2. **Verifícala por DNS** (recomendado): Search Console te da un registro TXT; en Cloudflare ve a **DNS → Registros → Añadir registro**, tipo `TXT`, nombre `@`, contenido el valor que te den. Pulsa «Verificar» en Search Console (puede tardar unos minutos).
    - Alternativa: propiedad de **prefijo de URL** con `https://www.alquilerenregla.es/` y método «Etiqueta HTML» → copia solo el valor `content="..."` en `PUBLIC_GOOGLE_SITE_VERIFICATION` y vuelve a implementar.
-3. **Envía el sitemap:** en Search Console → **Sitemaps** → escribe `sitemap-index.xml` → Enviar. Estado esperado: «Correcto», con 27 URL descubiertas.
+3. **Envía el sitemap:** en Search Console → **Sitemaps** → escribe `sitemap-index.xml` → Enviar. Estado esperado: «Correcto», con 35 URL descubiertas.
 4. **Comprueba la indexación** de las páginas importantes: usa la barra de **Inspección de URLs** con la portada y la calculadora de actualización → «Solicitar indexación». No esperes que todas las páginas se indexen enseguida: puede tardar de días a semanas y Google no indexa todo lo que se envía.
 5. **Detecta problemas técnicos:** revisa cada semana **Indexación → Páginas** (motivos de no indexación), **Experiencia → Métricas web principales** y **Seguridad y acciones manuales**.
 6. **Analítica respetando la privacidad.** Empieza con Cloudflare Web Analytics (sin cookies, sin banner). Si quieres Google Analytics 4 (útil para ver ingresos por página al vincularlo con AdSense), créalo **después** de configurar el CMP: ver `docs/07-analitica-y-seguimiento.md`.
@@ -61,6 +61,7 @@ npm run test:e2e
      - *Sitio inaccesible o en construcción* → comprueba que el dominio carga, que no hay páginas vacías y que `PUBLIC_SITE_INDEXABLE=true`.
      - *Navegación difícil* → no suele aplicar (menú y pie completos), pero revisa la versión móvil.
      - *Infracción de políticas* → identifica la página y corrígela.
+   - **Primer rechazo de este sitio (25/10/2026, «contenido de poco valor»).** Plan aplicado: 8 guías nuevas (de 16 a 24 páginas de contenido), autoría visible en las guías, guías agrupadas por temas con enlaces relacionados, página «Sobre el proyecto» ampliada e IRAV actualizado. Antes de volver a solicitar: publica esos cambios en `main`, espera **3-4 semanas**, comprueba en Search Console que la mayoría de las páginas están indexadas y que hay algunas impresiones o clics, y solo entonces marca «Confirmo que he resuelto los problemas» y pulsa **Solicitar revisión**.
    - Corrige, espera unos días a que Google vuelva a rastrear y pulsa de nuevo **Solicitar revisión** (o, en el Centro de políticas, **Corregir → Iniciar proceso de revisión**; [ayuda](https://support.google.com/adsense/answer/7003627)). Si te han rechazado varias veces seguidas, el botón se desactiva hasta la fecha que indique.
 
 ---

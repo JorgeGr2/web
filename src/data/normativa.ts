@@ -8,7 +8,7 @@
  */
 
 /** Fecha en la que se revisó por última vez este archivo. Se muestra en la web. */
-export const ESTADO_NORMATIVO_FECHA = '2026-10-14';
+export const ESTADO_NORMATIVO_FECHA = '2026-10-25';
 
 export interface Fuente {
   texto: string;
@@ -176,10 +176,10 @@ export function limiteParaFecha(fechaIso: string): LimiteExtraordinario | undefi
  * actualización.
  */
 export const ULTIMO_IRAV_COMPROBADO = {
-  mesDato: '2026-08',
-  valorPct: 2.47,
-  publicadoEl: '2026-09-15',
-  comprobadoEl: '2026-10-14',
+  mesDato: '2026-09',
+  valorPct: 2.54,
+  publicadoEl: '2026-10-14',
+  comprobadoEl: '2026-10-25',
   fuente: FUENTES.ineIrav,
 };
 

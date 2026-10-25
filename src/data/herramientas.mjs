@@ -27,7 +27,7 @@ export const HERRAMIENTAS = [
     resumen: 'Cuánto puede subir tu alquiler este año según la fecha de tu contrato: IPC, IRAV y límite del 2 %.',
     publico: 'ambos',
     icono: 'trending',
-    revisado: '2026-10-14',
+    revisado: '2026-10-25',
   },
   {
     slug: 'carta-actualizacion-renta',

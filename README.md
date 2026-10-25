@@ -36,7 +36,7 @@ Sitio estático hecho con [Astro](https://astro.build/), preparado para publicar
 7. **¿Cuánto alquiler puedo pagar?**: renta máxima según ingresos y dinero de entrada con máximos legales.
 8. **Rentabilidad del alquiler**: bruta, neta y sobre capital propio con hipoteca (amortización francesa).
 
-**Contenido:** 8 guías en Markdown, página de estado normativo con historial de cambios, portada, índices, metodología, sobre el proyecto, contacto, aviso legal, privacidad, cookies, publicidad y 404.
+**Contenido:** 16 guías en Markdown agrupadas por temas, página de estado normativo con historial de cambios, portada, índices, metodología, sobre el proyecto, contacto, aviso legal, privacidad, cookies, publicidad y 404.
 
 **Técnico:** HTML semántico; títulos, descripciones y canónicas únicos; sitemap con `lastmod`; robots.txt y `noindex` controlados por configuración; JSON-LD (BreadcrumbList, WebSite, Article); diseño responsive con modo oscuro; accesibilidad WCAG 2.1 AA verificada con axe; cabeceras de seguridad y CSP; integración de AdSense, ads.txt, CMP de Google y GA4 con Consent Mode v2 activables por variables de entorno; validación de la configuración que impide indexar sin datos del titular.
 

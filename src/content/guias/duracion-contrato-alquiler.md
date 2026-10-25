@@ -6,6 +6,7 @@ resumen: 'La duración mínima, la prórroga tácita y los preavisos dependen de
 publicado: '2026-10-14'
 actualizado: '2026-10-14'
 orden: 7
+categoria: 'duracion'
 herramientas: ['fin-contrato-alquiler', 'indemnizacion-desistimiento']
 fuentes:
   - texto: 'Ley 29/1994, de Arrendamientos Urbanos, artículos 9 y 10 (BOE)'

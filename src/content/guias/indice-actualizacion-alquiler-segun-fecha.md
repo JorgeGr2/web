@@ -6,6 +6,7 @@ resumen: 'IPC, IGC, IRAV, topes del 2 % y del 3 %: qué regla corresponde a tu c
 publicado: '2026-10-14'
 actualizado: '2026-10-14'
 orden: 3
+categoria: 'renta'
 herramientas: ['actualizacion-renta', 'carta-actualizacion-renta']
 fuentes:
   - texto: 'Ley 29/1994, de Arrendamientos Urbanos, artículo 18 y versiones históricas (BOE)'

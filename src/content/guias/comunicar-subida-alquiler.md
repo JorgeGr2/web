@@ -6,6 +6,7 @@ resumen: 'La ley exige comunicarlo por escrito con el porcentaje aplicado, y la 
 publicado: '2026-10-14'
 actualizado: '2026-10-14'
 orden: 4
+categoria: 'renta'
 herramientas: ['carta-actualizacion-renta', 'actualizacion-renta']
 fuentes:
   - texto: 'Ley 29/1994, de Arrendamientos Urbanos, artículo 18.3 (BOE)'

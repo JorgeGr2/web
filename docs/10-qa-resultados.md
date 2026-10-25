@@ -1,6 +1,6 @@
 # 10. Resultados reales de las pruebas
 
-**Fecha de ejecución:** 14/10/2026, en el entorno de desarrollo (Linux, Node 22.22.0, Chromium 141 de Playwright). Todas las cifras de esta página proceden de ejecuciones reales; las salidas se reproducen resumidas.
+**Fecha de ejecución:** 14/10/2026; repetidas el 25/10/2026 tras añadir 8 guías, en el entorno de desarrollo (Linux, Node 22.22.0, Chromium 141 de Playwright). Todas las cifras de esta página proceden de ejecuciones reales; las salidas se reproducen resumidas.
 
 ## 10.1 Resumen
 
@@ -8,18 +8,18 @@
 |---|---|---|
 | Instalación limpia | `npm ci` | Correcta, `found 0 vulnerabilities` |
 | Auditoría de dependencias | `npm audit` | `found 0 vulnerabilities` |
-| Tipos (TypeScript + Astro) | `npm run check` | `0 errors, 0 warnings, 0 hints` (71 archivos) |
+| Tipos (TypeScript + Astro) | `npm run check` | `0 errors, 0 warnings, 0 hints` (72 archivos) |
 | Pruebas unitarias | `npm test` | **73 pruebas superadas** (3 archivos): lógica de las 8 calculadoras, fechas, formatos, configuración, CSP, periodos normativos |
-| Compilación | `npm run build` | 28 páginas generadas |
-| QA del sitio compilado | `npm run qa:dist` | `Páginas analizadas: 28. URLs en el sitemap: 27.` → **sin errores** |
+| Compilación | `npm run build` | 36 páginas generadas |
+| QA del sitio compilado | `npm run qa:dist` | `Páginas analizadas: 36. URLs en el sitemap: 35.` → **sin errores** |
 | QA en modo producción simulado (indexable, AdSense, GA4 con IDs ficticios) | variables de prueba + `build` + `qa:dist` | Sin errores; `ads.txt` correcto; `robots.txt` con `Sitemap:`; `index, follow` en las páginas |
 | Bloqueo de publicación sin datos del titular | `PUBLIC_SITE_INDEXABLE=true npm run build` | La compilación **falla** con el mensaje que lista las variables que faltan (comportamiento esperado) |
-| Pruebas en navegador | `npm run test:e2e` | **82 pruebas superadas** (escritorio y móvil) |
+| Pruebas en navegador | `npm run test:e2e` | **98 pruebas superadas** (escritorio y móvil) |
 | Lighthouse (móvil simulado, local) | Lighthouse 12.8.2 | Portada, calculadora de actualización y guía del IRAV: **100 / 100 / 100** en rendimiento, accesibilidad y buenas prácticas; SEO **100** en modo indexable (66 en modo revisión, por el `noindex` intencionado). LCP 0,9-1,3 s, CLS 0, TBT 0 ms |
 
 ## 10.2 Qué comprueba cada batería
 
-**`qa:dist` (scripts/qa-dist.mjs)** en las 28 páginas:
+**`qa:dist` (scripts/qa-dist.mjs)** en las 36 páginas:
 - Exactamente un `<h1>`; `lang="es"`.
 - `<title>` y meta description presentes y **únicos**; avisos de longitud.
 - Canónica absoluta y correcta; `noindex` coherente con el modo.
@@ -49,7 +49,7 @@ Capturas reales en `docs/qa/`:
 - `calculadora-movil-resultado.jpg`
 - `fin-contrato-escritorio.jpg`
 
-Problemas detectados durante la revisión y **corregidos**: desbordamiento horizontal de 7 px en móvil por una tabla ancha, palabras pegadas por la compresión de HTML, tarjeta de guías sin margen interior, tablas desplazables sin acceso por teclado, nombres de regiones duplicados y, tras el cambio de nombre, que las pruebas de navegador no arrancaban por sí solas el servidor de vista previa cuando quedaba un aviso de «servidor ya en marcha» de una ejecución anterior (ahora usan `--ignore-lock`).
+Problemas detectados durante la revisión y **corregidos**: desbordamiento horizontal de 7 px en móvil por una tabla ancha, palabras pegadas por la compresión de HTML, tarjeta de guías sin margen interior, tablas desplazables sin acceso por teclado, nombres de regiones duplicados casillas de verificación sin etiqueta accesible en una lista de comprobación de las guías nuevas (sustituidas por una lista normal) y, tras el cambio de nombre, que las pruebas de navegador no arrancaban por sí solas el servidor de vista previa cuando quedaba un aviso de «servidor ya en marcha» de una ejecución anterior (ahora usan `--ignore-lock`).
 
 ## 10.4 Lo que no se ha podido comprobar en este entorno
 

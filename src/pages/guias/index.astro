@@ -4,13 +4,15 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbLd } from '../../lib/seo';
 import { fechaCorta } from '../../lib/fechas';
+import { CATEGORIAS_GUIAS } from '../../data/categorias-guias';
 
 const guias = (await getCollection('guias')).sort((a, b) => a.data.orden - b.data.orden);
+const grupos = CATEGORIAS_GUIAS.map((c) => ({ ...c, items: guias.filter((g) => g.data.categoria === c.id) })).filter((c) => c.items.length > 0);
 ---
 
 <BaseLayout
   title="Guías sobre el alquiler de vivienda en España"
-  description="Guías claras sobre el alquiler en España: IRAV, límite del 2 %, qué índice aplica a tu contrato, fianza, prórrogas, irse antes de tiempo y quién paga cada gasto."
+  description="Guías claras sobre el alquiler en España: subida de la renta, prórrogas, zonas tensionadas, fianza, reparaciones, venta del piso alquilado y más, con la ley citada."
   path="/guias/"
   jsonLd={[breadcrumbLd([{ label: 'Guías', href: '/guias/' }])]}
 >
@@ -18,19 +20,38 @@ const guias = (await getCollection('guias')).sort((a, b) => a.data.orden - b.dat
     <Breadcrumbs items={[{ label: 'Guías' }]} />
     <header class="page-head">
       <h1>Guías del alquiler</h1>
-      <p class="lead">Explicaciones paso a paso, con el artículo de la ley y la fecha de revisión, para entender tu contrato antes de calcular o reclamar.</p>
+      <p class="lead">
+        {guias.length} explicaciones paso a paso, con el artículo de la ley y la fecha de revisión, para entender tu contrato antes de calcular o
+        reclamar.
+      </p>
     </header>
-    <ul class="article-list card">
-      {
-        guias.map((g) => (
-          <li>
-            <a href={`/guias/${g.id}/`}>{g.data.h1}</a>
-            <p>
-              {g.data.resumen} <span class="small">· Revisada el {fechaCorta(g.data.actualizado)}</span>
-            </p>
-          </li>
-        ))
-      }
-    </ul>
+    {
+      grupos.map((c) => (
+        <section class="section guias-grupo" aria-labelledby={`cat-${c.id}`}>
+          <h2 id={`cat-${c.id}`}>{c.titulo}</h2>
+          <p class="small">{c.intro}</p>
+          <ul class="article-list card">
+            {c.items.map((g) => (
+              <li>
+                <a href={`/guias/${g.id}/`}>{g.data.h1}</a>
+                <p>
+                  {g.data.resumen} <span class="small">· Revisada el {fechaCorta(g.data.actualizado)}</span>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
   </div>
 </BaseLayout>
+
+<style>
+  .guias-grupo h2 {
+    margin-bottom: var(--space-1);
+  }
+  .guias-grupo > .small {
+    margin: 0 0 var(--space-3);
+    color: var(--c-text-soft);
+  }
+</style>

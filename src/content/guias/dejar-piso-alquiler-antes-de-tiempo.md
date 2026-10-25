@@ -6,6 +6,7 @@ resumen: 'Puedes irte tras seis meses avisando con 30 días. Si el contrato lo p
 publicado: '2026-10-14'
 actualizado: '2026-10-14'
 orden: 6
+categoria: 'duracion'
 herramientas: ['indemnizacion-desistimiento', 'fin-contrato-alquiler', 'devolucion-fianza', 'prorrateo-alquiler']
 fuentes:
   - texto: 'Ley 29/1994, de Arrendamientos Urbanos, artículos 9, 10 y 11 (BOE)'

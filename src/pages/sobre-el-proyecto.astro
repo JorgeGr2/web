@@ -1,20 +1,35 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
 import { SITE, PENDIENTE } from '../config/site';
+import { HERRAMIENTAS } from '../data/herramientas.mjs';
+import { CAMBIOS } from '../data/cambios';
+import { ESTADO_NORMATIVO_FECHA } from '../data/normativa';
+import { fechaLarga } from '../lib/fechas';
+
+const numGuias = (await getCollection('guias')).length;
+const ultimoCambio = CAMBIOS[0];
 ---
 
 <PageLayout
   title="Sobre el proyecto"
-  description={`Qué es ${SITE.siteName}, quién está detrás, por qué existe y cómo se financia este proyecto independiente de calculadoras y guías sobre el alquiler en España.`}
+  description={`Qué es ${SITE.siteName}, quién está detrás, por qué existe, cómo se revisa el contenido y cómo se financia este proyecto independiente sobre el alquiler en España.`}
   path="/sobre-el-proyecto/"
   h1="Sobre el proyecto"
-  revisado="2026-10-14"
+  revisado="2026-10-25"
 >
   <h2>Qué es {SITE.siteName}</h2>
   <p>
     Un sitio independiente con calculadoras y guías gratuitas para que inquilinos y pequeños propietarios en España entiendan sus contratos de
-    alquiler: cuánto puede subir la renta, cuándo termina el contrato, cuánto hay que avisar antes de irse o cuándo se debe devolver la fianza.
+    alquiler: cuánto puede subir la renta, cuándo termina el contrato, cuánto hay que avisar antes de irse, qué pasa si se vende la vivienda o
+    cuándo se debe devolver la fianza.
   </p>
+  <p>Hoy incluye:</p>
+  <ul>
+    <li><a href="/calculadoras/">{HERRAMIENTAS.length} calculadoras</a> que aplican la norma vigente en cada fecha y muestran sus pasos.</li>
+    <li><a href="/guias/">{numGuias} guías</a> que explican cada situación con el artículo de la ley y ejemplos.</li>
+    <li>Una página de <a href="/normativa/">estado de la normativa</a> con el historial público de cambios.</li>
+  </ul>
 
   <h2>Por qué existe</h2>
   <p>
@@ -25,12 +40,34 @@ import { SITE, PENDIENTE } from '../config/site';
 
   <h2>Quién está detrás</h2>
   <p>
-    El proyecto lo gestiona <strong>{SITE.owner.name || PENDIENTE}</strong>, responsable del contenido. Puedes consultar los datos completos
-    en el <a href="/aviso-legal/">aviso legal</a> y escribir desde la página de <a href="/contacto/">contacto</a>.
+    El proyecto lo gestiona <strong>{SITE.owner.name || PENDIENTE}</strong>, que es el responsable de su contenido y de mantenerlo al día.
+    Puedes consultar los datos completos en el <a href="/aviso-legal/">aviso legal</a> y escribir desde la página de
+    <a href="/contacto/">contacto</a>.
   </p>
   <p>
-    {SITE.siteName} no es un despacho de abogados ni una inmobiliaria y no ofrece asesoramiento personalizado. Explicamos cómo trabajamos en
-    <a href="/metodologia/">nuestra metodología</a>.
+    {SITE.siteName} no es un despacho de abogados ni una inmobiliaria y no ofrece asesoramiento personalizado. La información ayuda a entender
+    cada caso y a preparar, si hace falta, la consulta con un profesional.
+  </p>
+
+  <h2>Cómo mantenemos el contenido al día</h2>
+  <ul>
+    <li>Partimos de las fuentes oficiales: el BOE, el INE y el Ministerio de Vivienda. Cada página enlaza las que utiliza.</li>
+    <li>
+      Revisamos la normativa cada mes, cuando el INE publica el índice de referencia de arrendamientos, y cada vez que se publica en el BOE una
+      norma que afecta al alquiler. Última revisión: <time datetime={ESTADO_NORMATIVO_FECHA}>{fechaLarga(ESTADO_NORMATIVO_FECHA)}</time>.
+    </li>
+    <li>
+      Anotamos los cambios relevantes en el <a href="/normativa/#historial">historial público</a>
+      {ultimoCambio && <>(el último, del <time datetime={ultimoCambio.fecha}>{fechaLarga(ultimoCambio.fecha)}</time>)</>}.
+    </li>
+    <li>Las calculadoras tienen pruebas automáticas con casos resueltos a mano. Explicamos el proceso completo en la <a href="/metodologia/">metodología</a>.</li>
+  </ul>
+
+  <h2>Correcciones y sugerencias</h2>
+  <p>
+    Si encuentras un error, un dato desactualizado o echas en falta una situación, escríbenos desde la página de <a href="/contacto/">contacto</a>
+    {SITE.owner.email && <>o a <a href={`mailto:${SITE.owner.email}`}>{SITE.owner.email}</a></>}. Corregimos los errores confirmados y lo
+    dejamos anotado en el historial.
   </p>
 
   <h2>Cómo se financia</h2>
