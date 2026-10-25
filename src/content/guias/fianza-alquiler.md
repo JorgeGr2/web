@@ -4,7 +4,7 @@ description: 'Todo sobre la fianza del alquiler en España: una mensualidad en v
 h1: 'Fianza del alquiler: cuánto es, dónde se deposita y cuándo se devuelve'
 resumen: 'Una mensualidad obligatoria, garantías adicionales de hasta dos meses y un mes para devolverla tras la entrega de llaves. Lo que dice la ley y cómo reclamarla.'
 publicado: '2026-10-14'
-actualizado: '2026-10-14'
+actualizado: '2026-10-25'
 orden: 5
 categoria: 'dinero'
 herramientas: ['devolucion-fianza', 'cuanto-alquiler-puedo-pagar']
@@ -56,6 +56,8 @@ Si el saldo no se devuelve **en un mes desde la entrega de las llaves**, empieza
 - Comunica la salida con el preaviso que corresponda y acuerda una fecha de revisión.
 - Repite las fotos el día de la entrega de llaves y pide un documento firmado con la fecha de entrega.
 - Facilita por escrito el número de cuenta para la devolución.
+
+La guía de [entrega de llaves](/guias/entrega-llaves-fin-contrato-alquiler/) explica qué se considera desgaste normal y qué daños pueden descontarse, con un modelo de documento de entrega.
 
 ## ¿Puedo dejar de pagar el último mes a cambio de la fianza?
 

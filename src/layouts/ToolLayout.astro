@@ -15,6 +15,7 @@ import Fuentes from '../components/Fuentes.astro';
 import Revision from '../components/Revision.astro';
 import Icon from '../components/Icon.astro';
 import ToolCard from '../components/ToolCard.astro';
+import { getCollection } from 'astro:content';
 import { herramienta, HERRAMIENTAS } from '../data/herramientas.mjs';
 import type { Fuente } from '../data/normativa';
 import { breadcrumbLd } from '../lib/seo';
@@ -34,6 +35,11 @@ interface Props {
 const { slug, title, description, h1, lead, fuentes, relacionadas = [], submitLabel = 'Calcular' } = Astro.props;
 const h = herramienta(slug);
 const rel = relacionadas.map((s) => HERRAMIENTAS.find((x) => x.slug === s)).filter((x): x is NonNullable<typeof x> => Boolean(x));
+// Guías que citan esta calculadora como herramienta útil (máximo cuatro).
+const guias = (await getCollection('guias'))
+  .filter((g) => g.data.herramientas.includes(slug))
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .slice(0, 4);
 const ld = [breadcrumbLd([{ label: 'Calculadoras', href: '/calculadoras/' }, { label: h.nombre, href: h.path }])];
 ---
 
@@ -82,12 +88,26 @@ const ld = [breadcrumbLd([{ label: 'Calculadoras', href: '/calculadoras/' }, { l
         <Fuentes fuentes={fuentes} />
         <Revision fecha={h.revisado} />
       </article>
-      <aside aria-label="Calculadoras relacionadas">
+      <aside aria-label="Guías y calculadoras relacionadas">
         <slot name="related" />
+        {
+          guias.length > 0 && (
+            <nav class="card guides-box" aria-labelledby="guias-rel-titulo">
+              <h2 id="guias-rel-titulo" class="aside-title">Guías relacionadas</h2>
+              <ul>
+                {guias.map((g) => (
+                  <li>
+                    <a href={`/guias/${g.id}/`}>{g.data.h1}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )
+        }
         {
           rel.length > 0 && (
             <>
-              <h2 class="aside-title">Relacionadas</h2>
+              <h2 class="aside-title tools-title">Calculadoras relacionadas</h2>
               <ul class="card-grid aside-grid">
                 {rel.map((r) => (
                   <ToolCard h={r} />
@@ -112,6 +132,18 @@ const ld = [breadcrumbLd([{ label: 'Calculadoras', href: '/calculadoras/' }, { l
   }
   .aside-grid {
     grid-template-columns: 1fr;
+  }
+  .guides-box {
+    margin-bottom: var(--space-5);
+  }
+  .guides-box ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .tools-title {
+    margin-top: var(--space-2);
   }
   .aside-grid :global(h3) {
     font-size: 1rem;

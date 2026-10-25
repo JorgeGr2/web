@@ -4,7 +4,7 @@ description: 'Cuánto dura un contrato de alquiler de vivienda según su fecha d
 h1: 'Duración del contrato de alquiler y prórrogas, según la fecha de firma'
 resumen: 'La duración mínima, la prórroga tácita y los preavisos dependen de cuándo se firmó el contrato. Tabla de regímenes desde 1995 y excepciones.'
 publicado: '2026-10-14'
-actualizado: '2026-10-14'
+actualizado: '2026-10-25'
 orden: 7
 categoria: 'duracion'
 herramientas: ['fin-contrato-alquiler', 'indemnizacion-desistimiento']
@@ -44,11 +44,11 @@ Los contratos anteriores a 2019 ya han superado normalmente sus plazos máximos.
 
 ## Excepciones
 
-**Necesidad del propietario.** Si el contrato lo prevé expresamente, el propietario persona física puede recuperar la vivienda después del primer año para destinarla a vivienda permanente propia o de familiares en primer grado, o de su cónyuge en caso de separación, divorcio o nulidad, avisando con al menos **dos meses** de antelación (artículo 9.3 LAU).
+**Necesidad del propietario.** Si el contrato lo prevé expresamente, el propietario persona física puede recuperar la vivienda después del primer año para destinarla a vivienda permanente propia o de familiares en primer grado, o de su cónyuge en caso de separación, divorcio o nulidad, avisando con al menos **dos meses** de antelación (artículo 9.3 LAU). Lo explicamos con un ejemplo en la guía sobre [recuperar la vivienda por necesidad](/guias/recuperar-vivienda-necesidad-propietario/).
 
 **Prórroga por vulnerabilidad.** Desde la Ley 12/2023, si el propietario es un gran tenedor y el inquilino acredita una situación de vulnerabilidad social y económica, puede solicitarse una prórroga extraordinaria de hasta un año al terminar la prórroga obligatoria (artículo 10.2 LAU).
 
-**Zonas de mercado tensionado.** En viviendas situadas en zonas declaradas tensionadas, el inquilino puede pedir prórrogas anuales extraordinarias de hasta tres años al terminar la prórroga obligatoria, con las condiciones del artículo 10.3 LAU.
+**Zonas de mercado tensionado.** En viviendas situadas en zonas declaradas tensionadas, el inquilino puede pedir prórrogas anuales extraordinarias de hasta tres años al terminar la prórroga obligatoria, con las condiciones del artículo 10.3 LAU. Más detalles en la guía de [zonas tensionadas](/guias/zonas-tensionadas-alquiler/).
 
 **RDL 29/2026.** El decreto de octubre de 2026, pendiente de convalidación, prevé una prórroga extraordinaria para determinados contratos de vivienda habitual, a solicitud del inquilino y con requisitos concretos. Consulta la [página de normativa](/normativa/) y el texto del BOE.
 

@@ -92,7 +92,7 @@ Palabras clave **descartadas** por ahora: «precio alquiler [ciudad]» (dominado
 
 ## 2.4 Plan editorial: 30 contenidos prioritarios
 
-Ordenados por **oportunidad / dificultad**. Los 16 primeros están **publicados** en el código desde el 14/10/2026. El 25/10/2026 se publicaron 8 guías más (tabla «Publicados el 25/10/2026»), que cubren los briefs 17, 24, 25, 26, 27 y 28; el resto siguen siendo **briefs** listos para redactar. No publiques un brief hasta poder cumplir sus «datos necesarios» con fuentes oficiales.
+Ordenados por **oportunidad / dificultad**. Los 16 primeros están **publicados** en el código desde el 14/10/2026. El 25/10/2026 se publicaron 12 guías más (tabla «Publicados el 25/10/2026»), que cubren los briefs 17, 24, 25, 26, 27 y 28; el resto siguen siendo **briefs** listos para redactar. No publiques un brief hasta poder cumplir sus «datos necesarios» con fuentes oficiales.
 
 ### Publicados (1-16)
 
@@ -129,6 +129,10 @@ Para cada uno, el título SEO, el H1 y la metadescripción están en el código 
 | /guias/fallecimiento-inquilino-alquiler/ | Quién se queda el contrato si muere el inquilino | 26 | Orden de prelación, plazo de tres meses, fallecimiento del propietario |
 | /guias/contrato-alquiler-que-debe-incluir/ | Revisar un contrato antes de firmar | 28 (en formato guía) | Lista cláusula a cláusula con artículo y cláusulas nulas |
 | /guias/entrega-llaves-fin-contrato-alquiler/ | Dejar el piso sin perder la fianza | — (nuevo) | Desgaste frente a daño, lista de comprobación, modelo de documento de entrega |
+| /guias/mascotas-piso-alquiler/ | Si el casero puede prohibir mascotas | — (nuevo) | Contrato que prohíbe, que permite o que calla; comunidad; daños |
+| /guias/empadronarse-piso-alquiler/ | Si el propietario puede impedir el empadronamiento | — (nuevo) | Documentos habituales y qué hacer ante una negativa |
+| /guias/propietario-entrar-piso-alquilado/ | Si el casero puede entrar en el piso | — (nuevo) | Accesos obligatorios para reparaciones, visitas, cambio de bombín |
+| /guias/certificado-energetico-alquiler/ | Obligaciones del certificado energético al alquilar | — (nuevo) | Tabla de obligaciones del propietario y utilidad para el inquilino |
 
 ### Briefs pendientes (17-30)
 

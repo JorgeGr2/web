@@ -7,7 +7,7 @@ export const CAMBIOS: { fecha: string; texto: string }[] = [
   {
     fecha: '2026-10-25',
     texto:
-      'Incorporado el IRAV de septiembre de 2026 (2,54 %, publicado por el INE el 14/10/2026). Comprobado que el RDL 29/2026 sigue pendiente de convalidación. Nuevas guías sobre zonas tensionadas, venta de la vivienda alquilada, reparaciones y obras, recuperación de la vivienda por necesidad, subarriendo y cesión, fallecimiento del inquilino, contenido del contrato y entrega de llaves.',
+      'Incorporado el IRAV de septiembre de 2026 (2,54 %, publicado por el INE el 14/10/2026). Comprobado que el RDL 29/2026 sigue pendiente de convalidación. 12 guías nuevas sobre zonas tensionadas, venta de la vivienda alquilada, reparaciones y obras, recuperación de la vivienda por necesidad, subarriendo y cesión, fallecimiento del inquilino, contenido del contrato, entrega de llaves, mascotas, empadronamiento, acceso del propietario a la vivienda y certificado energético.',
   },
   {
     fecha: '2026-10-14',

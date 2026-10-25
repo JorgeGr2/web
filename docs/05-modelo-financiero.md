@@ -30,7 +30,7 @@ No se ha encontrado ninguna fuente pública fiable con el RPM medio de AdSense p
 | Páginas por sesión | 1,3 | 1,5 | 1,8 |
 | RPM de página (€) | 2 | 4 | 8 |
 | Aprobación de AdSense | Mes 4-6 | Mes 3-4 | Mes 2-3 |
-| Supuestos de contenido | Solo las páginas actuales (24 de contenido desde el 25/10/2026) y poco mantenimiento | Plan editorial de 30 piezas y mantenimiento mensual | Plan completo, enlaces conseguidos y posiciones altas en consultas de la calculadora principal |
+| Supuestos de contenido | Solo las páginas actuales (28 de contenido desde el 25/10/2026) y poco mantenimiento | Plan editorial de 30 piezas y mantenimiento mensual | Plan completo, enlaces conseguidos y posiciones altas en consultas de la calculadora principal |
 
 Las curvas de tráfico son **hipótesis**: los sitios nuevos suelen tardar meses en ganar visibilidad orgánica, y la vista creada con IA de Google puede reducir los clics de consultas informativas.
 

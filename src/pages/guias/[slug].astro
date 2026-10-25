@@ -20,10 +20,10 @@ const { guia } = Astro.props;
 const { Content, headings } = await render(guia);
 const path = `/guias/${guia.id}/`;
 const toc = headings.filter((h) => h.depth === 2);
-// Hasta tres guías del mismo bloque temático, para seguir leyendo.
+// Hasta tres guías del mismo bloque temático, las más próximas en el orden editorial.
 const relacionadas = (await getCollection('guias'))
   .filter((g) => g.data.categoria === guia.data.categoria && g.id !== guia.id)
-  .sort((a, b) => a.data.orden - b.data.orden)
+  .sort((a, b) => Math.abs(a.data.orden - guia.data.orden) - Math.abs(b.data.orden - guia.data.orden) || a.data.orden - b.data.orden)
   .slice(0, 3);
 const herramientas = guia.data.herramientas
   .map((s) => HERRAMIENTAS.find((h) => h.slug === s))

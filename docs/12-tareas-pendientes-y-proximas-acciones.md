@@ -6,7 +6,7 @@ Hecho: dominio `alquilerenregla.es` comprado y conectado a Cloudflare Pages (con
 
 AdSense rechazó la primera revisión por **«contenido de poco valor»**. Próximos pasos:
 
-1. **Publicar en `main`** los cambios del 25/10/2026 (8 guías nuevas, IRAV de septiembre, autoría y guías relacionadas). Cloudflare solo publica lo que está en `main`.
+1. ~~Publicar en `main`~~ los cambios del 25/10/2026 (12 guías nuevas, IRAV de septiembre, autoría y guías relacionadas): **hecho el 25/10/2026**. Comprueba en Cloudflare → Deployments que el último despliegue terminó bien.
 2. **Comprobar** que `alquilerenregla.es` redirige a `www.alquilerenregla.es` y que `/ads.txt` muestra la línea de AdSense.
 3. **Solicitar en Search Console la indexación** de las guías nuevas (unas pocas al día).
 4. **Esperar 3-4 semanas** antes de volver a solicitar la revisión de AdSense (ver `docs/04`, fase C, paso 6).
@@ -41,7 +41,7 @@ Marcados como verificados con fuentes oficiales o múltiples fuentes en la inves
 6. Fecha de entrada en vigor de la **Ley 2/2015** (IGC por defecto): 01/04/2015.
 7. Cobertura del **SERPAVI** (edificios colectivos de más de cinco años, entre 30 y 150 m²).
 8. Que la obligación de **depositar la fianza** existe en «la mayoría» de comunidades.
-9. **Guías del 25/10/2026** (redactadas a partir del texto de la LAU conocido y de búsquedas que citan el BOE, sin poder abrir el BOE desde el entorno): excepciones del art. 17.6 LAU en zonas tensionadas; numeración del art. 10.3 (prórroga en zona tensionada); redacción vigente del art. 25.8 (renuncia al tanteo con aviso de 30 días); límite del pacto del art. 16.4 en casos de especial vulnerabilidad; régimen del art. 9.3 en contratos de 2013-2019 (reposición o indemnización hasta completar tres años); lista de comunidades con zonas tensionadas (Cataluña, País Vasco, Navarra, Galicia y Asturias, según listados consultados en octubre de 2026).
+9. **Guías del 25/10/2026** (las 12 nuevas) (redactadas a partir del texto de la LAU conocido y de búsquedas que citan el BOE, sin poder abrir el BOE desde el entorno): excepciones del art. 17.6 LAU en zonas tensionadas; numeración del art. 10.3 (prórroga en zona tensionada); redacción vigente del art. 25.8 (renuncia al tanteo con aviso de 30 días); límite del pacto del art. 16.4 en casos de especial vulnerabilidad; régimen del art. 9.3 en contratos de 2013-2019 (reposición o indemnización hasta completar tres años); lista de comunidades con zonas tensionadas (Cataluña, País Vasco, Navarra, Galicia y Asturias, según listados consultados en octubre de 2026); validez reducida de los certificados energéticos con letra G (RD 390/2021); requisitos de empadronamiento según las instrucciones del padrón (BOE-A-2020-4784).
 
 ## 12.3 Después de publicar
 

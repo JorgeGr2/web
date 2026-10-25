@@ -4,7 +4,7 @@ description: 'Cuándo puedes irte de tu piso de alquiler antes de que acabe el c
 h1: 'Dejar el piso de alquiler antes de que termine el contrato'
 resumen: 'Puedes irte tras seis meses avisando con 30 días. Si el contrato lo pacta, la indemnización máxima es una mensualidad por año que falte, en proporción.'
 publicado: '2026-10-14'
-actualizado: '2026-10-14'
+actualizado: '2026-10-25'
 orden: 6
 categoria: 'duracion'
 herramientas: ['indemnizacion-desistimiento', 'fin-contrato-alquiler', 'devolucion-fianza', 'prorrateo-alquiler']
@@ -62,6 +62,8 @@ Cuenta el preaviso desde que el propietario **recibe** la comunicación y deja a
 3. Da de baja o cambia la titularidad de los suministros que estén a tu nombre.
 4. Calcula el [prorrateo de la renta](/calculadoras/prorrateo-alquiler/) si sales a mitad de mes.
 5. Pide un documento firmado con la fecha de entrega de llaves: desde ese día cuenta el mes para devolver la [fianza](/guias/fianza-alquiler/).
+
+Tienes una lista de comprobación completa y un modelo de documento en la guía de [entrega de llaves](/guias/entrega-llaves-fin-contrato-alquiler/).
 
 ## ¿Puedo irme antes de los seis meses?
 

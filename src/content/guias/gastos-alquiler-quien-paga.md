@@ -4,7 +4,7 @@ description: 'Quién paga cada gasto de un piso de alquiler en España: IBI, com
 h1: 'Gastos del alquiler: quién paga el IBI, la comunidad, la agencia y las reparaciones'
 resumen: 'La regla general y lo que se puede pactar: gastos generales con importe anual por escrito, agencia a cargo del propietario y suministros con contador para el inquilino.'
 publicado: '2026-10-14'
-actualizado: '2026-10-14'
+actualizado: '2026-10-25'
 orden: 8
 categoria: 'dinero'
 herramientas: ['cuanto-alquiler-puedo-pagar', 'rentabilidad-alquiler', 'actualizacion-renta']
@@ -53,6 +53,8 @@ Los servicios que se miden con contador individual (luz, agua, gas) son **siempr
 - **Propietario:** debe hacer, sin subir la renta por ello, las reparaciones necesarias para mantener la vivienda en condiciones de habitabilidad, salvo cuando el deterioro lo cause el inquilino o las personas que conviven con él (art. 21.1 LAU).
 - **Inquilino:** las pequeñas reparaciones por el desgaste del uso ordinario (art. 21.4 LAU), como cambiar una bombilla o ajustar un grifo.
 - Si hay una avería urgente, el inquilino debe comunicarla cuanto antes y puede hacer la reparación urgente para evitar un daño inminente, exigiendo después su importe al propietario.
+
+Tienes ejemplos de averías frecuentes, qué hacer si el propietario no repara y cuándo baja la renta por obras en la guía de [reparaciones y obras](/guias/reparaciones-obras-alquiler/).
 
 ## Seguros
 
